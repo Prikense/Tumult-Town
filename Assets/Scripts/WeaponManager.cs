@@ -11,7 +11,7 @@ public class WeaponManager : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public float fireRate = 15f;
     public int magazineSize = 35;
-    int bulletsLeft;
+    public int bulletsLeft;
     public float spread = 5f;
     public float reloadTime = 2.5f;
     bool reloading;
