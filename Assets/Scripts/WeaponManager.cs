@@ -13,7 +13,7 @@ public class WeaponManager : MonoBehaviour
     public int magazineSize = 35;
     public int bulletsLeft;
     public float spread = 5f;
-    public float reloadTime = 2.5f;
+    public float reloadTime = 1f;
     public bool reloading;
 
     public bool isShooting;
