@@ -14,7 +14,9 @@ public class WeaponManager : MonoBehaviour
     public int bulletsLeft;
     public float spread = 5f;
     public float reloadTime = 2.5f;
-    bool reloading;
+    public bool reloading;
+
+    public bool isShooting;
 
     private float nextTimeToFire = 0f;
 
@@ -25,6 +27,7 @@ public class WeaponManager : MonoBehaviour
     {
         reloading = false;
         bulletsLeft = magazineSize;
+        isShooting = false;
     }
 
     // Update is called once per frame
@@ -33,7 +36,11 @@ public class WeaponManager : MonoBehaviour
         if(Input.GetMouseButton(0) && Time.time >= nextTimeToFire && bulletsLeft > 0) {
             nextTimeToFire = Time.time + 1f/fireRate;
             Debug.Log("Pew");
+            isShooting = true;
             Shoot();
+        }
+        else {
+            isShooting = false;
         }
 
         if(Input.GetKeyDown(KeyCode.R) && !reloading) {
@@ -60,7 +67,7 @@ public class WeaponManager : MonoBehaviour
             Debug.Log("Boom");
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactGO, 1f);
+            Destroy(impactGO, 0.5f);
 
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
