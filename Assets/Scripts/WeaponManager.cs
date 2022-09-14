@@ -17,6 +17,7 @@ public class WeaponManager : MonoBehaviour
     public bool reloading;
 
     public bool isShooting;
+    public float lastHealth = 0;
 
     private float nextTimeToFire = 0f;
 
@@ -67,11 +68,12 @@ public class WeaponManager : MonoBehaviour
             Debug.Log("Boom");
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactGO, 0.5f);
+            Destroy(impactGO, 0.3f);
 
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(damage);
+                lastHealth = buildingManager.health;
             }
         }
     }

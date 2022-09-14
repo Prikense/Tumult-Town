@@ -7,6 +7,7 @@ public class HitDetection : MonoBehaviour
 
     public MeleeManager meleeManager;
     public float weaponDamage = 20f;
+    public float lastHealth;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,6 +17,7 @@ public class HitDetection : MonoBehaviour
             BuildingManager buildingManager = other.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(weaponDamage);
+                lastHealth = buildingManager.health;
             }
         }
     }
