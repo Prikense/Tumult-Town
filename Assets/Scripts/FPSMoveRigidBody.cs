@@ -70,7 +70,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         time = time + Time.deltaTime;
         //if the dash cooldown is over then dash
         if(false && Input.GetButtonDown("DashChilo") && time > dashCooldown){
-                Debug.Log("cooldown ok");
+                //Debug.Log("cooldown ok");
                 time = 0.0f;
                 //body.velocity = new Vector3(inputXY.x*dashMulti, 0, inputXY.z*dashMulti);
                 if(inputXY.magnitude == 0){
@@ -82,8 +82,8 @@ public class FPSMoveRigidBody : MonoBehaviour
 
         //camera movement
         if(!BobEnable){return;}
-        Debug.Log("camera local pos: "+camera.localPosition);
-        Debug.Log("start pos?: "+startPos);
+        //Debug.Log("camera local pos: "+camera.localPosition);
+        //Debug.Log("start pos?: "+startPos);
         
         CheckMotion();
         camera.LookAt(FocusTarget());
