@@ -8,6 +8,7 @@ public class GUIManager : MonoBehaviour
 
     public TextMeshProUGUI ammoCounter;
     public TextMeshProUGUI objectiveHealth;
+    public TextMeshProUGUI Score;
     public WeaponManager weaponManager;
     public HitDetection hitDetection;
 
@@ -17,9 +18,12 @@ public class GUIManager : MonoBehaviour
     float prevLastHealthByMelee;
     float lastHealthByMelee;
 
+    public ScoreScript scoreboard;
+
     // Start is called before the first frame update
     void Start()
     {
+        //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
         ammoCounter.text = "" + weaponManager.magazineSize + " / " + weaponManager.magazineSize; 
         objectiveHealth.text = "No data";
         lastHealth = 0f;
@@ -32,7 +36,7 @@ public class GUIManager : MonoBehaviour
         if(weaponManager.reloading || weaponManager.isShooting) {
             ammoCounter.text = "" + weaponManager.bulletsLeft + " / " + weaponManager.magazineSize;
         }
-
+        Score.text = scoreboard.player1Score + " | " +scoreboard.player2Score;
         prevLastHealth = lastHealth;
         lastHealth = weaponManager.lastHealth;
 

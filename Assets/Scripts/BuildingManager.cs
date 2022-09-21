@@ -10,6 +10,9 @@ public class BuildingManager : MonoBehaviour
     public bool needsPosFix = false;
 
     public float health = 100f;
+    public int value = 5;
+
+    public ScoreScript scoreboard;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +35,7 @@ public class BuildingManager : MonoBehaviour
     }
     */
 
-    public void Hit(float damage)
+    public void Hit(float damage, int player)
     {
         health -= damage;
         if(health <= 0) {
@@ -41,7 +44,13 @@ public class BuildingManager : MonoBehaviour
             if(needsPosFix) posFix = new Vector3(2.9f, 1f, 0f);
             GameObject ruins = Instantiate(shatteredBuilding, transform.position + posFix, transform.rotation);
             Destroy(ruins, 5);
-            Destroy(gameObject); 
+            Destroy(gameObject);
+            //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
+            if(player == 1){
+                scoreboard.player1Score += value;
+            }else if(player == 2){
+                scoreboard.player2Score += value;
+            }
         }
     }
 

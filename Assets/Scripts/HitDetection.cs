@@ -8,6 +8,7 @@ public class HitDetection : MonoBehaviour
     public MeleeManager meleeManager;
     public float weaponDamage = 20f;
     public float lastHealth;
+    public int playerNumber; //por mientras jsjs
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,7 +17,7 @@ public class HitDetection : MonoBehaviour
             Debug.Log("melee hit");
             BuildingManager buildingManager = other.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
-                buildingManager.Hit(weaponDamage);
+                buildingManager.Hit(weaponDamage, playerNumber);
                 lastHealth = buildingManager.health;
             }
         }

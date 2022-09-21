@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
 
+    public int playerNumber;
     public GameObject playerCamera;
     public float range = 100f;
     public float damage = 10f;
@@ -72,7 +73,7 @@ public class WeaponManager : MonoBehaviour
 
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
-                buildingManager.Hit(damage);
+                buildingManager.Hit(damage, playerNumber);
                 lastHealth = buildingManager.health;
             }
         }
