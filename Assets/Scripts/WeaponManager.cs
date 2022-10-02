@@ -10,7 +10,7 @@ public class WeaponManager : MonoBehaviour
     public float range = 100f;
     public float damage = 10f;
     public ParticleSystem muzzleFlash;
-    public float fireRate = 1f;
+    public float fireRate = 15f;
     public int magazineSize = 35;
     public int bulletsLeft;
     public float spread = 0.001f;
