@@ -33,7 +33,7 @@ public class GUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(weaponManager.reloading || weaponManager.isShooting) {
+        if(weaponManager.doneReloading || weaponManager.isShooting) {
             ammoCounter.text = "" + weaponManager.bulletsLeft + " / " + weaponManager.magazineSize;
         }
         Score.text = scoreboard.player1Score + " | " +scoreboard.player2Score;
