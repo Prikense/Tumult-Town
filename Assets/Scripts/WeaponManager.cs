@@ -13,9 +13,13 @@ public class WeaponManager : MonoBehaviour
     public float fireRate = 15f;
     public int magazineSize = 35;
     public int bulletsLeft;
-    public float spread = 5f;
-    public float reloadTime = 1f;
+    public float spread = 0.001f;
+    public float reloadTime = 1.0f;
     public bool reloading;
+    public float impactForce = 155f;
+
+    // used to updat ui after reloaded
+    public bool doneReloading;
 
     public bool isShooting;
     public float lastHealth = 0;
@@ -27,6 +31,7 @@ public class WeaponManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        doneReloading = false;
         reloading = false;
         bulletsLeft = magazineSize;
         isShooting = false;
@@ -55,9 +60,19 @@ public class WeaponManager : MonoBehaviour
         // Spread in x and y axis
         float xSpread = Random.Range(-spread, spread);
         float ySpread = Random.Range(-spread, spread);
+        float zSpread = Random.Range(-spread, spread);
+
+
+        // Testing (this works)
+        Vector3 deviation3D = Random.insideUnitCircle * spread;
+
+        Quaternion rot = Quaternion.LookRotation(Vector3.forward * range + deviation3D);
+
+        Vector3 forwardVector = playerCamera.transform.rotation * rot * Vector3.forward;
 
         // Caculate direction with added spread, not working
-        // Vector3 direction = playerCamera.transform.forward + new Vector3(xSpread, ySpread, 0);
+        Vector3 direction = playerCamera.transform.forward + new Vector3(xSpread, ySpread, zSpread); //also doesnt work
+        direction.Normalize(); //this doesnt work
 
         muzzleFlash.Play();
 
@@ -65,7 +80,7 @@ public class WeaponManager : MonoBehaviour
 
         RaycastHit hit;
 
-        if(Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, range)) {
+        if(Physics.Raycast(playerCamera.transform.position, forwardVector, out hit, range)) {
             Debug.Log("Boom");
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
@@ -76,6 +91,10 @@ public class WeaponManager : MonoBehaviour
                 buildingManager.Hit(damage, playerNumber);
                 lastHealth = buildingManager.health;
             }
+
+            if(hit.rigidbody != null) {
+                hit.rigidbody.AddForce(-hit.normal * impactForce);
+            }
         }
     }
 
@@ -83,11 +102,13 @@ public class WeaponManager : MonoBehaviour
     {
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
+        doneReloading = false;
     }
 
     private void ReloadFinished()
     {
         bulletsLeft = magazineSize;
         reloading = false;
+        doneReloading = true;
     }
 }
