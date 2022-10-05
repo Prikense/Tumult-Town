@@ -8,12 +8,12 @@ public class WeaponManager : MonoBehaviour
     public int playerNumber;
     public GameObject playerCamera;
     public float range = 100f;
-    public float damage = 15f;
+    public float damage = 10f;
     public ParticleSystem muzzleFlash;
-    public float fireRate = 2f;
-    public int magazineSize = 20;
+    public float fireRate = 15f;
+    public int magazineSize = 35;
     public int bulletsLeft;
-    public float spread = 1.0f;
+    public float spread = 0.001f;
     public float reloadTime = 1.0f;
     public bool reloading;
     public float impactForce = 155f;

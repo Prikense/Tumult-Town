@@ -40,14 +40,9 @@ public class WeaponSwitch : MonoBehaviour
             selectedWeapon = 0;
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha2)) 
+        if(Input.GetKeyDown(KeyCode.Alpha2) && transform.childCount - 1 >= 2) // again because of camera inside object
         {
             selectedWeapon = 1;
-        }
-
-        if(Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount - 1 >= 3) // again because of camera inside object
-        {
-            selectedWeapon = 2;
         }
 
         if(previousSelectedWeapon != selectedWeapon)
