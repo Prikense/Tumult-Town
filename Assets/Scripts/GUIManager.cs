@@ -36,7 +36,7 @@ public class GUIManager : MonoBehaviour
         if(weaponManager.doneReloading || weaponManager.isShooting) {
             ammoCounter.text = "" + weaponManager.bulletsLeft + " / " + weaponManager.magazineSize;
         }
-        Score.text = scoreboard.player1Score + " | " +scoreboard.player2Score;
+        //Score.text = scoreboard.player1Score + " | " +scoreboard.player2Score;
         prevLastHealth = lastHealth;
         lastHealth = weaponManager.lastHealth;
 

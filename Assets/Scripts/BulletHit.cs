@@ -16,9 +16,10 @@ public class BulletHit : MonoBehaviour
             if(buildingManager != null) {
                 buildingManager.Hit(weaponDamage, playerNumber);
                 lastHealth = buildingManager.health;
+                Debug.Log("ouch");
             }
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
 
     void Awake()

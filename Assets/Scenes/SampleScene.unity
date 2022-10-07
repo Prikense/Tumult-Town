@@ -1957,23 +1957,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1347853372743860221, guid: cfe7a26fa7e93ac42823bf745c4fd8ef, type: 3}
   m_PrefabInstance: {fileID: 8632087498960137835}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1468867992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468867991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 433d5fb933e704beaaf96553831f41e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shatteredBuilding: {fileID: 8391920970597754050, guid: d014d6e410af34262b2ded64836e98e0, type: 3}
-  needsPosFix: 0
-  health: 100
-  value: 5
-  scoreboard: {fileID: 0}
 --- !u!54 &1468867997
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1990,6 +1973,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1468867998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468867991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 433d5fb933e704beaaf96553831f41e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shatteredBuilding: {fileID: 8391920970597754050, guid: d014d6e410af34262b2ded64836e98e0, type: 3}
+  needsPosFix: 1
+  health: 100
+  value: 5
+  scoreboard: {fileID: 0}
 --- !u!1 &1792939749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,7 +2014,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792939749}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.017, y: -1.001, z: 0.03}
+  m_LocalPosition: {x: 0.017, y: -1.196, z: 0.03}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2191,8 +2191,8 @@ MonoBehaviour:
   ammoCounter: {fileID: 1796791076}
   objectiveHealth: {fileID: 341074016}
   Score: {fileID: 988710123}
-  weaponManager: {fileID: 0}
-  hitDetection: {fileID: 0}
+  weaponManager: {fileID: 547195247}
+  hitDetection: {fileID: 1196353256}
   scoreboard: {fileID: 0}
 --- !u!114 &1962349279
 MonoBehaviour:
