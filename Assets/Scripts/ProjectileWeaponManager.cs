@@ -15,7 +15,8 @@ public class ProjectileWeaponManager : MonoBehaviour
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
-    int ammoLeft, bulletsShot;
+    public int ammoLeft; 
+    int bulletsShot;
 
     // bools
     bool shooting, readyToShoot, reloading;
