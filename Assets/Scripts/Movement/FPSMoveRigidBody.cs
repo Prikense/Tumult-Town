@@ -4,22 +4,29 @@ using UnityEngine;
 
 public class FPSMoveRigidBody : MonoBehaviour
 {
-    public float speed = 100;
-    public float jumpHeight = 50;
+    [SerializeField] private float Speed = 15;
+    [SerializeField] private float airAccel = 7;
+    [SerializeField] private float MaxSpeed = 1500;
+    [SerializeField] private float MaxSpeedAir = 2500;
+    [SerializeField] private float accel = 5;
+    [SerializeField] private float frictionCoef = 10;
+    [SerializeField] private float frictionCoefAir = 5;
+    [SerializeField] private float jumpHeight = 5;
     //public CharacterController cont;
-    Rigidbody body;
-//    Vector3 velocity;
+    private Rigidbody body;
+    [SerializeField] private float velocity;
     //public float grav = 9.8f;
-    public bool grounded;
+    [SerializeField] private bool grounded;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
 
     private Vector3 inputXY;
+    [SerializeField] private Vector3 fallSpeed = new Vector3(0, -4, 0);
 
-    public float dashCooldown = 2.5f;
-    public int dashMulti = 50;
+    [SerializeField] private float dashCooldown = 2.5f;
+    [SerializeField] private int dashMulti = 50;
     private float time = 0.0f;
 
 
@@ -50,23 +57,37 @@ public class FPSMoveRigidBody : MonoBehaviour
     {
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         //Debug.Log(body.velocity.magnitude);
-        //if(grounded && velocity.y < 0){
-        //    velocity.y = -3.5f;
-        //}
+        velocity = Mathf.Abs(body.velocity.x)+Mathf.Abs(body.velocity.z);
+        if(!grounded && (body.velocity.y < 0 || body.velocity.y > -6)){
+           body.AddRelativeForce(fallSpeed);
+        }
 
 
         //for moving
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        inputXY = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        inputXY = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
 
-        
         //Jump
         if(grounded && Input.GetButtonDown("Jump")){
-            body.AddForce(transform.up* jumpHeight);
+            body.velocity = new Vector3 (body.velocity.x, jumpHeight, body.velocity.z);
+            //body.AddForce(transform.up* jumpHeight);
         }
 
+        //camera movement
+        if(!BobEnable){return;}
+        //Debug.Log("camera local pos: "+camera.localPosition);
+        //Debug.Log("start pos?: "+startPos);
+        
+        CheckMotion();
+        camera.LookAt(FocusTarget());
+    }
+
+    //movement on fixed update
+    void FixedUpdate(){
+        AccelAndMove();
+        //dash
         time = time + Time.deltaTime;
         //if the dash cooldown is over then dash
         if(false && Input.GetButtonDown("DashChilo") && time > dashCooldown){
@@ -79,20 +100,60 @@ public class FPSMoveRigidBody : MonoBehaviour
                     inputXY = inputXY*dashMulti;
                 }
         }
-
-        //camera movement
-        if(!BobEnable){return;}
-        //Debug.Log("camera local pos: "+camera.localPosition);
-        //Debug.Log("start pos?: "+startPos);
-        
-        CheckMotion();
-        camera.LookAt(FocusTarget());
     }
 
-    void FixedUpdate(){
-        body.AddRelativeForce(inputXY * speed);
+    //actual movement stuff
+    private void AccelAndMove(){
+        //initial acceleration
+        if(!grounded){
+            if(velocity != 0){
+                float friction = frictionCoefAir * velocity * Time.fixedDeltaTime;
+                body.velocity *= Mathf.Max(velocity-friction, 0) /velocity;
+            }
+            //direction of player inputs
+            Vector3 accelDir = transform.TransformDirection(inputXY) * Speed;
+            //producto punto de la velocidad actual * direccion de input
+            float dotProductVel = Vector3.Dot(body.velocity, accelDir);
+            //Debug.Log(dotProductVel);
+            float accelVel = airAccel * Time.fixedDeltaTime;
+            
+            if(dotProductVel + accelVel > MaxSpeedAir){
+                accelVel = MaxSpeedAir - dotProductVel;
+            }
+
+            //return
+//            body.velocity = new Vector3 (accelDir.x, body.velocity.y, accelDir.z);
+            body.velocity += accelDir * accelVel;
+        }else{//if grounded
+            //friction
+            if(velocity != 0){
+                float friction = frictionCoef * velocity * Time.fixedDeltaTime;
+                body.velocity *= Mathf.Max(velocity-friction, 0) /velocity;
+            }
+            //direction of player inputs
+            Vector3 accelDir = transform.TransformDirection(inputXY) * Speed;
+            //producto punto de la velocidad actual * direccion de input
+            float dotProductVel = Vector3.Dot(body.velocity, accelDir);
+            //Debug.Log(dotProductVel);
+            float accelVel = accel * Time.fixedDeltaTime;
+            
+            if(dotProductVel + accelVel > MaxSpeed){
+                accelVel = MaxSpeed - dotProductVel;
+            }
+
+            //return
+//            body.velocity = new Vector3 (accelDir.x, body.velocity.y, accelDir.z);
+            body.velocity += accelDir * accelVel;
+
+            // Vector3 accelDir = transform.TransformDirection(inputXY) *AirResistance; //Air resistance .2f
+            // body.velocity += new Vector3 (accelDir.x, 0, accelDir.z);
+            //body.AddRelativeForce(inputXY * Speed*10);
+        }
     }
 
+
+
+    //head bobbing stuff
     private void PlayMotion(Vector3 motion){
         camera.localPosition +=motion;
     }
@@ -103,8 +164,8 @@ public class FPSMoveRigidBody : MonoBehaviour
         return pos;
     }
     private void CheckMotion(){
-        float speed = new Vector3(body.velocity.x, 0, body.velocity.z).magnitude;
-        if (speed < ToggleSpeed || !grounded) {resetPos();return;}
+        //float speed = new Vector3(body.velocity.x, 0, body.velocity.z).magnitude;
+        if (body.velocity.magnitude < ToggleSpeed || !grounded) {resetPos();return;}
         PlayMotion(FootStep());
     }
     private void resetPos(){
