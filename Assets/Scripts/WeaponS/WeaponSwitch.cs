@@ -6,6 +6,7 @@ public class WeaponSwitch : MonoBehaviour
 {
 
     public int selectedWeapon = 0;
+    public GameObject currentWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -62,10 +63,16 @@ public class WeaponSwitch : MonoBehaviour
         foreach (Transform weapon in transform)
         {
             if(i == selectedWeapon)
+            {
                 weapon.gameObject.SetActive(true);
+                currentWeapon = weapon.gameObject;
+            }
             else if(i != transform.childCount - 1) 
+            {
                 weapon.gameObject.SetActive(false); 
+            }
             i++;
         }
     }
+
 }

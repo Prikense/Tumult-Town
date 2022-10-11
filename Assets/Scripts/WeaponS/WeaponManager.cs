@@ -12,7 +12,7 @@ public class WeaponManager : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public float fireRate = 15f;
     public int magazineSize = 35;
-    public int bulletsLeft;
+    public int ammoLeft;
     public float spread = 0.001f;
     public float reloadTime = 1.0f;
     public bool reloading;
@@ -33,14 +33,14 @@ public class WeaponManager : MonoBehaviour
     {
         doneReloading = false;
         reloading = false;
-        bulletsLeft = magazineSize;
+        ammoLeft = magazineSize;
         isShooting = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0) && Time.time >= nextTimeToFire && bulletsLeft > 0) {
+        if(Input.GetMouseButton(0) && Time.time >= nextTimeToFire && ammoLeft > 0) {
             nextTimeToFire = Time.time + 1f/fireRate;
             Debug.Log("Pew");
             isShooting = true;
@@ -76,7 +76,7 @@ public class WeaponManager : MonoBehaviour
 
         muzzleFlash.Play();
 
-        bulletsLeft -= 1;
+        ammoLeft -= 1;
 
         RaycastHit hit;
 
@@ -107,7 +107,7 @@ public class WeaponManager : MonoBehaviour
 
     private void ReloadFinished()
     {
-        bulletsLeft = magazineSize;
+        ammoLeft = magazineSize;
         reloading = false;
         doneReloading = true;
     }
