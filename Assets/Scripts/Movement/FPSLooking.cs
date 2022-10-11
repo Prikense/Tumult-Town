@@ -23,7 +23,7 @@ public class FPSLooking : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;        
         xRotation -= mouseY;
         //clamp x rotation looking
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);        
+        xRotation = Mathf.Clamp(xRotation, -89f, 89f);        
         //transform itself
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         //transform the root
