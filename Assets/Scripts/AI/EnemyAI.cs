@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+    private LayerMask AI;
     private float distanceFromPlayer;
     private bool isPlayerVisible;
     private float maxRange = 50.0f;
@@ -20,7 +21,7 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         animator = gameObject.GetComponent<Animator>();
         navMeshAgent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
-
+        AI = LayerMask.GetMask("AI");
     }
 
     // Update is called once per frame
@@ -32,7 +33,7 @@ public class EnemyAI : MonoBehaviour
         checkDirection = player.transform.position - transform.position;
         ray = new Ray(transform.position, checkDirection);
 
-        if (Physics.Raycast(ray, out hit, maxRange)) {
+        if (Physics.Raycast(ray, out hit, maxRange, ~AI)) {
             if(hit.collider.gameObject == player){
                 animator.SetBool("isPlayerVisible", true);
             } else {
