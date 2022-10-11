@@ -593,7 +593,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedWeapon: 0
-  currentWeapon: {fileID: 0}
 --- !u!114 &282629586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -794,7 +793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 5878295058237529985, guid: e36450c2f099f41dba58901d75f9fff6, type: 3}
-  shootForce: 100
+  shootForce: 300
   upwardForce: 0
   timeBetweenShooting: 0.1
   spread: 0
@@ -804,7 +803,6 @@ MonoBehaviour:
   bulletsPerTap: 0
   allowButtonHold: 1
   ammoLeft: 0
-  shooting: 0
   fpsCam: {fileID: 963194227}
   attackPoint: {fileID: 1792939750}
   allowInvoke: 1
@@ -991,7 +989,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 2021802819}
   fireRate: 15
   magazineSize: 35
-  ammoLeft: 0
+  bulletsLeft: 0
   spread: 5
   reloadTime: 1
   reloading: 0
@@ -1244,11 +1242,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
   m_Name: pb_Mesh24440
-=======
-  m_Name: pb_Mesh24372
->>>>>>> Stashed changes
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2970,9 +2964,6 @@ MonoBehaviour:
   weaponManager: {fileID: 547195247}
   hitDetection: {fileID: 1196353256}
   scoreboard: {fileID: 0}
-  isProjectileWeapon: 0
-  weaponSwitch: {fileID: 282629585}
-  getProjectileWeapon: {fileID: 389251684}
 --- !u!114 &1962349279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8427,22 +8418,6 @@ PrefabInstance:
     - target: {fileID: 5899042489626506478, guid: cfe7a26fa7e93ac42823bf745c4fd8ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9049115779058764419, guid: cfe7a26fa7e93ac42823bf745c4fd8ef, type: 3}
-      propertyPath: m_Size.x
-      value: 1.0498247
-      objectReference: {fileID: 0}
-    - target: {fileID: 9049115779058764419, guid: cfe7a26fa7e93ac42823bf745c4fd8ef, type: 3}
-      propertyPath: m_Size.z
-      value: 1.0299373
-      objectReference: {fileID: 0}
-    - target: {fileID: 9049115779058764419, guid: cfe7a26fa7e93ac42823bf745c4fd8ef, type: 3}
-      propertyPath: m_Center.x
-      value: 0.00053834915
-      objectReference: {fileID: 0}
-    - target: {fileID: 9049115779058764419, guid: cfe7a26fa7e93ac42823bf745c4fd8ef, type: 3}
-      propertyPath: m_Center.z
-      value: -0.0029599667
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfe7a26fa7e93ac42823bf745c4fd8ef, type: 3}
