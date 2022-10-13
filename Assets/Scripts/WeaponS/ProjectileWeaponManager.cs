@@ -19,7 +19,9 @@ public class ProjectileWeaponManager : MonoBehaviour
     int bulletsShot;
 
     // bools
-    bool shooting, readyToShoot, reloading;
+    public bool shooting;
+    bool readyToShoot, reloading;
+    public bool doneReloading;
 
     // references
     public Camera fpsCam;
@@ -124,12 +126,14 @@ public class ProjectileWeaponManager : MonoBehaviour
     {
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
+        doneReloading = false;
     }
 
     private void ReloadFinished()
     {
         ammoLeft = magazineSize;
         reloading = false;
+        doneReloading = true;
     }
 
 }

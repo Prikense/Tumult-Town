@@ -42,8 +42,11 @@ public class BuildingManager : MonoBehaviour
             // Destroy the building
             Vector3 posFix = new Vector3(0f, 0f, 0f);
             if(needsPosFix) posFix = new Vector3(2.9f, 1f, 0f);
-            GameObject ruins = Instantiate(shatteredBuilding, transform.position + posFix, transform.rotation);
-            Destroy(ruins, 5);
+            //GameObject ruins = Instantiate(shatteredBuilding, transform.position + posFix, transform.rotation);
+            GameObject ruins = Instantiate(shatteredBuilding, transform);
+            transform.DetachChildren();
+            Destroy(ruins,5);
+            //gameObject.active = false;
             Destroy(gameObject);
             //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
             if(player == 1){
