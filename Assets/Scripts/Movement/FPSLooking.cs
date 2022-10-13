@@ -16,11 +16,11 @@ public class FPSLooking : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {  
         //for looking
-        float mouseX = Input.GetAxis("Mouse X") * cameraSensitivity * Time.fixedDeltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * cameraSensitivity * Time.fixedDeltaTime;        
+        float mouseX = Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;        
         xRotation -= mouseY;
         //clamp x rotation looking
         xRotation = Mathf.Clamp(xRotation, -89f, 89f);        
