@@ -33075,23 +33075,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 12
-  airAccel: 25
+  accel: 125
+  airAccel: 30
   MaxSpeed: 12
   MaxSpeedAir: 16
-  accel: 150
-  frictionCoef: 12
-  frictionCoefAir: 0
-  jumpHeight: 14
+  frictionCoef: 25
+  frictionCoefAir: 2
+  jumpHeight: 10
   velocity: 0
   grounded: 0
   falseGrounded: 0
   groundCheck: {fileID: 1335261198}
-  groundDistance: 0
-  groundDistance2: 0.6
+  groundDistance: 0.3
+  groundDistance2: 1
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  fallSpeed: {x: 0, y: -2.5, z: 0}
+  fallSpeed: {x: 0, y: -4, z: 0}
   dashCooldown: 2.5
   dashMulti: 50
   BobEnable: 1
