@@ -18,7 +18,7 @@ public class FPSMoveRigidBody : MonoBehaviour
     [SerializeField] private float velocity;
     //public float grav = 9.8f;
     [SerializeField] private bool grounded;
-    [SerializeField] private bool falseGrounded;
+    //[SerializeField] private bool falseGrounded;
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundDistance = 0.0f;
@@ -74,7 +74,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         inputXY = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
 
         //Jump
-        if(falseGrounded && Input.GetButtonDown("Jump")){
+        if(grounded && Input.GetButtonDown("Jump")){
             body.velocity = new Vector3 (body.velocity.x, jumpHeight, body.velocity.z);
             //body.AddForce(transform.up* jumpHeight);
         }
@@ -91,7 +91,7 @@ public class FPSMoveRigidBody : MonoBehaviour
     //movement on fixed update
     void FixedUpdate(){
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        falseGrounded = Physics.CheckSphere(groundCheck.position, groundDistance2, groundMask);
+        //falseGrounded = Physics.CheckSphere(groundCheck.position, groundDistance2, groundMask);
         AccelAndMove();
         //dash
         time = time + Time.deltaTime;
@@ -115,12 +115,12 @@ public class FPSMoveRigidBody : MonoBehaviour
             //air friction
             if(velocity != 0){
                 float friction = frictionCoefAir * velocity * Time.fixedDeltaTime;
-                body.velocity +=new Vector3(body.velocity.x,0f,body.velocity.z) * Mathf.Max(velocity-friction, 0) /velocity;
+                body.velocity *=  Mathf.Max(velocity-friction, 0) /velocity;
             }
             //direction of player inputs
             Vector3 accelDir = transform.TransformDirection(inputXY);// * Speed;
             //producto punto de la velocidad actual * direccion de input
-            float dotProductVel = Vector3.Dot(new Vector3(body.velocity.x,0f, body.velocity.z), accelDir);
+            float dotProductVel = Vector3.Dot(body.velocity, accelDir);
             //Debug.Log(dotProductVel);
             float accelVel = airAccel * Time.fixedDeltaTime;
             
@@ -135,13 +135,13 @@ public class FPSMoveRigidBody : MonoBehaviour
             Debug.Log("dot: "+dotProductVel);
             //return
 //            body.velocity = new Vector3 (accelDir.x, body.velocity.y, accelDir.z);
-            body.velocity +=new Vector3(body.velocity.x,0f,body.velocity.z) + accelDir * accelVel;
+            body.velocity += accelDir * accelVel;
         }else{//if grounded
             //friction
             if(velocity != 0 ){
                 float friction = frictionCoef * velocity * Time.fixedDeltaTime;
                 
-               body.velocity +=new Vector3(body.velocity.x,0f,body.velocity.z) * Mathf.Max(velocity-friction, 0) /velocity;
+               body.velocity *=Mathf.Max(velocity-friction, 0) /velocity;
             }
             //direction of player inputs
             Vector3 accelDir = transform.TransformDirection(inputXY);// * Speed;
@@ -159,7 +159,7 @@ public class FPSMoveRigidBody : MonoBehaviour
             Debug.Log("dot: "+dotProductVel);
             //return
 //            body.velocity = new Vector3 (accelDir.x, body.velocity.y, accelDir.z);
-            body.velocity +=new Vector3(body.velocity.x,0f,body.velocity.z) + accelDir * accelVel;
+            body.velocity += accelDir * accelVel;
 
             // Vector3 accelDir = transform.TransformDirection(inputXY) *AirResistance; //Air resistance .2f
             // body.velocity += new Vector3 (accelDir.x, 0, accelDir.z);
