@@ -67,7 +67,7 @@ public class GUIManager : MonoBehaviour
             ammoCounter.text = "" + weaponManager.bulletsLeft + " / " + weaponManager.magazineSize;
         }
         */
-        //Score.text = scoreboard.player1Score + " | " +scoreboard.player2Score;
+        Score.text = scoreboard.player1Score + " | " +scoreboard.player2Score;
 
         // Check if melee weapon (show no ammo)
         if(weaponSwitch.currentWeapon.GetComponent<HitDetection>() != null)
