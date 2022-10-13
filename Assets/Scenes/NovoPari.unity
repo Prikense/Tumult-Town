@@ -19601,7 +19601,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667383674}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5976805319e48724695e878ad7f766b7, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -33075,12 +33075,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accel: 125
-  airAccel: 40
-  MaxSpeed: 8
-  MaxSpeedAir: 12
+  airAccel: 20
+  MaxSpeed: 10
+  MaxSpeedAir: 10
   frictionCoef: 10
-  frictionCoefAir: 1
-  jumpHeight: 8
+  jumpHeight: 6
   velocity: 0
   grounded: 0
   groundCheck: {fileID: 1335261198}
@@ -33088,9 +33087,10 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  fallSpeed: {x: 0, y: -4, z: 0}
+  fallSpeed: {x: 0, y: -3, z: 0}
   dashCooldown: 2.5
   dashMulti: 50
+  noFricOn: 0
   BobEnable: 1
   amplitude: 0.00035
   frequency: 7
