@@ -11,7 +11,7 @@ public class FPSMoveRigidBody : MonoBehaviour
     [SerializeField] private float MaxSpeedAir = 10;
     
     [SerializeField] private float frictionCoef = 10;
-    [SerializeField] private float frictionCoefAir = 0;
+    //[SerializeField] private float frictionCoefAir = 0;
     [SerializeField] private float jumpHeight = 6;
     //public CharacterController cont;
     private Rigidbody body;
@@ -31,6 +31,9 @@ public class FPSMoveRigidBody : MonoBehaviour
     [SerializeField] private float dashCooldown = 2.5f;
     [SerializeField] private int dashMulti = 50;
     private float time = 0.0f;
+    [SerializeField] private bool noFricOn = false;
+    private float FrictionSafe = 0f;
+    private float accelSafe = 0f;
 
 
     //for camera movement when moving
@@ -84,24 +87,36 @@ public class FPSMoveRigidBody : MonoBehaviour
         CheckMotion();
         camera.LookAt(FocusTarget());
     }
-    [SerializeField] private bool jumpBool = false;
+    
     //movement on fixed update
     void FixedUpdate(){
 
         //Jump
         if( /*&&*/ Input.GetButton("Jump")){
-            jumpBool = true;
             if(grounded){
             body.velocity = new Vector3 (body.velocity.x, jumpHeight, body.velocity.z);
             //body.AddForce(transform.up* jumpHeight);
             }
-        }else{
-            jumpBool = false;
         }
 
         grounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         //falseGrounded = Physics.CheckSphere(groundCheck.position, groundDistance2, groundMask);
         AccelAndMove();
+
+        //noFrictionMode
+        //dash that reduces friction and acceleration giving a feeling of drifting around
+        //basically, strafe jumping withour the jumping
+        if(Input.GetButton("dashNofric")){
+            noFricOn = true;
+            FrictionSafe = 0.05f;
+            accelSafe = 15f;
+        }else{
+            //we save the original values back
+            noFricOn = false;
+            accelSafe = accel;
+            FrictionSafe = frictionCoef;
+        }
+
         //dash
         time = time + Time.deltaTime;
         //if the dash cooldown is over then dash
@@ -124,10 +139,10 @@ public class FPSMoveRigidBody : MonoBehaviour
         if(!grounded){
             groundTime = -Time.fixedDeltaTime;
             //air friction
-            if(velocity != 0){
+            /*if(velocity != 0){
                 float friction = frictionCoefAir * velocity * Time.fixedDeltaTime;
                 body.velocity *=  Mathf.Max(velocity-friction, 0) /velocity;
-            }
+            }*/
             //direction of player inputs
             Vector3 accelDir = transform.TransformDirection(inputXY);// * Speed;
             //producto punto de la velocidad actual * direccion de input
@@ -151,7 +166,7 @@ public class FPSMoveRigidBody : MonoBehaviour
             //friction
             if(velocity != 0 && groundTime > Time.fixedDeltaTime*3){
                 //Debug.Break();
-                float friction = frictionCoef * velocity * Time.fixedDeltaTime;
+                float friction = FrictionSafe * velocity * Time.fixedDeltaTime;
                 
                body.velocity *=Mathf.Max(velocity-friction, 0) /velocity;
             }
@@ -160,7 +175,7 @@ public class FPSMoveRigidBody : MonoBehaviour
             //producto punto de la velocidad actual * direccion de input
             float dotProductVel = Vector3.Dot(new Vector3(body.velocity.x,0f, body.velocity.z), accelDir);
             //Debug.Log(dotProductVel);
-            float accelVel = accel * Time.fixedDeltaTime;
+            float accelVel = accelSafe * Time.fixedDeltaTime;
             
             if(accelVel > MaxSpeed - dotProductVel){
                 accelVel = MaxSpeed - dotProductVel;
