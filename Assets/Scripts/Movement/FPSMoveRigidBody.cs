@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class FPSMoveRigidBody : MonoBehaviour
 {
-    [SerializeField] private float Speed = 15;
-    [SerializeField] private float accel = 5;
-    [SerializeField] private float airAccel = 7;
-    [SerializeField] private float MaxSpeed = 1500;
-    [SerializeField] private float MaxSpeedAir = 2500;
+    //[SerializeField] private float Speed = 15;
+    [SerializeField] private float accel = 125;
+    [SerializeField] private float airAccel = 40;
+    [SerializeField] private float MaxSpeed = 8;
+    [SerializeField] private float MaxSpeedAir = 12;
     
     [SerializeField] private float frictionCoef = 10;
-    [SerializeField] private float frictionCoefAir = 5;
-    [SerializeField] private float jumpHeight = 5;
+    [SerializeField] private float frictionCoefAir = 1;
+    [SerializeField] private float jumpHeight = 8;
     //public CharacterController cont;
     private Rigidbody body;
     [SerializeField] private float velocity;
@@ -21,8 +21,8 @@ public class FPSMoveRigidBody : MonoBehaviour
     //[SerializeField] private bool falseGrounded;
 
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundDistance = 0.0f;
-    [SerializeField] private float groundDistance2 = 0.6f;
+    [SerializeField] private float groundDistance = 0.4f;
+    //[SerializeField] private float groundDistance2 = 0.6f;
     [SerializeField] private LayerMask groundMask;
 
     private Vector3 inputXY;
@@ -71,7 +71,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
-        inputXY = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+        inputXY = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
         //Jump
         if(grounded && Input.GetButtonDown("Jump")){
@@ -138,6 +138,8 @@ public class FPSMoveRigidBody : MonoBehaviour
             body.velocity += accelDir * accelVel;
         }else{//if grounded
             //friction
+            
+
             if(velocity != 0 ){
                 float friction = frictionCoef * velocity * Time.fixedDeltaTime;
                 
