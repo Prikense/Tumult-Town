@@ -45279,11 +45279,10 @@ MonoBehaviour:
   ammoCounter: {fileID: 1396938943}
   objectiveHealth: {fileID: 250920419}
   Score: {fileID: 1160924176}
-  weaponManager: {fileID: 1055794321}
-  hitDetection: {fileID: 1010444262}
   scoreboard: {fileID: 1669262691}
   isProjectileWeapon: 0
   weaponSwitch: {fileID: 591381453}
+  playerCamera: {fileID: 757963154}
   getProjectileWeapon: {fileID: 218632308}
 --- !u!114 &1509249165
 MonoBehaviour:
