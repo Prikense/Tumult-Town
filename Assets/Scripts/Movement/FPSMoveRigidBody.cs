@@ -134,7 +134,7 @@ public class FPSMoveRigidBody : MonoBehaviour
 
     //actual movement stuff
     private void AccelAndMove(){
-        Debug.Log("Ground time: " + groundTime);
+        //Debug.Log("Ground time: " + groundTime);
         //initial acceleration
         if(!grounded){
             groundTime = -Time.fixedDeltaTime;
