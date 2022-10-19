@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour
 {
+    [SerializeField] private Image playerHealthFill;
+    [SerializeField] private Image targetHealthFill;
+  
 
     public TextMeshProUGUI ammoCounter;
     public TextMeshProUGUI objectiveHealth;
@@ -35,6 +39,7 @@ public class GUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
         // ammoCounter.text = "" + weaponManager.magazineSize + " / " + weaponManager.magazineSize; 
         objectiveHealth.text = "No data";
@@ -67,7 +72,7 @@ public class GUIManager : MonoBehaviour
             ammoCounter.text = "" + weaponManager.bulletsLeft + " / " + weaponManager.magazineSize;
         }
         */
-        Score.text = scoreboard.player1Score + " | " +scoreboard.player2Score;
+        Score.text = scoreboard.player1Score + "|" +scoreboard.player2Score;
 
         // Check if melee weapon (show no ammo)
         if(weaponSwitch.currentWeapon.GetComponent<HitDetection>() != null)
@@ -92,14 +97,17 @@ public class GUIManager : MonoBehaviour
         prevLastHealth = lastHealth;
         lastHealth = weaponManager.lastHealth;
 
+        FillBar(playerHealthFill, 1);
+        FillBar(targetHealthFill, lastHealth); 
+
         prevLastHealthByMelee = lastHealthByMelee;
         lastHealthByMelee = hitDetection.lastHealth;
 
         if(prevLastHealth != lastHealth) {
-            objectiveHealth.text = "Health left: " + lastHealth;
+            objectiveHealth.text = /*"Health left: " + */ "" + lastHealth;
         }
         else if(prevLastHealthByMelee != lastHealthByMelee) {
-            objectiveHealth.text = "Health left: " + lastHealthByMelee;
+            objectiveHealth.text = /*"Health left: " */ "" + lastHealthByMelee;
         }
 
     }
@@ -113,4 +121,10 @@ public class GUIManager : MonoBehaviour
     {
 
     }
+
+    void FillBar(Image image, float fillAmount){
+       image.fillAmount = fillAmount;
+    }
+
+
 }
