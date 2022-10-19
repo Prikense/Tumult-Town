@@ -102,19 +102,19 @@ public class GUIManager : MonoBehaviour
                 currentHealth = 0.0f;
             } else
             {
-                currentHealth = buildingManager.healthRatio;
+                currentHealth = buildingManager.health;
             } 
             // maybe the prevBuildingManager isn't necessary anymore since it now compares the health so if you stay looking the same its the same effect
             if(buildingManager != null && currentHealth != prevHealth) 
             { 
                 Debug.Log("got one");
-                objectiveHealth.text = "Health left: " + buildingManager.health;
+                objectiveHealth.text = "" + buildingManager.health;            
+                FillBar(targetHealthFill, buildingManager.healthRatio); 
                 prevBuildingManager = buildingManager;
                 prevHealth = currentHealth;
             }
 
         FillBar(playerHealthFill, 1);
-        FillBar(targetHealthFill, currentHealth); 
         }
     }
 
