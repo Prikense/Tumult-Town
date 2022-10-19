@@ -49,9 +49,9 @@ public class EnemyAI : MonoBehaviour
     }
 
     public void Shoot(){
-        Debug.Log("baleando time");
+        //Debug.Log("baleando time");
         navMeshAgent.SetDestination(transform.position);
-        Debug.Log("bip bup coso shoot pos: "+transform.position);
+        //Debug.Log("bip bup coso shoot pos: "+transform.position);
     }
 
 }

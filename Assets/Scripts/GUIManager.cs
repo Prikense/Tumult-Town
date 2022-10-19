@@ -13,14 +13,6 @@ public class GUIManager : MonoBehaviour
     public TextMeshProUGUI ammoCounter;
     public TextMeshProUGUI objectiveHealth;
     public TextMeshProUGUI Score;
-    public WeaponManager weaponManager;
-    public HitDetection hitDetection;
-
-    float lastHealth;
-    float prevLastHealth;
-
-    float prevLastHealthByMelee;
-    float lastHealthByMelee;
 
     public ScoreScript scoreboard;
 
@@ -31,7 +23,13 @@ public class GUIManager : MonoBehaviour
     private ProjectileWeaponManager projectileWeapon;
     private WeaponManager raycastWeapon;
 
+    public Camera playerCamera;
+    float range = 100f;
+
     private int prevSelectedWeapon;
+
+    BuildingManager prevBuildingManager;
+    float prevHealth;
 
     // This line is only for testing, should be deleted later on
     public ProjectileWeaponManager getProjectileWeapon;
@@ -39,13 +37,7 @@ public class GUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
-        // ammoCounter.text = "" + weaponManager.magazineSize + " / " + weaponManager.magazineSize; 
         objectiveHealth.text = "No data";
-        lastHealth = 0f;
-        lastHealthByMelee = 0f;
-
         // New
         currentWeapon = weaponSwitch.currentWeapon;
 
@@ -60,22 +52,21 @@ public class GUIManager : MonoBehaviour
             raycastWeapon = currentWeapon.GetComponent<WeaponManager>();
             ammoCounter.text = raycastWeapon.magazineSize + " / " + raycastWeapon.magazineSize;
         }
-        // This line is only for testing, should be deleted later on
+        // This line is only for testing, should be deleted later on (used to show bullets of third weapon)
         projectileWeapon = getProjectileWeapon;
+
+        getProjectileWeapon = null;
+
+        prevHealth = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        if(weaponManager.doneReloading || weaponManager.isShooting) {
-            ammoCounter.text = "" + weaponManager.bulletsLeft + " / " + weaponManager.magazineSize;
-        }
-        */
         Score.text = scoreboard.player1Score + "|" +scoreboard.player2Score;
 
         // Check if melee weapon (show no ammo)
-        if(weaponSwitch.currentWeapon.GetComponent<HitDetection>() != null)
+        if(weaponSwitch.currentWeapon.GetComponentInChildren<HitDetection>() != null)
         {
             ammoCounter.text = "Infinite";
             prevSelectedWeapon = weaponSwitch.selectedWeapon;
@@ -93,23 +84,38 @@ public class GUIManager : MonoBehaviour
             prevSelectedWeapon = weaponSwitch.selectedWeapon;
         }
 
+        ObtainObjectHealth();
+    }
 
-        prevLastHealth = lastHealth;
-        lastHealth = weaponManager.lastHealth;
+    void ObtainObjectHealth()
+    {
+
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, range))
+        {
+
+            BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
+            float currentHealth;
+            if(buildingManager == null)
+            {
+                currentHealth = 0.0f;
+            } else
+            {
+                currentHealth = buildingManager.healthRatio;
+            } 
+            // maybe the prevBuildingManager isn't necessary anymore since it now compares the health so if you stay looking the same its the same effect
+            if(buildingManager != null && currentHealth != prevHealth) 
+            { 
+                Debug.Log("got one");
+                objectiveHealth.text = "Health left: " + buildingManager.health;
+                prevBuildingManager = buildingManager;
+                prevHealth = currentHealth;
+            }
 
         FillBar(playerHealthFill, 1);
-        FillBar(targetHealthFill, lastHealth); 
-
-        prevLastHealthByMelee = lastHealthByMelee;
-        lastHealthByMelee = hitDetection.lastHealth;
-
-        if(prevLastHealth != lastHealth) {
-            objectiveHealth.text = /*"Health left: " + */ "" + lastHealth;
+        FillBar(targetHealthFill, currentHealth); 
         }
-        else if(prevLastHealthByMelee != lastHealthByMelee) {
-            objectiveHealth.text = /*"Health left: " */ "" + lastHealthByMelee;
-        }
-
     }
 
     void ProjectileWeapon()

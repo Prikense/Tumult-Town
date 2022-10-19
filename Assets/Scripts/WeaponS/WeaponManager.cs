@@ -42,7 +42,6 @@ public class WeaponManager : MonoBehaviour
     {
         if(Input.GetMouseButton(0) && Time.time >= nextTimeToFire && ammoLeft > 0) {
             nextTimeToFire = Time.time + 1f/fireRate;
-            Debug.Log("Pew");
             isShooting = true;
             Shoot();
         }
@@ -81,7 +80,6 @@ public class WeaponManager : MonoBehaviour
         RaycastHit hit;
 
         if(Physics.Raycast(playerCamera.transform.position, forwardVector, out hit, range)) {
-            Debug.Log("Boom");
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 0.3f);
