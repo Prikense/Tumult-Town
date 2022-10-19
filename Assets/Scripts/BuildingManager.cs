@@ -11,19 +11,22 @@ public class BuildingManager : MonoBehaviour
 
     public float health = 100f;
     public int value = 5;
+    [SerializeField] float maxHealth;
+    public float healthRatio;
 
     public ScoreScript scoreboard;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        maxHealth = health;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        healthRatio = health/maxHealth;
+
     }
 
     /*

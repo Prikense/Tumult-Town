@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour
 {
+    [SerializeField] private Image playerHealthFill;
+    [SerializeField] private Image targetHealthFill;
+  
 
     public TextMeshProUGUI ammoCounter;
     public TextMeshProUGUI objectiveHealth;
@@ -59,7 +63,7 @@ public class GUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Score.text = scoreboard.player1Score + " | " +scoreboard.player2Score;
+        Score.text = scoreboard.player1Score + "|" +scoreboard.player2Score;
 
         // Check if melee weapon (show no ammo)
         if(weaponSwitch.currentWeapon.GetComponentInChildren<HitDetection>() != null)
@@ -98,7 +102,7 @@ public class GUIManager : MonoBehaviour
                 currentHealth = 0.0f;
             } else
             {
-                currentHealth = buildingManager.health;
+                currentHealth = buildingManager.healthRatio;
             } 
             // maybe the prevBuildingManager isn't necessary anymore since it now compares the health so if you stay looking the same its the same effect
             if(buildingManager != null && currentHealth != prevHealth) 
@@ -108,6 +112,9 @@ public class GUIManager : MonoBehaviour
                 prevBuildingManager = buildingManager;
                 prevHealth = currentHealth;
             }
+
+        FillBar(playerHealthFill, 1);
+        FillBar(targetHealthFill, currentHealth); 
         }
     }
 
@@ -120,4 +127,10 @@ public class GUIManager : MonoBehaviour
     {
 
     }
+
+    void FillBar(Image image, float fillAmount){
+       image.fillAmount = fillAmount;
+    }
+
+
 }

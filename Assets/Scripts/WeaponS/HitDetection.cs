@@ -18,7 +18,7 @@ public class HitDetection : MonoBehaviour
             BuildingManager buildingManager = other.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(weaponDamage, playerNumber);
-                lastHealth = buildingManager.health;
+                lastHealth = buildingManager.healthRatio;
             }
         }
     }
