@@ -25,7 +25,7 @@ public class BuildingManager : MonoBehaviour
         set{_healthRatio = value;}
     }
 
-    private int _value = 5;
+    [SerializeField] private int _value = 5;
     public int Value
     {
         get{return _value;}
