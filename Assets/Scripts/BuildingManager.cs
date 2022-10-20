@@ -5,43 +5,47 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 {
 
-    public GameObject shatteredBuilding;
+    [SerializeField] private GameObject shatteredBuilding;
     // fix for the presentation
-    public bool needsPosFix = false;
+    [SerializeField] private bool needsPosFix = false;
 
-    public float health = 100f;
-    public int value = 5;
-    [SerializeField] float maxHealth;
-    public float healthRatio;
+    [SerializeField] private float _health = 100f;
+    public float Health 
+    {
+        get{return _health;}
+        set{_health = value;}
+    }
 
-    public ScoreScript scoreboard;
+    private float maxHealth;
 
-    // Start is called before the first frame update
+    private float _healthRatio;
+    public float HealthRatio
+    {
+        get{return _healthRatio;}
+        set{_healthRatio = value;}
+    }
+
+    private int _value = 5;
+    public int Value
+    {
+        get{return _value;}
+        set{_value = value;}
+    }
+
+    [SerializeField] private ScoreScript scoreboard;
+
     void Start()
     {
-        maxHealth = health;
+        maxHealth = Health;
+        HealthRatio = Health / maxHealth;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        healthRatio = health/maxHealth;
-
-    }
-
-    /*
-    public void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Melee"){
-            Instantiate(shatteredBuilding, this.transform.position, this.transform.rotation);
-        }
-    }
-    */
 
     public void Hit(float damage, int player)
     {
-        health -= damage;
-        if(health <= 0) {
+        Health -= damage;
+        HealthRatio = Health / maxHealth;
+
+        if(Health <= 0) {
             // Destroy the building
             Vector3 posFix = new Vector3(0f, 0f, 0f);
             if(needsPosFix) posFix = new Vector3(2.9f, 1f, 0f);
@@ -53,9 +57,9 @@ public class BuildingManager : MonoBehaviour
             Destroy(gameObject);
             //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
             if(player == 1){
-                scoreboard.player1Score += value;
+                scoreboard.Player1Score += Value;
             }else if(player == 2){
-                scoreboard.player2Score += value;
+                scoreboard.Player2Score += Value;
             }
         }
     }

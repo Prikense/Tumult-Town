@@ -87,7 +87,7 @@ public class WeaponManager : MonoBehaviour
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(damage, playerNumber);
-                lastHealth = buildingManager.healthRatio;
+                lastHealth = buildingManager.Health;
             }
 
             if(hit.rigidbody != null) {

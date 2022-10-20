@@ -113,8 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shatteredBuilding: {fileID: 2372440217941642013, guid: 97555f6586273463a9cee1af42ae7754, type: 3}
   needsPosFix: 0
-  health: 100
-  value: 5
+  _health: 80
   scoreboard: {fileID: 0}
 --- !u!54 &-532357575843880125
 Rigidbody:

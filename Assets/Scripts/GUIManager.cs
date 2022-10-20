@@ -10,29 +10,29 @@ public class GUIManager : MonoBehaviour
     [SerializeField] private Image targetHealthFill;
   
 
-    public TextMeshProUGUI ammoCounter;
-    public TextMeshProUGUI objectiveHealth;
-    public TextMeshProUGUI Score;
+    [SerializeField] private TextMeshProUGUI ammoCounter;
+    [SerializeField] private TextMeshProUGUI objectiveHealth;
+    [SerializeField] private TextMeshProUGUI Score;
 
-    public ScoreScript scoreboard;
+    [SerializeField] private ScoreScript scoreboard;
 
     // New values that are being used
-    public bool isProjectileWeapon;
-    public WeaponSwitch weaponSwitch; // takes the script
+    [SerializeField] private bool isProjectileWeapon;
+    [SerializeField] private WeaponSwitch weaponSwitch; // takes the script
     private GameObject currentWeapon;
     private ProjectileWeaponManager projectileWeapon;
     private WeaponManager raycastWeapon;
 
-    public Camera playerCamera;
-    float range = 100f;
+    [SerializeField] private Camera playerCamera;
+    private float range = 100f;
 
     private int prevSelectedWeapon;
 
-    BuildingManager prevBuildingManager;
-    float prevHealth;
+    private BuildingManager prevBuildingManager;
+    private float prevHealth;
 
     // This line is only for testing, should be deleted later on
-    public ProjectileWeaponManager getProjectileWeapon;
+    [SerializeField] private ProjectileWeaponManager getProjectileWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +63,7 @@ public class GUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Score.text = scoreboard.player1Score + "|" +scoreboard.player2Score;
+        Score.text = scoreboard.Player1Score + " | " +scoreboard.Player2Score;
 
         // Check if melee weapon (show no ammo)
         if(weaponSwitch.currentWeapon.GetComponentInChildren<HitDetection>() != null)
@@ -102,14 +102,14 @@ public class GUIManager : MonoBehaviour
                 currentHealth = 0.0f;
             } else
             {
-                currentHealth = buildingManager.health;
+                currentHealth = buildingManager.Health;
             } 
             // maybe the prevBuildingManager isn't necessary anymore since it now compares the health so if you stay looking the same its the same effect
             if(buildingManager != null && currentHealth != prevHealth) 
             { 
                 Debug.Log("got one");
-                objectiveHealth.text = "" + buildingManager.health;            
-                FillBar(targetHealthFill, buildingManager.healthRatio); 
+                objectiveHealth.text = "" + buildingManager.Health;            
+                FillBar(targetHealthFill, buildingManager.HealthRatio); 
                 prevBuildingManager = buildingManager;
                 prevHealth = currentHealth;
             }
