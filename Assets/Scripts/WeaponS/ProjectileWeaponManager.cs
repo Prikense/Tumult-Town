@@ -6,14 +6,22 @@ public class ProjectileWeaponManager : MonoBehaviour
 {
 
     // bullet
-    public GameObject bullet;
+    [SerializeField] private GameObject bullet;
 
     // bullet force
-    public float shootForce, upwardForce;
+    [SerializeField] private float shootForce, upwardForce;
 
     // gun stats
-    public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
-    public int magazineSize, bulletsPerTap;
+    [SerializeField] private float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
+    [SerializeField] private int bulletsPerTap;
+
+    private int _magazineSize = 60;
+    public int MagazineSize
+    {
+        get{return _magazineSize;}
+        set{_magazineSize = value;}
+    }
+
     public bool allowButtonHold;
     public int ammoLeft; 
     int bulletsShot;
@@ -33,7 +41,7 @@ public class ProjectileWeaponManager : MonoBehaviour
     private void Awake() 
     {
         // make sure magazine is full and is able to shoot
-        ammoLeft = magazineSize;
+        ammoLeft = MagazineSize;
         readyToShoot = true;
     }
 
@@ -131,7 +139,7 @@ public class ProjectileWeaponManager : MonoBehaviour
 
     private void ReloadFinished()
     {
-        ammoLeft = magazineSize;
+        ammoLeft = MagazineSize;
         reloading = false;
         doneReloading = true;
     }

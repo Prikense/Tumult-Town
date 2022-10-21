@@ -5,12 +5,18 @@ using UnityEngine;
 public class MeleeManager : MonoBehaviour
 {
 
-    public GameObject Sword;
+    [SerializeField] private GameObject Sword;
 //    private Component[] swordComponets;
-    public GameObject hitbox;
-    public bool canAttack = true;
-    public float attackCooldown = 1.0f;
-    public bool isAttacking = false;
+    [SerializeField] private GameObject hitbox;
+    private bool canAttack = true;
+    private float attackCooldown = 1.0f;
+
+    private bool _isAttacking = false;
+    public bool IsAttacking
+    {
+        get{return _isAttacking;}
+        set{_isAttacking = value;}
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +30,7 @@ public class MeleeManager : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            if(canAttack && !isAttacking)
+            if(canAttack && !IsAttacking)
             {
                 SwordAttack();
             }
@@ -34,7 +40,7 @@ public class MeleeManager : MonoBehaviour
     public void SwordAttack()
     {
         hitbox.active = true;
-        isAttacking = true;
+        IsAttacking = true;
         canAttack = false;
 //        Animator anim = Sword.Find("pivotFeo").GetComponent<Animator>();
         Animator anim = Sword.GetComponent<Animator>();
@@ -51,6 +57,6 @@ public class MeleeManager : MonoBehaviour
     void ResetIsAttacking()
     {
         hitbox.active = false;
-        isAttacking = false;
+        IsAttacking = false;
     }
 }

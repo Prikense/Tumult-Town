@@ -5,20 +5,21 @@ using UnityEngine;
 public class HitDetection : MonoBehaviour
 {
 
-    public MeleeManager meleeManager;
-    public float weaponDamage = 20f;
-    public float lastHealth;
-    public int playerNumber; //por mientras jsjs
+
+    [SerializeField] private MeleeManager meleeManager;
+    private float weaponDamage = 20f;
+    //public float lastHealth;
+    [SerializeField] private int playerNumber; //por mientras, eliminar después
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Destructible" && meleeManager.isAttacking)
+        if(other.tag == "Destructible" && meleeManager.IsAttacking)
         {
             Debug.Log("melee hit");
             BuildingManager buildingManager = other.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(weaponDamage, playerNumber);
-                lastHealth = buildingManager.Health;
+                //lastHealth = buildingManager.Health;
             }
         }
     }

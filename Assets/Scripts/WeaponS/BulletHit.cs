@@ -5,17 +5,29 @@ using UnityEngine;
 public class BulletHit : MonoBehaviour
 {
 
-    public float weaponDamage = 5f;
-    public float lastHealth;
-    public int playerNumber; //por mientras jsjs
+    private float _weaponDamage = 5f;
+    public float WeaponDamage
+    {
+        get{return _weaponDamage;}
+        set{_weaponDamage = value;}
+    }
+
+    //public float lastHealth;
+
+    private int _playerNumber;
+    public int PlayerNumber
+    {
+        get{return _playerNumber;}
+        set{_playerNumber = value;}
+    }
 
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Destructible"){
             BuildingManager buildingManager = collision.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
-                buildingManager.Hit(weaponDamage, playerNumber);
-                lastHealth = buildingManager.Health;
+                buildingManager.Hit(WeaponDamage, PlayerNumber);
+                //lastHealth = buildingManager.Health;
                 Debug.Log("ouch");
             }
         }

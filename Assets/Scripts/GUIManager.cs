@@ -45,12 +45,12 @@ public class GUIManager : MonoBehaviour
         {
             isProjectileWeapon = true;
             projectileWeapon = currentWeapon.GetComponent<ProjectileWeaponManager>();
-            ammoCounter.text = projectileWeapon.magazineSize + " / " + projectileWeapon.magazineSize;
+            ammoCounter.text = projectileWeapon.MagazineSize + " / " + projectileWeapon.MagazineSize;
         } else
         {
             isProjectileWeapon = false;
             raycastWeapon = currentWeapon.GetComponent<WeaponManager>();
-            ammoCounter.text = raycastWeapon.magazineSize + " / " + raycastWeapon.magazineSize;
+            ammoCounter.text = raycastWeapon.MagazineSize + " / " + raycastWeapon.MagazineSize;
         }
         // This line is only for testing, should be deleted later on (used to show bullets of third weapon)
         projectileWeapon = getProjectileWeapon;
@@ -74,16 +74,17 @@ public class GUIManager : MonoBehaviour
         // Check if projectile weapon (show respective ammo)
         else if(isProjectileWeapon && projectileWeapon.shooting || (weaponSwitch.selectedWeapon == 2 && weaponSwitch.selectedWeapon != prevSelectedWeapon) || projectileWeapon.doneReloading)
         {
-            ammoCounter.text = projectileWeapon.ammoLeft + " / " + projectileWeapon.magazineSize; //change to call function
+            ammoCounter.text = projectileWeapon.ammoLeft + " / " + projectileWeapon.MagazineSize; //change to call function
             prevSelectedWeapon = weaponSwitch.selectedWeapon;
         }
         // Check if raycast weapon (show respective ammo)
-        else if(!isProjectileWeapon && raycastWeapon.isShooting || (weaponSwitch.selectedWeapon == 0 && weaponSwitch.selectedWeapon != prevSelectedWeapon) || raycastWeapon.doneReloading)
+        else if(!isProjectileWeapon && raycastWeapon.IsShooting || (weaponSwitch.selectedWeapon == 0 && weaponSwitch.selectedWeapon != prevSelectedWeapon) || raycastWeapon.DoneReloading)
         {
-            ammoCounter.text = raycastWeapon.ammoLeft + " / " + raycastWeapon.magazineSize; //change to call function
+            ammoCounter.text = raycastWeapon.AmmoLeft + " / " + raycastWeapon.MagazineSize; //change to call function
             prevSelectedWeapon = weaponSwitch.selectedWeapon;
         }
 
+        // Move to FixedUpdate since it uses raycast
         ObtainObjectHealth();
     }
 

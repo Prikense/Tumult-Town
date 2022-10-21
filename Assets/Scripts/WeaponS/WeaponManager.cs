@@ -5,48 +5,72 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
 
-    public int playerNumber;
-    public GameObject playerCamera;
-    public float range = 100f;
-    public float damage = 10f;
-    public ParticleSystem muzzleFlash;
-    public float fireRate = 15f;
-    public int magazineSize = 35;
-    public int ammoLeft;
-    public float spread = 0.001f;
-    public float reloadTime = 1.0f;
-    public bool reloading;
-    public float impactForce = 155f;
+    [SerializeField] private int playerNumber;
+    [SerializeField] private GameObject playerCamera;
+    private float range = 100f;
+    private float damage = 10f;
+    [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private float fireRate = 15f;
 
-    // used to updat ui after reloaded
-    public bool doneReloading;
+    [SerializeField] private int _magazineSize = 350;
+    public int MagazineSize
+    {
+        get{return _magazineSize;}
+        set{_magazineSize = value;}
+    }
 
-    public bool isShooting;
-    public float lastHealth = 0;
+    private int _ammoLeft;
+    public int AmmoLeft
+    {
+        get{return _ammoLeft;}
+        set{_ammoLeft = value;}
+    }
+
+    [SerializeField] private float spread = 0.001f;
+    [SerializeField] private float reloadTime = 1.0f;
+    private bool reloading;
+    [SerializeField] private float impactForce = 155f;
+
+    // used to update ui after reloaded
+    private bool _doneReloading;
+    public bool DoneReloading
+    {
+        get{return _doneReloading;}
+        set{_doneReloading = value;}
+    }
+
+    private bool _isShooting;
+    public bool IsShooting
+    {
+        get{return _isShooting;}
+        set{_isShooting = value;}
+    }
+
+    private float lastHealth = 0;
 
     private float nextTimeToFire = 0f;
 
-    public GameObject bulletHole;
+    [SerializeField] private GameObject bulletHole;
 
     // Start is called before the first frame update
     void Start()
     {
-        doneReloading = false;
+        DoneReloading = false;
         reloading = false;
-        ammoLeft = magazineSize;
-        isShooting = false;
+        AmmoLeft = MagazineSize;
+        IsShooting = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0) && Time.time >= nextTimeToFire && ammoLeft > 0) {
+        if(Input.GetMouseButton(0) && Time.time >= nextTimeToFire && AmmoLeft > 0) {
             nextTimeToFire = Time.time + 1f/fireRate;
-            isShooting = true;
+            IsShooting = true;
             Shoot();
         }
         else {
-            isShooting = false;
+            IsShooting = false;
         }
 
         if(Input.GetKeyDown(KeyCode.R) && !reloading) {
@@ -75,7 +99,7 @@ public class WeaponManager : MonoBehaviour
 
         muzzleFlash.Play();
 
-        ammoLeft -= 1;
+        AmmoLeft -= 1;
 
         RaycastHit hit;
 
@@ -100,13 +124,13 @@ public class WeaponManager : MonoBehaviour
     {
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
-        doneReloading = false;
+        DoneReloading = false;
     }
 
     private void ReloadFinished()
     {
-        ammoLeft = magazineSize;
+        AmmoLeft = MagazineSize;
         reloading = false;
-        doneReloading = true;
+        DoneReloading = true;
     }
 }
