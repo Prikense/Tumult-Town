@@ -109,7 +109,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         if(Input.GetButton("dashNofric")){
             noFricOn = true;
             FrictionSafe = 0.05f;
-            accelSafe = 15f;
+            accelSafe = airAccel+10f;
         }else{
             //we save the original values back
             noFricOn = false;
