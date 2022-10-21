@@ -105,9 +105,9 @@ public class WeaponManager : MonoBehaviour
 
         RaycastHit hit;
 
-        Vector3 raycastOrigin = new Vector3 (playerCamera.transform.position.x + .5f, playerCamera.transform.position.y, playerCamera.transform.position.z);
+        Vector3 raycastOrigin = new Vector3 (playerCamera.transform.position.x - 0.0f, playerCamera.transform.position.y, playerCamera.transform.position.z+.05f);
 
-        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range)) {
+        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range, ~LayerMask.GetMask("Debri"))) {
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 0.3f);
