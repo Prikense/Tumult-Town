@@ -5,14 +5,14 @@ using UnityEngine;
 public class FPSMoveRigidBody : MonoBehaviour
 {
     //[SerializeField] private float Speed = 15;
-    [SerializeField] private float accel = 125;
-    [SerializeField] private float airAccel = 20;
-    [SerializeField] private float MaxSpeed = 10;
-    [SerializeField] private float MaxSpeedAir = 10;
+    [SerializeField] private float accel = 100;
+    [SerializeField] private float airAccel = 60;
+    [SerializeField] private float MaxSpeed = 60;
+    [SerializeField] private float MaxSpeedAir = 2;
     
-    [SerializeField] private float frictionCoef = 10;
+    [SerializeField] private float frictionCoef = 5;
     //[SerializeField] private float frictionCoefAir = 0;
-    [SerializeField] private float jumpHeight = 6;
+    [SerializeField] private float jumpHeight = 5;
     //public CharacterController cont;
     private Rigidbody body;
     [SerializeField] private float velocity;
@@ -26,7 +26,7 @@ public class FPSMoveRigidBody : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
 
     private Vector3 inputXY;
-    [SerializeField] private Vector3 fallSpeed = new Vector3(0, -3, 0);
+    [SerializeField] private Vector3 fallSpeed = new Vector3(0, -4, 0);
 
     [SerializeField] private float dashCooldown = 2.5f;
     [SerializeField] private int dashMulti = 50;
@@ -39,8 +39,8 @@ public class FPSMoveRigidBody : MonoBehaviour
     //for camera movement when moving
     private bool BobEnable = true;
 
-    [SerializeField] private float amplitude = 0.15f;
-    [SerializeField] private float frequency = 10.0f;
+    [SerializeField] private float amplitude = 0.00035f;
+    [SerializeField] private float frequency = 7.0f;
 
     [SerializeField] private Transform Whoknows;
     [SerializeField] private Transform camera;
@@ -150,15 +150,17 @@ public class FPSMoveRigidBody : MonoBehaviour
             //Debug.Log(dotProductVel);
             float accelVel = airAccel * Time.fixedDeltaTime;
             
+
+            Debug.Log("aaa: "+accelVel);
             if(dotProductVel + accelVel > MaxSpeedAir){
-                accelVel = MaxSpeedAir - dotProductVel;
+                accelVel = 0;
             }
 
 
-            /*Debug.Log("dir: " + accelDir);
-            Debug.Log("wishthingy: "+accelDir);
+            //Debug.Log("inputs: " + accelDir);
+            Debug.Log("???: "+accelVel);
             Debug.Log("velocity: "+body.velocity);
-            Debug.Log("dot: "+dotProductVel);*/
+            Debug.Log("dot: "+dotProductVel);
             //return
 //            body.velocity = new Vector3 (accelDir.x, body.velocity.y, accelDir.z);
             body.velocity += accelDir * accelVel;
