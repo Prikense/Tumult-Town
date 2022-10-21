@@ -5,6 +5,8 @@ using UnityEngine;
 public class ProjectileWeaponManager : MonoBehaviour
 {
 
+
+    [SerializeField] private int playerNumber;
     // bullet
     [SerializeField] private GameObject bullet;
 
@@ -117,7 +119,11 @@ public class ProjectileWeaponManager : MonoBehaviour
 
         // instantiate bullet or projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+        if(currentBullet.TryGetComponent<BulletHit>(out BulletHit a)){
+            a.playerNumber = playerNumber;
+        }
         // rotate bullet to shoot direction
+        
         currentBullet.transform.forward = directionWithSpread.normalized;
 
         // adding force to bullet
