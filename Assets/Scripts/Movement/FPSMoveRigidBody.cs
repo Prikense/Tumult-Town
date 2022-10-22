@@ -14,7 +14,7 @@ public class FPSMoveRigidBody : MonoBehaviour
     //[SerializeField] private float frictionCoefAir = 0;
     [SerializeField] private float jumpHeight = 5;
     //public CharacterController cont;
-    private Rigidbody body;
+    public Rigidbody body;
     [SerializeField] public float velocity;
     //public float grav = 9.8f;
     [SerializeField] private bool grounded;
@@ -170,7 +170,7 @@ public class FPSMoveRigidBody : MonoBehaviour
                 accelVel = Mathf.Max(MaxSpeedAir - dotProductVel, 0);//version1
             }
 
-            Debug.Log("dotProduct: "+dotProductVel);
+            //Debug.Log("dotProduct: "+dotProductVel);
 
             body.velocity += accelDir * accelVel;
         }else if (groundTime > Time.fixedDeltaTime*3){//if grounded

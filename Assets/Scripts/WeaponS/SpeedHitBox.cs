@@ -26,6 +26,7 @@ public class SpeedHitBox : MonoBehaviour
                 buildingManager.Hit(weaponDamage, playerNumber);
                 lastHealth = buildingManager.Health;
             }
+            playerStuff.body.AddForce(-8*(transform.forward));
         }else if(other.tag == "debri"){
             Debug.Log("speed hit debri");
             other.attachedRigidbody.AddForce(transform.up*40);
