@@ -96,7 +96,10 @@ public class FPSMoveRigidBody : MonoBehaviour
     
     //movement on fixed update
     void FixedUpdate(){
-
+        
+        if(grounded){
+            groundTime += Time.fixedDeltaTime;
+        }
         if(!grounded && (body.velocity.y < 0 && body.velocity.y > -6)){
             //body.velocity += new Vector3 (body.velocity.x, fallSpeed.y, body.velocity.z);
             body.AddRelativeForce(fallSpeed);
@@ -119,7 +122,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         if(Input.GetButton("dashNofric")){
             noFricOn = true;
             FrictionSafe = 0.05f;
-            accelSafe = airAccel+10f;
+            accelSafe = airAccel-20f;
         }else{
             //we save the original values back
             noFricOn = false;
@@ -161,14 +164,18 @@ public class FPSMoveRigidBody : MonoBehaviour
             float accelVel = airAccel * Time.fixedDeltaTime;
             
 
-            //Debug.Log("aaa: "+accelVel);
+            
             if(dotProductVel + accelVel > MaxSpeedAir){
-                accelVel = 0;
+                //accelVel = MaxSpeedAir - dotProductVel;//version2
+                accelVel = Mathf.Max(MaxSpeedAir - dotProductVel, 0);//version1
             }
+
+            Debug.Log("dotProduct: "+dotProductVel);
+
             body.velocity += accelDir * accelVel;
-        }else{ //if (groundTime > 0){//if grounded
+        }else if (groundTime > Time.fixedDeltaTime*3){//if grounded
             //friction
-            if(velocity != 0 && groundTime > Time.fixedDeltaTime*3){
+            if(velocity != 0){
                 //Debug.Break();
                 float friction = FrictionSafe * velocity * Time.fixedDeltaTime;
                 
@@ -186,8 +193,6 @@ public class FPSMoveRigidBody : MonoBehaviour
             }
             body.velocity += accelDir * accelVel;
 
-
-            groundTime += Time.fixedDeltaTime;
         }
     }
 
