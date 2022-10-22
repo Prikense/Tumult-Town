@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 450718591351115619}
   m_Layer: 9
   m_Name: TallBuildingP2
-  m_TagString: Untagged
+  m_TagString: debri
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 9064069502330127100}
   m_Layer: 9
   m_Name: TallBuildingP3
-  m_TagString: Untagged
+  m_TagString: debri
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1279,7 +1279,7 @@ GameObject:
   - component: {fileID: 2178354970460993051}
   m_Layer: 9
   m_Name: TallBuildingP1
-  m_TagString: Untagged
+  m_TagString: debri
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1772,7 +1772,7 @@ GameObject:
   - component: {fileID: 5850542426477220396}
   m_Layer: 9
   m_Name: ShatteredTallBuilding
-  m_TagString: Untagged
+  m_TagString: debri
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

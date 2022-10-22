@@ -44,6 +44,7 @@ public class FPSMoveRigidBody : MonoBehaviour
 
     [SerializeField] private Transform Whoknows;
     [SerializeField] private Transform camera;
+    [SerializeField] private GameObject SpeedBox;
 //    [SerializeField] private Transform gun;
     private float groundTime = 0f;//for calculating time on the ground
 
@@ -57,6 +58,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         body = GetComponent<Rigidbody>();
         time = dashMulti;
         startPos = camera.localPosition;
+        SpeedBox.SetActive(false);
     }
 
     // Update is called once per frame
@@ -86,11 +88,19 @@ public class FPSMoveRigidBody : MonoBehaviour
         
         CheckMotion();
         camera.LookAt(FocusTarget());
+        if(velocity > 10){
+            SpeedBox.SetActive(true);
+            Physics.IgnoreLayerCollision(0,9, true);
+        }else{
+            SpeedBox.SetActive(false);
+            Physics.IgnoreLayerCollision(0,9, false);
+        }
     }
     
     //movement on fixed update
     void FixedUpdate(){
 
+        
         //Jump
         if( /*&&*/ Input.GetButton("Jump")){
             if(grounded){
@@ -151,16 +161,16 @@ public class FPSMoveRigidBody : MonoBehaviour
             float accelVel = airAccel * Time.fixedDeltaTime;
             
 
-            Debug.Log("aaa: "+accelVel);
+            //Debug.Log("aaa: "+accelVel);
             if(dotProductVel + accelVel > MaxSpeedAir){
                 accelVel = 0;
             }
 
 
             //Debug.Log("inputs: " + accelDir);
-            Debug.Log("???: "+accelVel);
-            Debug.Log("velocity: "+body.velocity);
-            Debug.Log("dot: "+dotProductVel);
+            // Debug.Log("???: "+accelVel);
+            // Debug.Log("velocity: "+body.velocity);
+            // Debug.Log("dot: "+dotProductVel);
             //return
 //            body.velocity = new Vector3 (accelDir.x, body.velocity.y, accelDir.z);
             body.velocity += accelDir * accelVel;
