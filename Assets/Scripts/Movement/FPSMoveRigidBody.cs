@@ -67,10 +67,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         
         //Debug.Log(body.velocity.magnitude);
         velocity = new Vector2(body.velocity.x, body.velocity.z).magnitude;
-        if(!grounded && (body.velocity.y < 0 && body.velocity.y > -6)){
-            //body.velocity += new Vector3 (body.velocity.x, fallSpeed.y, body.velocity.z);
-            body.AddRelativeForce(fallSpeed);
-        }
+
 
 
         //for moving
@@ -100,7 +97,10 @@ public class FPSMoveRigidBody : MonoBehaviour
     //movement on fixed update
     void FixedUpdate(){
 
-        
+        if(!grounded && (body.velocity.y < 0 && body.velocity.y > -6)){
+            //body.velocity += new Vector3 (body.velocity.x, fallSpeed.y, body.velocity.z);
+            body.AddRelativeForce(fallSpeed);
+        }
         //Jump
         if( /*&&*/ Input.GetButton("Jump")){
             if(grounded){
@@ -165,14 +165,6 @@ public class FPSMoveRigidBody : MonoBehaviour
             if(dotProductVel + accelVel > MaxSpeedAir){
                 accelVel = 0;
             }
-
-
-            //Debug.Log("inputs: " + accelDir);
-            // Debug.Log("???: "+accelVel);
-            // Debug.Log("velocity: "+body.velocity);
-            // Debug.Log("dot: "+dotProductVel);
-            //return
-//            body.velocity = new Vector3 (accelDir.x, body.velocity.y, accelDir.z);
             body.velocity += accelDir * accelVel;
         }else{ //if (groundTime > 0){//if grounded
             //friction
@@ -186,27 +178,17 @@ public class FPSMoveRigidBody : MonoBehaviour
             Vector3 accelDir = transform.TransformDirection(inputXY);// * Speed;
             //producto punto de la velocidad actual * direccion de input
             float dotProductVel = Vector3.Dot(new Vector3(body.velocity.x,0f, body.velocity.z), accelDir);
-            //Debug.Log(dotProductVel);
+
             float accelVel = accelSafe * Time.fixedDeltaTime;
             
             if(accelVel > MaxSpeed - dotProductVel){
                 accelVel = MaxSpeed - dotProductVel;
             }
-            /*Debug.Log("dir: " + accelDir);
-            Debug.Log("wishthingy: "+accelDir);
-            Debug.Log("velocity: "+body.velocity);
-            Debug.Log("dot: "+dotProductVel);*/
-            //return
-//            body.velocity = new Vector3 (accelDir.x, body.velocity.y, accelDir.z);
             body.velocity += accelDir * accelVel;
 
-            // Vector3 accelDir = transform.TransformDirection(inputXY) *AirResistance; //Air resistance .2f
-            // body.velocity += new Vector3 (accelDir.x, 0, accelDir.z);
-            //body.AddRelativeForce(inputXY * Speed*10);
+
             groundTime += Time.fixedDeltaTime;
-        }/*else{
-            groundTime += Time.fixedDeltaTime;
-        }*/
+        }
     }
 
 
