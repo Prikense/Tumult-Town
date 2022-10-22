@@ -15,7 +15,7 @@ public class FPSMoveRigidBody : MonoBehaviour
     [SerializeField] private float jumpHeight = 5;
     //public CharacterController cont;
     private Rigidbody body;
-    [SerializeField] private float velocity;
+    [SerializeField] public float velocity;
     //public float grav = 9.8f;
     [SerializeField] private bool grounded;
     //[SerializeField] private bool falseGrounded;
@@ -46,7 +46,7 @@ public class FPSMoveRigidBody : MonoBehaviour
     [SerializeField] private Transform camera;
     [SerializeField] private GameObject SpeedBox;
 //    [SerializeField] private Transform gun;
-    private float groundTime = 0f;//for calculating time on the ground
+    [SerializeField] private float groundTime = 0f;//for calculating time on the ground
 
     private float ToggleSpeed = 3.0f;
     private Vector3 startPos;

@@ -5,9 +5,16 @@ using UnityEngine;
 public class SpeedHitBox : MonoBehaviour
 {
 
-    public float weaponDamage = 50f;
+    public float weaponDamage = 1;
+    [SerializeField] private float DmgMultiplier = 5;
     public float lastHealth;
     public int playerNumber; //por mientras jsjs
+    [SerializeField] private FPSMoveRigidBody playerStuff; 
+
+
+    void FixedUpdate(){
+        weaponDamage = Mathf.Max(playerStuff.velocity*DmgMultiplier, DmgMultiplier);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
