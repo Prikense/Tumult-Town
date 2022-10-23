@@ -22,14 +22,32 @@ public class ProjectileWeaponManager : MonoBehaviour
         set{_magazineSize = value;}
     }
 
-    public bool allowButtonHold;
-    public int ammoLeft; 
-    int bulletsShot;
+    private bool allowButtonHold;
+    private int bulletsShot;
+
+    private int _ammoLeft;
+    public int AmmoLeft
+    {
+        get{return _ammoLeft;}
+        set{_ammoLeft = value;}
+    } 
 
     // bools
-    public bool shooting;
-    bool readyToShoot, reloading;
-    public bool doneReloading;
+    private bool readyToShoot, reloading;
+
+    private bool _shooting;
+    public bool Shooting
+    {
+        get{return _shooting;}
+        set{_shooting = value;}
+    }
+
+    private bool _doneReloading;
+    public bool DoneReloading
+    {
+        get{return _doneReloading;}
+        set{_doneReloading = value;}
+    }
 
     // references
     public Camera fpsCam;
@@ -41,7 +59,7 @@ public class ProjectileWeaponManager : MonoBehaviour
     private void Awake() 
     {
         // make sure magazine is full and is able to shoot
-        ammoLeft = MagazineSize;
+        AmmoLeft = MagazineSize;
         readyToShoot = true;
     }
 
@@ -54,8 +72,8 @@ public class ProjectileWeaponManager : MonoBehaviour
     private void MyInput()
     {
         // check if it is allowed to hold down button and take corresponding input 
-        if(allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
-        else shooting = Input.GetKeyDown(KeyCode.Mouse0);
+        if(allowButtonHold) Shooting = Input.GetKey(KeyCode.Mouse0);
+        else Shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         // check if player wants to reload
         if(Input.GetKeyDown(KeyCode.R) && !reloading) Reload();
@@ -64,7 +82,7 @@ public class ProjectileWeaponManager : MonoBehaviour
     void FixedUpdate()
     {
         // shooting
-        if(readyToShoot && shooting && !reloading && ammoLeft > 0) 
+        if(readyToShoot && Shooting && !reloading && AmmoLeft > 0) 
         {
             bulletsShot = 0;
 
@@ -108,7 +126,7 @@ public class ProjectileWeaponManager : MonoBehaviour
         // this one is only necessary when using proyectiles like granades
         // currentBullet.GetComponent<Rigidbody>.AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
 
-        ammoLeft--;
+        AmmoLeft--;
         bulletsShot++;
 
         // invoke resetShot function (if not already invoked)
@@ -118,7 +136,7 @@ public class ProjectileWeaponManager : MonoBehaviour
         }
 
         // if more than one bullet per tap make sure to repeat shoot
-        if (bulletsShot < bulletsPerTap && ammoLeft > 0) {
+        if (bulletsShot < bulletsPerTap && AmmoLeft > 0) {
             Invoke("Shoot", timeBetweenShots);
         }
     }
@@ -134,14 +152,14 @@ public class ProjectileWeaponManager : MonoBehaviour
     {
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
-        doneReloading = false;
+        DoneReloading = false;
     }
 
     private void ReloadFinished()
     {
-        ammoLeft = MagazineSize;
+        AmmoLeft = MagazineSize;
         reloading = false;
-        doneReloading = true;
+        DoneReloading = true;
     }
 
 }

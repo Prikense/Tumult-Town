@@ -5,8 +5,19 @@ using UnityEngine;
 public class WeaponSwitch : MonoBehaviour
 {
 
-    public int selectedWeapon = 0;
-    public GameObject currentWeapon;
+    private int _selectedWeapon = 0;
+    public int SelectedWeapon
+    {
+        get{return _selectedWeapon;}
+        set{_selectedWeapon = value;}
+    } 
+
+    private GameObject _currentWeapon;
+    public GameObject CurrentWeapon
+    {
+        get{return _currentWeapon;}
+        set{_currentWeapon = value;}
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -18,40 +29,40 @@ public class WeaponSwitch : MonoBehaviour
     void Update()
     {
 
-        int previousSelectedWeapon = selectedWeapon;
+        int previousSelectedWeapon = SelectedWeapon;
 
         if(Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            if(selectedWeapon >= transform.childCount - 2) //2 since at the time the camera is also inside object
-                selectedWeapon = 0;
+            if(SelectedWeapon >= transform.childCount - 2) //2 since at the time the camera is also inside object
+                SelectedWeapon = 0;
             else
-                selectedWeapon++;
+                SelectedWeapon++;
         }
 
         if(Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
-            if(selectedWeapon <= 0) //2 since at the time the camera is also inside object
-                selectedWeapon = transform.childCount - 2;
+            if(SelectedWeapon <= 0) //2 since at the time the camera is also inside object
+                SelectedWeapon = transform.childCount - 2;
             else
-                selectedWeapon--;
+                SelectedWeapon--;
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1)) 
         {
-            selectedWeapon = 0;
+            SelectedWeapon = 0;
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha2)) 
         {
-            selectedWeapon = 1;
+            SelectedWeapon = 1;
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount - 1 >= 3) // again because of camera inside object
         {
-            selectedWeapon = 2;
+            SelectedWeapon = 2;
         }
 
-        if(previousSelectedWeapon != selectedWeapon)
+        if(previousSelectedWeapon != SelectedWeapon)
         {
             SelectWeapon();
         }
@@ -62,10 +73,10 @@ public class WeaponSwitch : MonoBehaviour
         int i = 0;
         foreach (Transform weapon in transform)
         {
-            if(i == selectedWeapon)
+            if(i == SelectedWeapon)
             {
                 weapon.gameObject.SetActive(true);
-                currentWeapon = weapon.gameObject;
+                CurrentWeapon = weapon.gameObject;
             }
             else if(i != transform.childCount - 1) 
             {

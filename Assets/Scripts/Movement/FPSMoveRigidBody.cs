@@ -37,7 +37,7 @@ public class FPSMoveRigidBody : MonoBehaviour
 
 
     //for camera movement when moving
-    public bool BobEnable = true;
+    private bool BobEnable = true;
 
     [SerializeField] private float amplitude = 0.15f;
     [SerializeField] private float frequency = 10.0f;

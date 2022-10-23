@@ -5,9 +5,9 @@ using UnityEngine;
 public class FPSLooking : MonoBehaviour
 {
 
-    public float cameraSensitivity = 650f;
-    public Transform playerBody;
-    float xRotation = 0f;
+    private float cameraSensitivity = 650f;
+    [SerializeField] private Transform playerBody;
+    private float xRotation = 0f;
 
     // Start is called before the first frame update
     void Start()

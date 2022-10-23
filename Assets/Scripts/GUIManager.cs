@@ -39,7 +39,7 @@ public class GUIManager : MonoBehaviour
     {
         objectiveHealth.text = "No data";
         // New
-        currentWeapon = weaponSwitch.currentWeapon;
+        currentWeapon = weaponSwitch.CurrentWeapon;
 
         if(currentWeapon.GetComponent<ProjectileWeaponManager>() != null) 
         {
@@ -66,25 +66,28 @@ public class GUIManager : MonoBehaviour
         Score.text = scoreboard.Player1Score + " | " +scoreboard.Player2Score;
 
         // Check if melee weapon (show no ammo)
-        if(weaponSwitch.currentWeapon.GetComponentInChildren<HitDetection>() != null)
+        if(weaponSwitch.CurrentWeapon.GetComponentInChildren<HitDetection>() != null)
         {
             ammoCounter.text = "Infinite";
-            prevSelectedWeapon = weaponSwitch.selectedWeapon;
+            prevSelectedWeapon = weaponSwitch.SelectedWeapon;
         }
         // Check if projectile weapon (show respective ammo)
-        else if(isProjectileWeapon && projectileWeapon.shooting || (weaponSwitch.selectedWeapon == 2 && weaponSwitch.selectedWeapon != prevSelectedWeapon) || projectileWeapon.doneReloading)
+        else if(isProjectileWeapon && projectileWeapon.Shooting || (weaponSwitch.SelectedWeapon == 2 && weaponSwitch.SelectedWeapon != prevSelectedWeapon) || projectileWeapon.DoneReloading)
         {
-            ammoCounter.text = projectileWeapon.ammoLeft + " / " + projectileWeapon.MagazineSize; //change to call function
-            prevSelectedWeapon = weaponSwitch.selectedWeapon;
+            ammoCounter.text = projectileWeapon.AmmoLeft + " / " + projectileWeapon.MagazineSize; //change to call function
+            prevSelectedWeapon = weaponSwitch.SelectedWeapon;
         }
         // Check if raycast weapon (show respective ammo)
-        else if(!isProjectileWeapon && raycastWeapon.IsShooting || (weaponSwitch.selectedWeapon == 0 && weaponSwitch.selectedWeapon != prevSelectedWeapon) || raycastWeapon.DoneReloading)
+        else if(!isProjectileWeapon && raycastWeapon.IsShooting || (weaponSwitch.SelectedWeapon == 0 && weaponSwitch.SelectedWeapon != prevSelectedWeapon) || raycastWeapon.DoneReloading)
         {
             ammoCounter.text = raycastWeapon.AmmoLeft + " / " + raycastWeapon.MagazineSize; //change to call function
-            prevSelectedWeapon = weaponSwitch.selectedWeapon;
+            prevSelectedWeapon = weaponSwitch.SelectedWeapon;
         }
 
-        // Move to FixedUpdate since it uses raycast
+    }
+
+    void FixedUpdate()
+    {
         ObtainObjectHealth();
     }
 
