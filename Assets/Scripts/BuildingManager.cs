@@ -6,7 +6,7 @@ public class BuildingManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject shatteredBuilding;
-    // fix for the presentation
+    // fix for the presentation (check if still neede if not erase)
     [SerializeField] private bool needsPosFix = false;
 
     [SerializeField] private float _health = 100f;

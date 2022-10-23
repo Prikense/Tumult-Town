@@ -5,11 +5,9 @@ using UnityEngine;
 public class HitDetection : MonoBehaviour
 {
 
-
     [SerializeField] private MeleeManager meleeManager;
     private float weaponDamage = 20f;
-    //public float lastHealth;
-    [SerializeField] private int playerNumber; //por mientras, eliminar después
+    [SerializeField] private int playerNumber; //por mientras, eliminar despues
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,7 +17,6 @@ public class HitDetection : MonoBehaviour
             BuildingManager buildingManager = other.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(weaponDamage, playerNumber);
-                //lastHealth = buildingManager.Health;
             }
         }
     }

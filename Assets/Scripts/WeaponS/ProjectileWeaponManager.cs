@@ -32,7 +32,6 @@ public class ProjectileWeaponManager : MonoBehaviour
         set{_ammoLeft = value;}
     } 
 
-    // bools
     private bool readyToShoot, reloading;
 
     private bool _shooting;
@@ -53,7 +52,7 @@ public class ProjectileWeaponManager : MonoBehaviour
     public Camera fpsCam;
     public Transform attackPoint;
 
-    // bug fixing?
+    // bug fixing
     public bool allowInvoke = true;
 
     private void Awake() 
@@ -94,7 +93,7 @@ public class ProjectileWeaponManager : MonoBehaviour
     {
         readyToShoot = false;
 
-        // find the excat position using a raycast
+        // find the exact position using a raycast
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //A ray through the middle of your screen
         RaycastHit hit;
 
@@ -123,7 +122,7 @@ public class ProjectileWeaponManager : MonoBehaviour
 
         // adding force to bullet
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-        // this one is only necessary when using proyectiles like granades
+        // this one is only necessary when using proyectiles like granades (currently not needed)
         // currentBullet.GetComponent<Rigidbody>.AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
 
         AmmoLeft--;

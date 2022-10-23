@@ -12,8 +12,6 @@ public class BulletHit : MonoBehaviour
         set{_weaponDamage = value;}
     }
 
-    //public float lastHealth;
-
     private int _playerNumber;
     public int PlayerNumber
     {
@@ -27,7 +25,6 @@ public class BulletHit : MonoBehaviour
             BuildingManager buildingManager = collision.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(WeaponDamage, PlayerNumber);
-                //lastHealth = buildingManager.Health;
                 Debug.Log("ouch");
             }
         }

@@ -46,8 +46,6 @@ public class WeaponManager : MonoBehaviour
         set{_isShooting = value;}
     }
 
-    private float lastHealth = 0;
-
     private float nextTimeToFire = 0f;
 
     [SerializeField] private GameObject bulletHole;
@@ -89,13 +87,9 @@ public class WeaponManager : MonoBehaviour
         // Testing (this works)
         Vector3 deviation3D = Random.insideUnitCircle * spread;
 
-        Quaternion rot = Quaternion.LookRotation(Vector3.forward * range + deviation3D);
-
-        Vector3 forwardVector = playerCamera.transform.rotation * rot * Vector3.forward;
-
         // Caculate direction with added spread, not working
-        Vector3 direction = playerCamera.transform.forward + new Vector3(xSpread, ySpread, zSpread); //also doesnt work
-        direction.Normalize(); //this doesnt work
+        Quaternion rot = Quaternion.LookRotation(Vector3.forward * range + deviation3D);
+        Vector3 forwardVector = playerCamera.transform.rotation * rot * Vector3.forward;
 
         muzzleFlash.Play();
 
@@ -111,7 +105,6 @@ public class WeaponManager : MonoBehaviour
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(damage, playerNumber);
-                lastHealth = buildingManager.Health;
             }
 
             if(hit.rigidbody != null) {

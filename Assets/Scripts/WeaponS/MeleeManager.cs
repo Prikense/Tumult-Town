@@ -6,7 +6,7 @@ public class MeleeManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject Sword;
-//    private Component[] swordComponets;
+    // private Component[] swordComponets;
     [SerializeField] private GameObject hitbox;
     private bool canAttack = true;
     private float attackCooldown = 1.0f;
@@ -21,7 +21,7 @@ public class MeleeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
- //       swordComponets = GetComponentsInChildren<Sword>;
+        //swordComponets = GetComponentsInChildren<Sword>;
         hitbox.active = false;
     }
 
@@ -42,7 +42,7 @@ public class MeleeManager : MonoBehaviour
         hitbox.active = true;
         IsAttacking = true;
         canAttack = false;
-//        Animator anim = Sword.Find("pivotFeo").GetComponent<Animator>();
+        //Animator anim = Sword.Find("pivotFeo").GetComponent<Animator>();
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("Attack");
         Invoke("ResetAttackCooldown", attackCooldown);
