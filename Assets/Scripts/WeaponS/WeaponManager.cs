@@ -107,6 +107,12 @@ public class WeaponManager : MonoBehaviour
                 buildingManager.Hit(damage, playerNumber);
             }
 
+            EnemyAI enemyAI = hit.transform.GetComponent<EnemyAI>();
+            if(enemyAI != null)
+            {
+                enemyAI.ReceiveDamage(damage);
+            }
+
             if(hit.rigidbody != null) {
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
