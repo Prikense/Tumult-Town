@@ -65,6 +65,18 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-3356885785527887114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fea5499962f7408d86751b0f22eb250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -76,7 +88,7 @@ AnimatorController:
   m_AnimatorParameters:
   - m_Name: distanceFromPlayer
     m_Type: 1
-    m_DefaultFloat: 15
+    m_DefaultFloat: 20
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
@@ -89,7 +101,7 @@ AnimatorController:
   - m_Name: NumAllies
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 80
+    m_DefaultInt: 2
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   m_AnimatorLayers:
@@ -140,7 +152,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: distanceFromPlayer
-    m_EventTreshold: 10
+    m_EventTreshold: 20
   - m_ConditionMode: 1
     m_ConditionEvent: isPlayerVisible
     m_EventTreshold: 0
@@ -225,7 +237,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 926992367825098508}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -3356885785527887114}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
