@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     // Number of Allies
-    private int numAllies ;
+    private int numAllies;
     private GameObject retreatCoordinates;
 
     private UnityEngine.AI.NavMeshAgent navMeshAgent;

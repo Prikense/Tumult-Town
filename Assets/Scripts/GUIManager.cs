@@ -101,7 +101,7 @@ public class GUIManager : MonoBehaviour
 
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             float currentHealth;
-            if(buildingManager == null)
+            if(buildingManager == null) // i dont think this makes sense
             {
                 currentHealth = 0.0f;
             } else

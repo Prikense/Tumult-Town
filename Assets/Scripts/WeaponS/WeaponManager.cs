@@ -65,7 +65,7 @@ public class WeaponManager : MonoBehaviour
         if(Input.GetMouseButton(0) && Time.time >= nextTimeToFire && AmmoLeft > 0) {
             nextTimeToFire = Time.time + 1f/fireRate;
             IsShooting = true;
-            Shoot();
+            //Shoot();
         }
         else {
             IsShooting = false;
@@ -73,6 +73,14 @@ public class WeaponManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.R) && !reloading) {
             Reload();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if(IsShooting)
+        {
+            Shoot();
         }
     }
 
