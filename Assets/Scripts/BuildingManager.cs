@@ -9,21 +9,28 @@ public class BuildingManager : MonoBehaviour
     // fix for the presentation (check if still neede if not erase)
     [SerializeField] private bool needsPosFix = false;
 
+    /*
     [SerializeField] private float _health = 100f;
     public float Health 
     {
         get{return _health;}
         set{_health = value;}
     }
+    */
 
-    private float maxHealth;
+    [SerializeField] private float _buildingHealth = 100.0f;
+    //private float maxHealth;
 
+    /*
     private float _healthRatio;
     public float HealthRatio
     {
         get{return _healthRatio;}
         set{_healthRatio = value;}
     }
+    */
+
+    private GlobalHealthManager healthManager;
 
     [SerializeField] private int _value = 5;
     public int Value
@@ -36,16 +43,27 @@ public class BuildingManager : MonoBehaviour
 
     void Start()
     {
+        healthManager = gameObject.GetComponent<GlobalHealthManager>(); 
+        healthManager.Health = _buildingHealth;
+        healthManager.MaxHealth = healthManager.Health;
+        healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
+
+        /*
         maxHealth = Health;
         HealthRatio = Health / maxHealth;
+        */
     }
 
     public void Hit(float damage, int player)
     {
+        /*
         Health -= damage;
         HealthRatio = Health / maxHealth;
+        */
+        healthManager.Health -= damage;
+        healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
 
-        if(Health <= 0) {
+        if(healthManager.Health <= 0) {
             // Destroy the building
             Vector3 posFix = new Vector3(0f, 0f, 0f);
             if(needsPosFix) posFix = new Vector3(2.9f, 1f, 0f);

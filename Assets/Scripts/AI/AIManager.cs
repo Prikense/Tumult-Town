@@ -50,7 +50,7 @@ public class AIManager : MonoBehaviour
     {
         for(int i = maxAmountAI - CurrAmountAI; i < maxAmountAI; i++)
         {
-            Vector3 newSpawnPosition = spawnPoint.transform.position + new Vector3(i * 5, 0, 0); //make this better
+            Vector3 newSpawnPosition = spawnPoint.transform.position + new Vector3(i * 5, 0, 0); //make this better, I mean the whole spawn process
             GameObject currentAI = Instantiate(enemyAIPrefab, newSpawnPosition, Quaternion.identity);
             AIList.Add(currentAI);
         }

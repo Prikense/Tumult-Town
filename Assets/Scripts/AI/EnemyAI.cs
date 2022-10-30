@@ -26,12 +26,15 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float damage = 20;
 
     // New variables to give health to AI
+    /*
     private float _health = 100.0f;
     public float Health
     {
         get{return _health;}
         set{_health = value;}
     }
+    */
+    private float _aiHealth = 100.0f;
 
     // Number of Allies
     private int numAllies;
@@ -41,6 +44,8 @@ public class EnemyAI : MonoBehaviour
 
     // Used for the AIManager
     private AIManager aiManager;
+
+    private GlobalHealthManager healthManager;
 
 
     // Start is called before the first frame update
@@ -55,6 +60,10 @@ public class EnemyAI : MonoBehaviour
         retreatCoordinates = GameObject.Find("RetreatPoint");
         aiManager = retreatCoordinates.GetComponent<AIManager>();
         animator.SetInteger("NumAllies", 8);
+
+        // Implementing new Global Health Class
+        healthManager = gameObject.GetComponent<GlobalHealthManager>(); 
+        healthManager.Health = _aiHealth; 
     }
 
     // Update is called once per frame
@@ -76,7 +85,7 @@ public class EnemyAI : MonoBehaviour
             animator.SetBool("isPlayerVisible", false);
         }
 
-        if(Health <= 0)
+        if(healthManager.Health <= 0)
         {
             Destroyed();
         }
@@ -106,12 +115,12 @@ public class EnemyAI : MonoBehaviour
     {
         yield return new WaitForSeconds(timeBetweenShots);
         ReadyToShoot = true;
-        Debug.Log("Fuck off");
+        //Debug.Log("RELOADING");
     }
 
     public void ReceiveDamage(float damage)
     {
-        Health -= damage;
+        healthManager.Health -= damage;
     }
 
     void Destroyed()

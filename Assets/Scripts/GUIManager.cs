@@ -28,7 +28,8 @@ public class GUIManager : MonoBehaviour
 
     private int prevSelectedWeapon;
 
-    private BuildingManager prevBuildingManager;
+    //private BuildingManager prevBuildingManager;
+    private GlobalHealthManager prevObjectHealthManager;
     private float prevHealth;
 
     // This line is only for testing, should be deleted later on
@@ -99,26 +100,30 @@ public class GUIManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, range))
         {
 
-            BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
-            float currentHealth;
-            if(buildingManager == null) // i dont think this makes sense
+            //BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
+            GlobalHealthManager objectHealthManager = hit.transform.GetComponent<GlobalHealthManager>(); 
+            float currentHealth = 0.0f; 
+            // this if and else if is currently working but there may be a cleaner way of doing this
+            if(objectHealthManager == null && prevObjectHealthManager == null) // i dont think this makes sense
             {
                 currentHealth = 0.0f;
-            } else
+                objectiveHealth.text = "" + 0; 
+            } 
+            else if(objectHealthManager != null)
             {
-                currentHealth = buildingManager.Health;
+                currentHealth = objectHealthManager.Health;
             } 
             // maybe the prevBuildingManager isn't necessary anymore since it now compares the health so if you stay looking the same its the same effect
-            if(buildingManager != null && currentHealth != prevHealth) 
+            if(objectHealthManager != null && currentHealth != prevHealth) 
             { 
                 Debug.Log("got one");
-                objectiveHealth.text = "" + buildingManager.Health;            
+                objectiveHealth.text = "" + objectHealthManager.Health;            
                 //FillBar(targetHealthFill, buildingManager.HealthRatio); 
-                prevBuildingManager = buildingManager;
+                prevObjectHealthManager = objectHealthManager;
                 prevHealth = currentHealth;
             }
 
-        //FillBar(playerHealthFill, 1);
+        //FillBar(playerHealthFill, 1); // will need to be updated to work with new class
         }
     }
 
