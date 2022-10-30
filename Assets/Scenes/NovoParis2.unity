@@ -50685,6 +50685,10 @@ PrefabInstance:
       propertyPath: _health
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -3788068479974890235, guid: cfe7a26fa7e93ac42823bf745c4fd8ef, type: 3}
+      propertyPath: scoreboard
+      value: 
+      objectReference: {fileID: 1864368396}
     - target: {fileID: 1347853372743860221, guid: cfe7a26fa7e93ac42823bf745c4fd8ef, type: 3}
       propertyPath: m_Name
       value: fuente
