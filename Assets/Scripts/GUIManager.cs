@@ -118,12 +118,12 @@ public class GUIManager : MonoBehaviour
             { 
                 Debug.Log("got one");
                 objectiveHealth.text = "" + objectHealthManager.Health;            
-                //FillBar(targetHealthFill, buildingManager.HealthRatio); 
+                FillBar(targetHealthFill, objectHealthManager.HealthRatio); 
                 prevObjectHealthManager = objectHealthManager;
                 prevHealth = currentHealth;
             }
 
-        //FillBar(playerHealthFill, 1); // will need to be updated to work with new class
+        FillBar(playerHealthFill, 1);  // esta no entiendo como funciona
         }
     }
 
@@ -137,11 +137,9 @@ public class GUIManager : MonoBehaviour
 
     }
 
-    /*
     void FillBar(Image image, float fillAmount){
        image.fillAmount = fillAmount;
     }
-    */
 
 
 }

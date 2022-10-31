@@ -158,7 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4d71c981b4ab4418bcc156bad72516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
 --- !u!95 &59324242
 Animator:
   serializedVersion: 4
@@ -423,7 +422,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4d71c981b4ab4418bcc156bad72516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
 --- !u!95 &248305036
 Animator:
   serializedVersion: 4
@@ -1980,7 +1978,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095343815}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1095343817
 Camera:
   m_ObjectHideFlags: 0
@@ -2085,7 +2083,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4d71c981b4ab4418bcc156bad72516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
 --- !u!95 &1162328358
 Animator:
   serializedVersion: 4
@@ -2363,7 +2360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4d71c981b4ab4418bcc156bad72516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
 --- !u!95 &1240519119
 Animator:
   serializedVersion: 4
@@ -2607,7 +2603,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4d71c981b4ab4418bcc156bad72516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
 --- !u!95 &1278798245
 Animator:
   serializedVersion: 4
@@ -3994,6 +3989,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5077242585859772899, guid: 7c43fc411f169413a9ff5ccd43b6c3c8, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 2092032483}
     - target: {fileID: 5077242585859772903, guid: 7c43fc411f169413a9ff5ccd43b6c3c8, type: 3}
       propertyPath: m_RootOrder
       value: 0

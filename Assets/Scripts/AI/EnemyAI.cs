@@ -64,6 +64,8 @@ public class EnemyAI : MonoBehaviour
         // Implementing new Global Health Class
         healthManager = gameObject.GetComponent<GlobalHealthManager>(); 
         healthManager.Health = _aiHealth; 
+        healthManager.MaxHealth = healthManager.Health;
+        healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
     }
 
     // Update is called once per frame
@@ -121,6 +123,7 @@ public class EnemyAI : MonoBehaviour
     public void ReceiveDamage(float damage)
     {
         healthManager.Health -= damage;
+        healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
     }
 
     void Destroyed()

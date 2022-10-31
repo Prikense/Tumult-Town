@@ -120,7 +120,7 @@ public class ProjectileWeaponManager : MonoBehaviour
         // instantiate bullet or projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
         if(currentBullet.TryGetComponent<BulletHit>(out BulletHit a)){
-            a.playerNumber = playerNumber;
+            a.PlayerNumber = playerNumber;
         }
         // rotate bullet to shoot direction
         

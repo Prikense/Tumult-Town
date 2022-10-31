@@ -24,7 +24,7 @@ public class SpeedHitBox : MonoBehaviour
             BuildingManager buildingManager = other.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(weaponDamage, playerNumber);
-                lastHealth = buildingManager.Health;
+                // lastHealth = buildingManager.Health; // preguntar para que se usa para ver si hacer adaptacion a building
             }
             playerStuff.body.AddForce(-8*(transform.forward));
         }else if(other.tag == "debri"){
