@@ -23,7 +23,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     private float timeBetweenShots = 5.0f;
-    [SerializeField] private float damage = 20;
+    private float damage = 10.0f;
 
     // New variables to give health to AI
     /*
