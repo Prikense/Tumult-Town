@@ -62,7 +62,7 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0) && Time.time >= nextTimeToFire && AmmoLeft > 0) {
+        if(Input.GetAxisRaw("Fire1") == 1 && Time.time >= nextTimeToFire && AmmoLeft > 0) {
             nextTimeToFire = Time.time + 1f/fireRate;
             IsShooting = true;
             //Shoot();
@@ -71,7 +71,7 @@ public class WeaponManager : MonoBehaviour
             IsShooting = false;
         }
 
-        if(Input.GetKeyDown(KeyCode.R) && !reloading) {
+        if(Input.GetButtonDown("Reload") && !reloading) {
             Reload();
         }
     }
