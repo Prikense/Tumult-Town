@@ -22,6 +22,7 @@ public class GUIManager : MonoBehaviour
     private GameObject currentWeapon;
     private ProjectileWeaponManager projectileWeapon;
     private WeaponManager raycastWeapon;
+    [SerializeField] private PlayerManager PlayerHealth;
 
     [SerializeField] private Camera playerCamera;
     private float range = 100f;
@@ -123,7 +124,9 @@ public class GUIManager : MonoBehaviour
                 prevHealth = currentHealth;
             }
 
-        FillBar(playerHealthFill, 1);  // esta no entiendo como funciona
+        FillBar(playerHealthFill, PlayerHealth.healthManager.HealthRatio);
+        //eh
+        Debug.Log(PlayerHealth.healthManager.HealthRatio);
         }
     }
 

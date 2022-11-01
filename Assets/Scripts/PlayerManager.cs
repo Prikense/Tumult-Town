@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     // The original idea was to have 2 different mechas but for now that won't be
     private float _playerHealth = 100f;
 
-    private GlobalHealthManager healthManager;
+    public GlobalHealthManager healthManager;
 
     private GameObject eventSystem;
 
@@ -25,7 +25,8 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         healthManager = gameObject.GetComponent<GlobalHealthManager>(); 
-        healthManager.Health = _playerHealth; 
+        healthManager.Health = _playerHealth;
+        healthManager.MaxHealth = healthManager.Health;
 
         eventSystem = GameObject.Find("EventSystem"); //The canvas manager script is in this object
         //deathCam = GameObject.Find("DeathCam");
