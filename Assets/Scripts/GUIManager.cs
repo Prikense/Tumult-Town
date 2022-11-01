@@ -117,7 +117,7 @@ public class GUIManager : MonoBehaviour
             // maybe the prevBuildingManager isn't necessary anymore since it now compares the health so if you stay looking the same its the same effect
             if(objectHealthManager != null && currentHealth != prevHealth) 
             { 
-                Debug.Log("got one");
+                //Debug.Log("got one");
                 objectiveHealth.text = "" + objectHealthManager.Health;            
                 FillBar(targetHealthFill, objectHealthManager.HealthRatio); 
                 prevObjectHealthManager = objectHealthManager;
@@ -125,8 +125,6 @@ public class GUIManager : MonoBehaviour
             }
 
         FillBar(playerHealthFill, PlayerHealth.healthManager.HealthRatio);
-        //eh
-        Debug.Log(PlayerHealth.healthManager.HealthRatio);
         }
     }
 

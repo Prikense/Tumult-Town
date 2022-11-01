@@ -20,7 +20,7 @@ public class SpeedHitBox : MonoBehaviour
     {
         if(other.tag == "Destructible")
         {
-            Debug.Log("speed hit");
+            //Debug.Log("speed hit");
             BuildingManager buildingManager = other.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(weaponDamage, playerNumber);
@@ -28,7 +28,7 @@ public class SpeedHitBox : MonoBehaviour
             }
             playerStuff.body.AddForce(-8*(transform.forward));
         }else if(other.tag == "debri"){
-            Debug.Log("speed hit debri");
+            //Debug.Log("speed hit debri");
             other.attachedRigidbody.AddForce(transform.up*40);
         }
     }

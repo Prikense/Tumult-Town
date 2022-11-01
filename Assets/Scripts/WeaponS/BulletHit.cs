@@ -25,7 +25,7 @@ public class BulletHit : MonoBehaviour
             BuildingManager buildingManager = collision.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(WeaponDamage, PlayerNumber);
-                Debug.Log("ouch");
+                //Debug.Log("ouch");
             }
         }
         Destroy(gameObject);

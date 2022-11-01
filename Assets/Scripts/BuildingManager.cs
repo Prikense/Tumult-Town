@@ -85,7 +85,7 @@ public class BuildingManager : MonoBehaviour
 
     IEnumerator DestroyRemainings(GameObject instance)
     {
-        Debug.Log("Bye bye");
+        //Debug.Log("Bye bye");
         yield return new WaitForSeconds(5f);
         Destroy(instance);
     }

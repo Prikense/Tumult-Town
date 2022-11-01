@@ -46,13 +46,13 @@ public class PlayerManager : MonoBehaviour
     public void ReceiveDamage(float damage)
     {
         healthManager.Health -= damage;
-        Debug.Log(healthManager.Health);
+        //Debug.Log(healthManager.Health);
     }
 
     // Functions that I think we are going to need in the future
     void Death()
     {
-        Debug.Log("You Dead");
+        //Debug.Log("You Dead");
         CanvasManager canvasManager = eventSystem.GetComponent<CanvasManager>();
         //mainCam.SetActive(false);
         //deathCam.SetActive(true);
