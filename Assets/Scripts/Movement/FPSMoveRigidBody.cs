@@ -28,10 +28,11 @@ public class FPSMoveRigidBody : MonoBehaviour
     private Vector3 inputXY;
     [SerializeField] private Vector3 fallSpeed = new Vector3(0, -4, 0);
 
-    [SerializeField] private float dashCooldown = 2.5f;
+    [SerializeField] private float dashCooldown = 4f;
     [SerializeField] private int dashMulti = 50;
-    private float time = 0.0f;
+    public float time = 0.0f;
     [SerializeField] private bool noFricOn = false;
+    [SerializeField] private bool DASH = false;
     private float FrictionSafe = 0f;
     private float accelSafe = 0f;
 
@@ -119,7 +120,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         //noFrictionMode
         //dash that reduces friction and acceleration giving a feeling of drifting around
         //basically, strafe jumping withour the jumping
-        if(Input.GetButton("dashNofric")){
+        if(false && Input.GetButton("dashNofric")){
             noFricOn = true;
             FrictionSafe = 0.05f;
             accelSafe = airAccel-20f;
@@ -131,17 +132,27 @@ public class FPSMoveRigidBody : MonoBehaviour
         }
 
         //dash
-        time = time + Time.deltaTime;
+        time = time + Time.fixedDeltaTime;
         //if the dash cooldown is over then dash
-        if(false && Input.GetButtonDown("DashChilo") && time > dashCooldown){
+        if(false && Input.GetButton("DashChilo") && time > dashCooldown && grounded){
                 //Debug.Log("cooldown ok");
                 time = 0.0f;
+                DASH = true;
                 //body.velocity = new Vector3(inputXY.x*dashMulti, 0, inputXY.z*dashMulti);
                 if(inputXY.magnitude == 0){
-                    inputXY.x = dashMulti;
+                    Debug.Log("no input");
+                    //inputXY.z = dashMulti;
+                    //lets try moving the velocity
+                    body.velocity = transform.forward*dashMulti;
                 }else{
-                    inputXY = inputXY*dashMulti;
+                    Debug.Log("input??");
+                    //body.velocity = body.velocity*dashMulti;
+                    //Debug.Log("input" + inputXY);
+                    body.velocity = transform.TransformDirection(inputXY)*dashMulti;
                 }
+        }
+        if (time > .5f){
+            DASH = false;
         }
     }
 
@@ -173,7 +184,7 @@ public class FPSMoveRigidBody : MonoBehaviour
             //Debug.Log("dotProduct: "+dotProductVel);
 
             body.velocity += accelDir * accelVel;
-        }else if (groundTime > Time.fixedDeltaTime*3){//if grounded
+        }else if (groundTime > Time.fixedDeltaTime*3 && !DASH){//if grounded and not dashing
             //friction
             if(velocity != 0){
                 //Debug.Break();
