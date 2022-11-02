@@ -16390,7 +16390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3c5d4eb5adb67418b5ea5e65c7edec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraSensitivity: 500
+  cameraSensitivity: 0.08
   playerBody: {fileID: 1346738520}
 --- !u!1001 &530266348
 PrefabInstance:
@@ -44316,6 +44316,7 @@ GameObject:
   - component: {fileID: 1346738517}
   - component: {fileID: 1346738521}
   - component: {fileID: 1346738522}
+  - component: {fileID: 1346738523}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -44399,7 +44400,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346738516}
   m_LocalRotation: {x: 0.000000010815294, y: -0.7614584, z: 0.000000027770625, w: -0.64821386}
-  m_LocalPosition: {x: -104.40654, y: 9.21, z: 60.530518}
+  m_LocalPosition: {x: -104.40654, y: 6.8, z: 60.530518}
   m_LocalScale: {x: 1, y: 1, z: 1.0000002}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44435,6 +44436,132 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthManager: {fileID: 0}
   spawnPoint: {fileID: 0}
+--- !u!114 &1346738523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346738516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: aa5db3cdf649e2c41bbea67cf846ea16, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1346738517}
+        m_TargetAssemblyTypeName: FPSMoveRigidBody, Assembly-CSharp
+        m_MethodName: onMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8ef349a7-6fd5-4e10-8069-bc0646a0b830
+    m_ActionName: Player/Moving[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 527726175}
+        m_TargetAssemblyTypeName: FPSLooking, Assembly-CSharp
+        m_MethodName: onLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 88fb8892-7f53-4918-82e0-6e0b64ec80a0
+    m_ActionName: Player/Looking[/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 527726175}
+        m_TargetAssemblyTypeName: FPSLooking, Assembly-CSharp
+        m_MethodName: onLookx
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4cc27656-2f71-42b9-a6be-b76ca2706725
+    m_ActionName: Player/Mouse X[/Mouse/delta/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 527726175}
+        m_TargetAssemblyTypeName: FPSLooking, Assembly-CSharp
+        m_MethodName: onLooky
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e0507bf2-4c4a-4649-9a71-da7f2c64131e
+    m_ActionName: Player/Mouse Y[/Mouse/delta/y]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1346738517}
+        m_TargetAssemblyTypeName: FPSMoveRigidBody, Assembly-CSharp
+        m_MethodName: onJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a53316df-af1f-4843-94b6-60b7c9a85eb3
+    m_ActionName: Player/Jump[/Keyboard/space,/XInputControllerWindows/leftShoulder,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1990184214}
+        m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
+        m_MethodName: onFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fadd97b0-bb79-47a1-8f59-4f314cc5713d
+    m_ActionName: Player/Fire[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &1351571173
 PrefabInstance:
   m_ObjectHideFlags: 0
