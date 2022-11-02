@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FPSMoveRigidBody : MonoBehaviour
 {
@@ -25,8 +26,10 @@ public class FPSMoveRigidBody : MonoBehaviour
     //[SerializeField] private float groundDistance2 = 0.6f;
     [SerializeField] private LayerMask groundMask;
 
-    private Vector3 inputXY;
+    private Vector3 vectorMove;
+    private Vector2 inputXY;
     [SerializeField] private Vector3 fallSpeed = new Vector3(0, -4, 0);
+    private bool jumptime = false;
 
     [SerializeField] private float dashCooldown = 4f;
     [SerializeField] private int dashMulti = 50;
@@ -62,6 +65,19 @@ public class FPSMoveRigidBody : MonoBehaviour
         SpeedBox.SetActive(false);
     }
 
+    public void onMove(InputAction.CallbackContext context){
+        inputXY  =  context.ReadValue<Vector2>();
+    }
+    public void onJump(InputAction.CallbackContext context){
+        jumptime  =  context.action.triggered;
+    }
+    public void onDash(InputAction.CallbackContext context){
+        DASH  =  context.action.triggered;
+    }
+    public void onSlide(InputAction.CallbackContext context){
+        noFricOn  =  context.action.triggered;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -75,7 +91,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
-        inputXY = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+        vectorMove = new Vector3(inputXY.x, 0, inputXY.y).normalized;
 
 
 
@@ -106,7 +122,7 @@ public class FPSMoveRigidBody : MonoBehaviour
             body.AddRelativeForce(fallSpeed);
         }
         //Jump
-        if( /*&&*/ Input.GetButton("Jump")){
+        if( jumptime/*&& Input.GetButton("Jump")*/){
             if(grounded){
             body.velocity = new Vector3 (body.velocity.x, jumpHeight, body.velocity.z);
             //body.AddForce(transform.up* jumpHeight);
@@ -120,13 +136,13 @@ public class FPSMoveRigidBody : MonoBehaviour
         //noFrictionMode
         //dash that reduces friction and acceleration giving a feeling of drifting around
         //basically, strafe jumping withour the jumping
-        if(false && Input.GetButton("dashNofric")){
-            noFricOn = true;
+        if(false && /*Input.GetButton("dashNofric")*/ noFricOn){
+            //noFricOn = true;
             FrictionSafe = 0.05f;
             accelSafe = airAccel-20f;
         }else{
             //we save the original values back
-            noFricOn = false;
+            //noFricOn = false;
             accelSafe = accel;
             FrictionSafe = frictionCoef;
         }
@@ -137,22 +153,22 @@ public class FPSMoveRigidBody : MonoBehaviour
         if(false && Input.GetButton("DashChilo") && time > dashCooldown && grounded){
                 //Debug.Log("cooldown ok");
                 time = 0.0f;
-                DASH = true;
-                //body.velocity = new Vector3(inputXY.x*dashMulti, 0, inputXY.z*dashMulti);
-                if(inputXY.magnitude == 0){
+                //DASH = true;
+                //body.velocity = new Vector3(vectorMove.x*dashMulti, 0, vectorMove.z*dashMulti);
+                if(vectorMove.magnitude == 0){
                     Debug.Log("no input");
-                    //inputXY.z = dashMulti;
+                    //vectorMove.z = dashMulti;
                     //lets try moving the velocity
                     body.velocity = transform.forward*dashMulti;
                 }else{
                     Debug.Log("input??");
                     //body.velocity = body.velocity*dashMulti;
-                    //Debug.Log("input" + inputXY);
-                    body.velocity = transform.TransformDirection(inputXY)*dashMulti;
+                    //Debug.Log("input" + vectorMove);
+                    body.velocity = transform.TransformDirection(vectorMove)*dashMulti;
                 }
         }
         if (time > .5f){
-            DASH = false;
+            //DASH = false;
         }
     }
 
@@ -168,7 +184,7 @@ public class FPSMoveRigidBody : MonoBehaviour
                 body.velocity *=  Mathf.Max(velocity-friction, 0) /velocity;
             }*/
             //direction of player inputs
-            Vector3 accelDir = transform.TransformDirection(inputXY);// * Speed;
+            Vector3 accelDir = transform.TransformDirection(vectorMove);// * Speed;
             //producto punto de la velocidad actual * direccion de input
             float dotProductVel = Vector3.Dot(body.velocity, accelDir);
             //Debug.Log(dotProductVel);
@@ -193,7 +209,7 @@ public class FPSMoveRigidBody : MonoBehaviour
                body.velocity *=Mathf.Max(velocity-friction, 0) /velocity;
             }
             //direction of player inputs
-            Vector3 accelDir = transform.TransformDirection(inputXY);// * Speed;
+            Vector3 accelDir = transform.TransformDirection(vectorMove);// * Speed;
             //producto punto de la velocidad actual * direccion de input
             float dotProductVel = Vector3.Dot(new Vector3(body.velocity.x,0f, body.velocity.z), accelDir);
 
