@@ -88,20 +88,19 @@ public class FPSMoveRigidBody : MonoBehaviour
 
 
         //for moving
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
+        // float x = Input.GetAxisRaw("Horizontal");
+        // float z = Input.GetAxisRaw("Vertical");
 
         vectorMove = new Vector3(inputXY.x, 0, inputXY.y).normalized;
 
 
 
         //camera movement
-        if(!BobEnable){return;}
+
         //Debug.Log("camera local pos: "+camera.localPosition);
         //Debug.Log("start pos?: "+startPos);
         
-        CheckMotion();
-        camera.LookAt(FocusTarget());
+
         if(velocity > 10){
             SpeedBox.SetActive(true);
             Physics.IgnoreLayerCollision(0,9, true);
@@ -114,6 +113,7 @@ public class FPSMoveRigidBody : MonoBehaviour
     //movement on fixed update
     void FixedUpdate(){
         
+
         if(grounded){
             groundTime += Time.fixedDeltaTime;
         }
@@ -170,6 +170,11 @@ public class FPSMoveRigidBody : MonoBehaviour
         if (time > .5f){
             //DASH = false;
         }
+
+        if(!BobEnable){return;}
+        CheckMotion();
+        camera.LookAt(FocusTarget());
+
     }
 
     //actual movement stuff
