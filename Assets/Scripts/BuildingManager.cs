@@ -46,7 +46,7 @@ public class BuildingManager : MonoBehaviour
         healthManager = gameObject.GetComponent<GlobalHealthManager>(); 
         healthManager.Health = _buildingHealth;
         healthManager.MaxHealth = healthManager.Health;
-        healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
+        //healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
 
         /*
         maxHealth = Health;
@@ -61,7 +61,7 @@ public class BuildingManager : MonoBehaviour
         HealthRatio = Health / maxHealth;
         */
         healthManager.Health -= damage;
-        healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
+        //healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
 
         if(healthManager.Health <= 0) {
             // Destroy the building
@@ -85,7 +85,7 @@ public class BuildingManager : MonoBehaviour
 
     IEnumerator DestroyRemainings(GameObject instance)
     {
-        Debug.Log("Bye bye");
+        //Debug.Log("Bye bye");
         yield return new WaitForSeconds(5f);
         Destroy(instance);
     }

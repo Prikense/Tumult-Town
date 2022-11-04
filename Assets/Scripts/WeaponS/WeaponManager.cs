@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -53,36 +54,47 @@ public class WeaponManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DoneReloading = false;
+        DoneReloading = true;
         reloading = false;
         AmmoLeft = MagazineSize;
         IsShooting = false;
     }
 
+    public void onFire(InputAction.CallbackContext context){
+        IsShooting  =  context.action.triggered;
+    }
+    public void onReload(InputAction.CallbackContext context){
+        reloading  =  context.action.triggered;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0) && Time.time >= nextTimeToFire && AmmoLeft > 0) {
+        // if(Input.GetAxisRaw("Fire1") == 1 && Time.time >= nextTimeToFire && AmmoLeft > 0) {
+        //     nextTimeToFire = Time.time + 1f/fireRate;
+        //     IsShooting = true;
+        //     //Shoot();
+        // }
+        // else {
+        //     IsShooting = false;
+        // }
+
+
+        if(IsShooting && Time.time >= nextTimeToFire && AmmoLeft > 0  && DoneReloading) {
             nextTimeToFire = Time.time + 1f/fireRate;
-            IsShooting = true;
-            //Shoot();
-        }
-        else {
-            IsShooting = false;
+            Shoot();
         }
 
-        if(Input.GetKeyDown(KeyCode.R) && !reloading) {
+        if(reloading) {
             Reload();
         }
     }
 
-    void FixedUpdate()
-    {
-        if(IsShooting)
-        {
-            Shoot();
-        }
-    }
+    // void FixedUpdate()
+    // {
+
+    // }
 
     void Shoot()
     {
@@ -105,7 +117,9 @@ public class WeaponManager : MonoBehaviour
 
         RaycastHit hit;
 
-        if(Physics.Raycast(playerCamera.transform.position, forwardVector, out hit, range)) {
+        Vector3 raycastOrigin = new Vector3 (playerCamera.transform.position.x - 0.0f, playerCamera.transform.position.y, playerCamera.transform.position.z+.05f);
+
+        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range, ~LayerMask.GetMask("Debri"))) {
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 0.3f);

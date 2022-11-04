@@ -22,6 +22,7 @@ public class GUIManager : MonoBehaviour
     private GameObject currentWeapon;
     private ProjectileWeaponManager projectileWeapon;
     private WeaponManager raycastWeapon;
+    [SerializeField] private PlayerManager PlayerHealth;
 
     [SerializeField] private Camera playerCamera;
     private float range = 100f;
@@ -116,14 +117,14 @@ public class GUIManager : MonoBehaviour
             // maybe the prevBuildingManager isn't necessary anymore since it now compares the health so if you stay looking the same its the same effect
             if(objectHealthManager != null && currentHealth != prevHealth) 
             { 
-                Debug.Log("got one");
+                //Debug.Log("got one");
                 objectiveHealth.text = "" + objectHealthManager.Health;            
-                //FillBar(targetHealthFill, buildingManager.HealthRatio); 
+                FillBar(targetHealthFill, objectHealthManager.HealthRatio); 
                 prevObjectHealthManager = objectHealthManager;
                 prevHealth = currentHealth;
             }
 
-        //FillBar(playerHealthFill, 1); // will need to be updated to work with new class
+        FillBar(playerHealthFill, PlayerHealth.healthManager.HealthRatio);
         }
     }
 
@@ -137,11 +138,9 @@ public class GUIManager : MonoBehaviour
 
     }
 
-    /*
     void FillBar(Image image, float fillAmount){
        image.fillAmount = fillAmount;
     }
-    */
 
 
 }

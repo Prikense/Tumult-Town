@@ -32,7 +32,7 @@ public class CanvasManager : MonoBehaviour
         DeathCanvas = GameObject.Find("DeathMenu");
         DeathCanvas.SetActive(false);
         deathCam = GameObject.Find("DeathCam");
-        mainCam = GameObject.Find("Main Camera");
+        mainCam = GameObject.Find("cockpitCam");
     }
 
     // Update is called once per frame

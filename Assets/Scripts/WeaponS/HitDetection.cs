@@ -13,7 +13,7 @@ public class HitDetection : MonoBehaviour
     {
         if(other.tag == "Destructible" && meleeManager.IsAttacking)
         {
-            Debug.Log("melee hit");
+            //Debug.Log("melee hit");
             BuildingManager buildingManager = other.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(weaponDamage, playerNumber);

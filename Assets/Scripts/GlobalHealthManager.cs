@@ -22,19 +22,7 @@ public class GlobalHealthManager : MonoBehaviour
     private float _healthRatio;
     public float HealthRatio
     {
-        get{return _healthRatio;}
+        get{return _health/_maxHealth;}
         set{_healthRatio = value;}
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
