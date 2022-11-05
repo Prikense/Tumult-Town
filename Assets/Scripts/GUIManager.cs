@@ -73,7 +73,6 @@ public class GUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("current weapon GUI: "+currentWeapon);
         Score.text = scoreboard.Player1Score + " | " +scoreboard.Player2Score;
 
         //old script for getting ammo
@@ -110,8 +109,7 @@ public class GUIManager : MonoBehaviour
                 auxRNG= Random.Range(0, 10);
                 timer = 0;
             }
-            Debug.Log(timer);
-            Debug.Log(auxRNG);
+
             switch (auxRNG){
                 case 0:
                     ammoCounter.text ="Sword Time";
