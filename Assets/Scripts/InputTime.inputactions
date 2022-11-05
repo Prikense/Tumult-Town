@@ -431,7 +431,7 @@
                     "path": "<Mouse>/scroll/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KB & M",
                     "action": "WeaponChangeScroll",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -442,7 +442,7 @@
                     "path": "<Mouse>/scroll/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KB & M",
                     "action": "WeaponChangeScroll",
                     "isComposite": false,
                     "isPartOfComposite": true
