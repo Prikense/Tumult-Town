@@ -29,8 +29,8 @@ public class FPSLooking : MonoBehaviour
     }
     public void onLook(InputAction.CallbackContext context){
         lookm  =  context.ReadValue<Vector2>();
-        mouseX = lookm.x * cameraSensitivity*15f;
-        mouseY = -lookm.y * cameraSensitivity*6f;
+        mouseX = lookm.x * cameraSensitivity*30f;
+        mouseY = -lookm.y * cameraSensitivity*12f;
     }
 
     // Update is called once per frame
