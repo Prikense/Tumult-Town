@@ -8177,12 +8177,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8534311258649801328}
+        m_TargetAssemblyTypeName: ProjectileWeaponManager, Assembly-CSharp
+        m_MethodName: onFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fadd97b0-bb79-47a1-8f59-4f314cc5713d
     m_ActionName: Player/Fire[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8534311257694041248}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
+        m_MethodName: onReload
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8534311258649801328}
+        m_TargetAssemblyTypeName: ProjectileWeaponManager, Assembly-CSharp
         m_MethodName: onReload
         m_Mode: 0
         m_Arguments:
