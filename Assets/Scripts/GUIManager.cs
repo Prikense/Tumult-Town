@@ -20,7 +20,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField] private bool isProjectileWeapon;
     [SerializeField] private WeaponSwitch weaponSwitch; // takes the script
     private GameObject currentWeapon;
-    private ProjectileWeaponManager projectileWeapon;
+    /*[SerializeField]*/ private ProjectileWeaponManager projectileWeapon;
     private WeaponManager raycastWeapon;
     [SerializeField] private PlayerManager PlayerHealth;
 
@@ -36,9 +36,16 @@ public class GUIManager : MonoBehaviour
     // This line is only for testing, should be deleted later on
     [SerializeField] private ProjectileWeaponManager getProjectileWeapon;
 
+
+    //timer for flavor texts of the sword, can be done better but who cares
+    private float cooldown = 10;
+    private float timer =0;
+    int auxRNG = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        timer = 0;
         objectiveHealth.text = "No data";
         // New
         currentWeapon = weaponSwitch.CurrentWeapon;
@@ -60,30 +67,92 @@ public class GUIManager : MonoBehaviour
         getProjectileWeapon = null;
 
         prevHealth = 0.0f;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("current weapon GUI: "+currentWeapon);
         Score.text = scoreboard.Player1Score + " | " +scoreboard.Player2Score;
 
+        //old script for getting ammo
+        //breaks down for no reason
         // Check if melee weapon (show no ammo)
-        if(weaponSwitch.CurrentWeapon.GetComponentInChildren<HitDetection>() != null)
-        {
-            ammoCounter.text = "Infinite";
-            prevSelectedWeapon = weaponSwitch.SelectedWeapon;
-        }
-        // Check if projectile weapon (show respective ammo)
-        else if(isProjectileWeapon && projectileWeapon.Shooting || (weaponSwitch.SelectedWeapon == 2 && weaponSwitch.SelectedWeapon != prevSelectedWeapon) || projectileWeapon.DoneReloading)
-        {
-            ammoCounter.text = projectileWeapon.AmmoLeft + " / " + projectileWeapon.MagazineSize; //change to call function
-            prevSelectedWeapon = weaponSwitch.SelectedWeapon;
-        }
-        // Check if raycast weapon (show respective ammo)
-        else if(!isProjectileWeapon && raycastWeapon.IsShooting || (weaponSwitch.SelectedWeapon == 0 && weaponSwitch.SelectedWeapon != prevSelectedWeapon) || raycastWeapon.DoneReloading)
-        {
-            ammoCounter.text = raycastWeapon.AmmoLeft + " / " + raycastWeapon.MagazineSize; //change to call function
-            prevSelectedWeapon = weaponSwitch.SelectedWeapon;
+        // if(weaponSwitch.CurrentWeapon.GetComponentInChildren<HitDetection>() != null)
+        // {
+        //     ammoCounter.text = "Infinite";
+        //     prevSelectedWeapon = weaponSwitch.SelectedWeapon;
+        // }
+        // // Check if projectile weapon (show respective ammo)
+        // else if(isProjectileWeapon && projectileWeapon.Shooting || (weaponSwitch.SelectedWeapon == 2 && weaponSwitch.SelectedWeapon != prevSelectedWeapon) || projectileWeapon.DoneReloading)
+        // {
+        //     ammoCounter.text = projectileWeapon.AmmoLeft + " / " + projectileWeapon.MagazineSize; //change to call function
+        //     prevSelectedWeapon = weaponSwitch.SelectedWeapon;
+        // }
+        // // Check if raycast weapon (show respective ammo)
+        // else if(!isProjectileWeapon && raycastWeapon.IsShooting || (weaponSwitch.SelectedWeapon == 0 && weaponSwitch.SelectedWeapon != prevSelectedWeapon) || raycastWeapon.DoneReloading)
+        // {
+        //     ammoCounter.text = raycastWeapon.AmmoLeft + " / " + raycastWeapon.MagazineSize; //change to call function
+        //     prevSelectedWeapon = weaponSwitch.SelectedWeapon;
+        // }
+        
+        if(weaponSwitch.SelectedWeapon == 0){
+            if(!raycastWeapon.DoneReloading){
+                ammoCounter.text ="---Reloading---";
+            }else {
+                ammoCounter.text =raycastWeapon.AmmoLeft + " / " + raycastWeapon.MagazineSize;
+            }
+        }else if(weaponSwitch.SelectedWeapon == 1){
+            timer += Time.deltaTime;
+            // auxRNG = 0;
+            if(timer > cooldown){
+                auxRNG= Random.Range(0, 10);
+                timer = 0;
+            }
+            Debug.Log(timer);
+            Debug.Log(auxRNG);
+            switch (auxRNG){
+                case 0:
+                    ammoCounter.text ="Sword Time";
+                    break;
+                case 1:
+                    ammoCounter.text ="Destroy 'em";
+                    break;
+                case 2:
+                    ammoCounter.text = "Let's Rock baby";
+                    break;
+                case 3:
+                    ammoCounter.text = "Clang Time";
+                    break;
+                case 4:
+                    ammoCounter.text = "Hew the Stone!";
+                    break;
+                case 5:
+                    ammoCounter.text = "A Red Day!";
+                    break;
+                case 6:
+                    ammoCounter.text = "Break It";
+                    break;
+                case 7:
+                    ammoCounter.text = "watchoutwatchoutwatchout";
+                    break;
+                case 8:
+                    ammoCounter.text = "Show them what's what";
+                    break;
+                case 9:
+                    ammoCounter.text = "Ride the Lighting!";
+                    break;
+                case 10:
+                    ammoCounter.text = "KIll 'em All!";
+                    break;
+            }
+        }else if(weaponSwitch.SelectedWeapon == 2){
+            if(!projectileWeapon.DoneReloading){
+                ammoCounter.text ="---Reloading---";
+            }else {
+            ammoCounter.text =projectileWeapon.AmmoLeft + " / " + projectileWeapon.MagazineSize;
+                   }
         }
 
     }
