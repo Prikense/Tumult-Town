@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MeleeManager : MonoBehaviour
 {
@@ -17,29 +18,32 @@ public class MeleeManager : MonoBehaviour
         get{return _isAttacking;}
         set{_isAttacking = value;}
     }
+    private bool IsShooting;
 
     // Start is called before the first frame update
     void Start()
     {
         //swordComponets = GetComponentsInChildren<Sword>;
-        hitbox.active = false;
+        hitbox.SetActive(false);
+    }
+
+    
+    public void onFire(InputAction.CallbackContext context){
+        IsShooting  =  context.action.triggered;//yeah, im that lazy
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            if(canAttack && !IsAttacking)
+        if(IsShooting && canAttack && !IsAttacking)
             {
                 SwordAttack();
             }
-        }
     }
 
     public void SwordAttack()
     {
-        hitbox.active = true;
+        hitbox.SetActive(true);
         IsAttacking = true;
         canAttack = false;
         //Animator anim = Sword.Find("pivotFeo").GetComponent<Animator>();
@@ -56,7 +60,7 @@ public class MeleeManager : MonoBehaviour
 
     void ResetIsAttacking()
     {
-        hitbox.active = false;
+        hitbox.SetActive(false);
         IsAttacking = false;
     }
 }

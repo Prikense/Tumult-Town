@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ProjectileWeaponManager : MonoBehaviour
 {
-
+    
 
     [SerializeField] private int playerNumber;
     // bullet
@@ -24,7 +25,7 @@ public class ProjectileWeaponManager : MonoBehaviour
         set{_magazineSize = value;}
     }
 
-    private bool allowButtonHold;
+    private bool allowButtonHold=true;
     private int bulletsShot;
 
     private int _ammoLeft;
@@ -37,7 +38,7 @@ public class ProjectileWeaponManager : MonoBehaviour
     private bool readyToShoot, reloading;
 
     private bool _shooting;
-    public bool Shooting
+    public bool IsShooting
     {
         get{return _shooting;}
         set{_shooting = value;}
@@ -59,9 +60,18 @@ public class ProjectileWeaponManager : MonoBehaviour
 
     private void Awake() 
     {
+        DoneReloading = true;
         // make sure magazine is full and is able to shoot
         AmmoLeft = MagazineSize;
         readyToShoot = true;
+    }
+
+    //ctrl+c ctrl+v yup
+    public void onFire(InputAction.CallbackContext context){
+        IsShooting  =  context.action.triggered;
+    }
+    public void onReload(InputAction.CallbackContext context){
+        reloading  =  context.action.triggered;
     }
 
     // Update is called once per frame
@@ -73,17 +83,18 @@ public class ProjectileWeaponManager : MonoBehaviour
     private void MyInput()
     {
         // check if it is allowed to hold down button and take corresponding input 
-        if(allowButtonHold) Shooting = Input.GetKey(KeyCode.Mouse0);
-        else Shooting = Input.GetKeyDown(KeyCode.Mouse0);
+        //lets make up our minds if we want this gun to be automatic or not, so we can simplify this code
+        // if(allowButtonHold) IsShooting = Input.GetKey(KeyCode.Mouse0);
+        // else IsShooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         // check if player wants to reload
-        if(Input.GetKeyDown(KeyCode.R) && !reloading) Reload();
+        if(reloading) Reload();
     }
 
     void FixedUpdate()
     {
         // shooting
-        if(readyToShoot && Shooting && !reloading && AmmoLeft > 0) 
+        if(readyToShoot && IsShooting && !reloading && AmmoLeft > 0) 
         {
             bulletsShot = 0;
 

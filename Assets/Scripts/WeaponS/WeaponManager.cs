@@ -69,7 +69,7 @@ public class WeaponManager : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // if(Input.GetAxisRaw("Fire1") == 1 && Time.time >= nextTimeToFire && AmmoLeft > 0) {
         //     nextTimeToFire = Time.time + 1f/fireRate;

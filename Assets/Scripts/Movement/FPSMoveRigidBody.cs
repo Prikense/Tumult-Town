@@ -40,14 +40,14 @@ public class FPSMoveRigidBody : MonoBehaviour
     private float accelSafe = 0f;
 
 
-    //for camera movement when moving
+    //for CameraVariable movement when moving
     private bool BobEnable = true;
 
     [SerializeField] private float amplitude = 0.00035f;
     [SerializeField] private float frequency = 7.0f;
 
     [SerializeField] private Transform Whoknows;
-    [SerializeField] private Transform camera;
+    [SerializeField] private Transform CameraVariable;
     [SerializeField] private GameObject SpeedBox;
 //    [SerializeField] private Transform gun;
     [SerializeField] private float groundTime = 0f;//for calculating time on the ground
@@ -61,7 +61,7 @@ public class FPSMoveRigidBody : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         time = dashMulti;
-        startPos = camera.localPosition;
+        startPos = CameraVariable.localPosition;
         SpeedBox.SetActive(false);
     }
 
@@ -97,7 +97,7 @@ public class FPSMoveRigidBody : MonoBehaviour
 
         //camera movement
 
-        //Debug.Log("camera local pos: "+camera.localPosition);
+        //Debug.Log("CameraVariable local pos: "+CameraVariable.localPosition);
         //Debug.Log("start pos?: "+startPos);
         
 
@@ -150,7 +150,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         //dash
         time = time + Time.fixedDeltaTime;
         //if the dash cooldown is over then dash
-        if(false && Input.GetButton("DashChilo") && time > dashCooldown && grounded){
+        if(false && DASH && time > dashCooldown && grounded){
                 //Debug.Log("cooldown ok");
                 time = 0.0f;
                 //DASH = true;
@@ -173,7 +173,7 @@ public class FPSMoveRigidBody : MonoBehaviour
 
         if(!BobEnable){return;}
         CheckMotion();
-        camera.LookAt(FocusTarget());
+        CameraVariable.LookAt(FocusTarget());
 
     }
 
@@ -232,7 +232,7 @@ public class FPSMoveRigidBody : MonoBehaviour
 
     //head bobbing stuff
     private void PlayMotion(Vector3 motion){
-        camera.localPosition +=motion;
+        CameraVariable.localPosition +=motion;
     }
     private Vector3 FootStep(){
         Vector3 pos = Vector3.zero;
@@ -246,8 +246,8 @@ public class FPSMoveRigidBody : MonoBehaviour
         PlayMotion(FootStep());
     }
     private void resetPos(){
-        if(camera.localPosition == startPos) return;
-        camera.localPosition = Vector3.Lerp(camera.localPosition, startPos, 1 *Time.deltaTime);
+        if(CameraVariable.localPosition == startPos) return;
+        CameraVariable.localPosition = Vector3.Lerp(CameraVariable.localPosition, startPos, 1 *Time.deltaTime);
     }
     private Vector3 FocusTarget(){
         Vector3 pos = new Vector3(transform.position.x, transform.position.y+Whoknows.localPosition.y, transform.position.z);

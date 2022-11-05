@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class WeaponSwitch : MonoBehaviour
 {
@@ -19,19 +21,37 @@ public class WeaponSwitch : MonoBehaviour
         set{_currentWeapon = value;}
     }
 
+    [SerializeField] private MeleeManager meleeTime;
+    private int previousSelectedWeapon;
+    private float scrollValue;
+    private bool we1;
+    private bool we2;
+    private bool we3;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        SelectWeapon();   
+        SelectWeapon();
+    }
+    public void onScroll(InputAction.CallbackContext context){
+        scrollValue  =  context.ReadValue<float>();
     }
 
+    //coud probably be done better but idk
+    public void on1(InputAction.CallbackContext context){
+        we1  =  context.action.triggered;
+    } 
+    public void on2(InputAction.CallbackContext context){
+        we2  =  context.action.triggered;
+    }
+    public void on3(InputAction.CallbackContext context){
+        we3  =  context.action.triggered;
+    }
     // Update is called once per frame
     void Update()
     {
 
-        int previousSelectedWeapon = SelectedWeapon;
-
-        if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+        if(scrollValue > 0f)
         {
             if(SelectedWeapon >= transform.childCount - 2) //2 since at the time the camera is also inside object
                 SelectedWeapon = 0;
@@ -39,7 +59,7 @@ public class WeaponSwitch : MonoBehaviour
                 SelectedWeapon++;
         }
 
-        if(Input.GetAxis("Mouse ScrollWheel") < 0f)
+        if(scrollValue < 0f)
         {
             if(SelectedWeapon <= 0) //2 since at the time the camera is also inside object
                 SelectedWeapon = transform.childCount - 2;
@@ -47,22 +67,22 @@ public class WeaponSwitch : MonoBehaviour
                 SelectedWeapon--;
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha1)) 
+        if(we1)
         {
             SelectedWeapon = 0;
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha2)) 
+        if(we2)
         {
             SelectedWeapon = 1;
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount - 1 >= 3) // again because of camera inside object
+        if(we3)// && transform.childCount - 1 >= 3) // again because of camera inside object
         {
             SelectedWeapon = 2;
         }
 
-        if(previousSelectedWeapon != SelectedWeapon)
+        if(previousSelectedWeapon != SelectedWeapon && !meleeTime.IsAttacking)
         {
             SelectWeapon();
         }
@@ -84,6 +104,7 @@ public class WeaponSwitch : MonoBehaviour
             }
             i++;
         }
+        previousSelectedWeapon = SelectedWeapon;
     }
 
 }
