@@ -43,7 +43,7 @@
                 },
                 {
                     "name": "Jump",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "a53316df-af1f-4843-94b6-60b7c9a85eb3",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -52,7 +52,7 @@
                 },
                 {
                     "name": "Fire",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "fadd97b0-bb79-47a1-8f59-4f314cc5713d",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -61,7 +61,7 @@
                 },
                 {
                     "name": "Reload",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "678c27d8-17cf-4ee3-b1fa-7b7cded71eea",
                     "expectedControlType": "Button",
                     "processors": "",
