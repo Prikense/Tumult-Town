@@ -8220,6 +8220,46 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 678c27d8-17cf-4ee3-b1fa-7b7cded71eea
     m_ActionName: Player/Reload[/Keyboard/r,/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b11cc34a-7117-4c6c-877b-7b48de127825
+    m_ActionName: Player/WeaponChangeButton[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4,/XInputControllerWindows/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d1381405-a555-4e95-a2b8-711344f37e35
+    m_ActionName: Player/WeaponChangeScroll[/Mouse/scroll/down,/Mouse/scroll/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8534311258200088803}
+        m_TargetAssemblyTypeName: FPSMoveRigidBody, Assembly-CSharp
+        m_MethodName: onDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ffa5e3b6-4fb1-4fa0-8189-4a79cf073eb1
+    m_ActionName: Player/Dash[/Keyboard/e,/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8534311258200088803}
+        m_TargetAssemblyTypeName: FPSMoveRigidBody, Assembly-CSharp
+        m_MethodName: onSlide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 77e83bc2-b0db-4ffb-abcc-1ab8b78f9440
+    m_ActionName: Player/Slide[/Keyboard/x,/XInputControllerWindows/leftTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
