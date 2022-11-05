@@ -22,7 +22,7 @@ public class MeleeManager : MonoBehaviour
     void Start()
     {
         //swordComponets = GetComponentsInChildren<Sword>;
-        hitbox.active = false;
+        hitbox.SetActive(false);
     }
 
     // Update is called once per frame
@@ -39,7 +39,7 @@ public class MeleeManager : MonoBehaviour
 
     public void SwordAttack()
     {
-        hitbox.active = true;
+        hitbox.SetActive(true);
         IsAttacking = true;
         canAttack = false;
         //Animator anim = Sword.Find("pivotFeo").GetComponent<Animator>();
@@ -56,7 +56,7 @@ public class MeleeManager : MonoBehaviour
 
     void ResetIsAttacking()
     {
-        hitbox.active = false;
+        hitbox.SetActive(false);
         IsAttacking = false;
     }
 }
