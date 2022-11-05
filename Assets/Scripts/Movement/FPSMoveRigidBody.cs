@@ -150,7 +150,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         //dash
         time = time + Time.fixedDeltaTime;
         //if the dash cooldown is over then dash
-        if(false && Input.GetButton("DashChilo") && time > dashCooldown && grounded){
+        if(false && DASH && time > dashCooldown && grounded){
                 //Debug.Log("cooldown ok");
                 time = 0.0f;
                 //DASH = true;
