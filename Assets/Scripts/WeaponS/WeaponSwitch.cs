@@ -19,6 +19,9 @@ public class WeaponSwitch : MonoBehaviour
         set{_currentWeapon = value;}
     }
 
+    [SerializeField] private MeleeManager meleeTime;
+    private int previousSelectedWeapon;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -28,8 +31,6 @@ public class WeaponSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        int previousSelectedWeapon = SelectedWeapon;
 
         if(Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
@@ -62,7 +63,7 @@ public class WeaponSwitch : MonoBehaviour
             SelectedWeapon = 2;
         }
 
-        if(previousSelectedWeapon != SelectedWeapon)
+        if(previousSelectedWeapon != SelectedWeapon && !meleeTime.IsAttacking)
         {
             SelectWeapon();
         }
@@ -84,6 +85,7 @@ public class WeaponSwitch : MonoBehaviour
             }
             i++;
         }
+        previousSelectedWeapon = SelectedWeapon;
     }
 
 }

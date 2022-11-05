@@ -7007,6 +7007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0790ab726504d445d87bea6e7ceaebc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeTime: {fileID: 8534311257276403691}
 --- !u!114 &8534311257276403691
 MonoBehaviour:
   m_ObjectHideFlags: 0
