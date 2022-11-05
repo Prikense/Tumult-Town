@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MeleeManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class MeleeManager : MonoBehaviour
         get{return _isAttacking;}
         set{_isAttacking = value;}
     }
+    private bool IsShooting;
 
     // Start is called before the first frame update
     void Start()
@@ -25,10 +27,15 @@ public class MeleeManager : MonoBehaviour
         hitbox.SetActive(false);
     }
 
+    
+    public void onFire(InputAction.CallbackContext context){
+        IsShooting  =  context.action.triggered;//yeah, im that lazy
+    }
+
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(IsShooting)
         {
             if(canAttack && !IsAttacking)
             {
