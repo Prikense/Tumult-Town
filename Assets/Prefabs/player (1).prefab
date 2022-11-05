@@ -1679,11 +1679,19 @@ MonoBehaviour:
     m_ActionId: 678c27d8-17cf-4ee3-b1fa-7b7cded71eea
     m_ActionName: Player/Reload[/Keyboard/r,/XInputControllerWindows/rightShoulder]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b11cc34a-7117-4c6c-877b-7b48de127825
-    m_ActionName: Player/WeaponChangeButton[/Keyboard/1,/Keyboard/2,/Keyboard/3,/Keyboard/4,/XInputControllerWindows/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
-  - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6813073165052940620}
+        m_TargetAssemblyTypeName: WeaponSwitch, Assembly-CSharp
+        m_MethodName: onScroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d1381405-a555-4e95-a2b8-711344f37e35
     m_ActionName: Player/WeaponChangeScroll[/Mouse/scroll/down,/Mouse/scroll/up]
   - m_PersistentCalls:
@@ -1718,6 +1726,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 77e83bc2-b0db-4ffb-abcc-1ab8b78f9440
     m_ActionName: Player/Slide[/Keyboard/x,/XInputControllerWindows/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6813073165052940620}
+        m_TargetAssemblyTypeName: WeaponSwitch, Assembly-CSharp
+        m_MethodName: on1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 61bab4e1-be4f-4792-8929-9ded5c946be4
+    m_ActionName: Player/Weapon1[/Keyboard/1,/XInputControllerWindows/dpad/left]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6813073165052940620}
+        m_TargetAssemblyTypeName: WeaponSwitch, Assembly-CSharp
+        m_MethodName: on2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 77017d53-4c62-4a72-bc16-aa1ac7b06768
+    m_ActionName: Player/Weapon2[/Keyboard/2,/XInputControllerWindows/dpad/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6813073165052940620}
+        m_TargetAssemblyTypeName: WeaponSwitch, Assembly-CSharp
+        m_MethodName: on3
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8f87dbf5-51ad-4b96-8d43-b7baa33a35a4
+    m_ActionName: Player/Weapon3[/Keyboard/3,/XInputControllerWindows/dpad/right]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
