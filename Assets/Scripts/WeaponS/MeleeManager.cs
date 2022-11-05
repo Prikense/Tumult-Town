@@ -35,13 +35,10 @@ public class MeleeManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(IsShooting)
-        {
-            if(canAttack && !IsAttacking)
+        if(IsShooting && canAttack && !IsAttacking)
             {
                 SwordAttack();
             }
-        }
     }
 
     public void SwordAttack()
