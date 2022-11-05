@@ -40,12 +40,13 @@ public class GUIManager : MonoBehaviour
     //timer for flavor texts of the sword, can be done better but who cares
     private float cooldown = 10;
     private float timer =0;
-    int auxRNG = 0;
+    int auxRNG;
 
     // Start is called before the first frame update
     void Start()
     {
         timer = 0;
+         auxRNG= Random.Range(0, 10);
         objectiveHealth.text = "No data";
         // New
         currentWeapon = weaponSwitch.CurrentWeapon;
