@@ -35,7 +35,8 @@ public class FPSMoveRigidBody : MonoBehaviour
     [SerializeField] private int dashMulti = 50;
     public float time = 0.0f;
     [SerializeField] private bool noFricOn = false;
-    [SerializeField] private bool DASH = false;
+    private bool DASH = false;
+    [SerializeField] private bool DASH2 = false;
     private float FrictionSafe = 0f;
     private float accelSafe = 0f;
 
@@ -150,10 +151,10 @@ public class FPSMoveRigidBody : MonoBehaviour
         //dash
         time = time + Time.fixedDeltaTime;
         //if the dash cooldown is over then dash
-        if(false && DASH && time > dashCooldown && grounded){
+        if(DASH && time > dashCooldown && grounded){
                 //Debug.Log("cooldown ok");
                 time = 0.0f;
-                //DASH = true;
+                DASH2 = true;
                 //body.velocity = new Vector3(vectorMove.x*dashMulti, 0, vectorMove.z*dashMulti);
                 if(vectorMove.magnitude == 0){
                     Debug.Log("no input");
@@ -168,7 +169,7 @@ public class FPSMoveRigidBody : MonoBehaviour
                 }
         }
         if (time > .5f){
-            //DASH = false;
+            DASH2 = false;
         }
 
         if(!BobEnable){return;}
@@ -205,7 +206,7 @@ public class FPSMoveRigidBody : MonoBehaviour
             //Debug.Log("dotProduct: "+dotProductVel);
 
             body.velocity += accelDir * accelVel;
-        }else if (groundTime > Time.fixedDeltaTime*3 && !DASH){//if grounded and not dashing
+        }else if (groundTime > Time.fixedDeltaTime*3 && !DASH2){//if grounded and not dashing
             //friction
             if(velocity != 0){
                 //Debug.Break();
