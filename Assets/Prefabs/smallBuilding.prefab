@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 269887744267416725}
   - component: {fileID: 269887744267416724}
   - component: {fileID: -532357575843880125}
+  - component: {fileID: -868760384064410967}
   m_Layer: 6
   m_Name: smallBuilding
   m_TagString: Destructible
@@ -113,8 +114,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shatteredBuilding: {fileID: 2372440217941642013, guid: 97555f6586273463a9cee1af42ae7754, type: 3}
   needsPosFix: 0
-  health: 100
-  value: 5
+  _buildingHealth: 80
+  _value: 5
   scoreboard: {fileID: 0}
 --- !u!54 &-532357575843880125
 Rigidbody:
@@ -132,3 +133,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-868760384064410967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116818665623139733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace953019af7e4d2eb61ce75f5dd7964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

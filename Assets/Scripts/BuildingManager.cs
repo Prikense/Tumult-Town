@@ -5,40 +5,65 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 {
 
-    public GameObject shatteredBuilding;
-    // fix for the presentation
-    public bool needsPosFix = false;
-
-    public float health = 100f;
-    public int value = 5;
-
-    public ScoreScript scoreboard;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private GameObject shatteredBuilding;
+    // fix for the presentation (check if still neede if not erase)
+    [SerializeField] private bool needsPosFix = false;
 
     /*
-    public void OnTriggerEnter(Collider other)
+    [SerializeField] private float _health = 100f;
+    public float Health 
     {
-        if(other.gameObject.tag == "Melee"){
-            Instantiate(shatteredBuilding, this.transform.position, this.transform.rotation);
-        }
+        get{return _health;}
+        set{_health = value;}
     }
     */
 
+    [SerializeField] private float _buildingHealth = 100.0f;
+    //private float maxHealth;
+
+    /*
+    private float _healthRatio;
+    public float HealthRatio
+    {
+        get{return _healthRatio;}
+        set{_healthRatio = value;}
+    }
+    */
+
+    private GlobalHealthManager healthManager;
+
+    [SerializeField] private int _value = 5;
+    public int Value
+    {
+        get{return _value;}
+        set{_value = value;}
+    }
+
+    [SerializeField] private ScoreScript scoreboard;
+
+    void Start()
+    {
+        healthManager = gameObject.GetComponent<GlobalHealthManager>(); 
+        healthManager.Health = _buildingHealth;
+        healthManager.MaxHealth = healthManager.Health;
+        //healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
+
+        /*
+        maxHealth = Health;
+        HealthRatio = Health / maxHealth;
+        */
+    }
+
     public void Hit(float damage, int player)
     {
-        health -= damage;
-        if(health <= 0) {
+        /*
+        Health -= damage;
+        HealthRatio = Health / maxHealth;
+        */
+        healthManager.Health -= damage;
+        //healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
+
+        if(healthManager.Health <= 0) {
             // Destroy the building
             Vector3 posFix = new Vector3(0f, 0f, 0f);
             if(needsPosFix) posFix = new Vector3(2.9f, 1f, 0f);
@@ -50,9 +75,9 @@ public class BuildingManager : MonoBehaviour
             Destroy(gameObject);
             //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
             if(player == 1){
-                scoreboard.player1Score += value;
+                scoreboard.Player1Score += Value;
             }else if(player == 2){
-                scoreboard.player2Score += value;
+                scoreboard.Player2Score += Value;
             }
         }
     }
@@ -60,7 +85,7 @@ public class BuildingManager : MonoBehaviour
 
     IEnumerator DestroyRemainings(GameObject instance)
     {
-        Debug.Log("Bye bye");
+        //Debug.Log("Bye bye");
         yield return new WaitForSeconds(5f);
         Destroy(instance);
     }

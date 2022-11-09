@@ -1,59 +1,100 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponManager : MonoBehaviour
 {
 
-    public int playerNumber;
-    public GameObject playerCamera;
-    public float range = 100f;
-    public float damage = 10f;
-    public ParticleSystem muzzleFlash;
-    public float fireRate = 15f;
-    public int magazineSize = 35;
-    public int ammoLeft;
-    public float spread = 0.001f;
-    public float reloadTime = 1.0f;
-    public bool reloading;
-    public float impactForce = 155f;
+    [SerializeField] private int playerNumber;
+    [SerializeField] private GameObject playerCamera;
+    private float range = 100f;
+    private float damage = 10f;
+    [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private float fireRate = 15f;
 
-    // used to updat ui after reloaded
-    public bool doneReloading;
+    [SerializeField] private int _magazineSize = 350;
+    public int MagazineSize
+    {
+        get{return _magazineSize;}
+        set{_magazineSize = value;}
+    }
 
-    public bool isShooting;
-    public float lastHealth = 0;
+    private int _ammoLeft;
+    public int AmmoLeft
+    {
+        get{return _ammoLeft;}
+        set{_ammoLeft = value;}
+    }
+
+    [SerializeField] private float spread = 0.001f;
+    [SerializeField] private float reloadTime = 1.0f;
+    private bool reloading;
+    [SerializeField] private float impactForce = 155f;
+
+    // used to update ui after reloaded
+    private bool _doneReloading;
+    public bool DoneReloading
+    {
+        get{return _doneReloading;}
+        set{_doneReloading = value;}
+    }
+
+    private bool _isShooting;
+    public bool IsShooting
+    {
+        get{return _isShooting;}
+        set{_isShooting = value;}
+    }
 
     private float nextTimeToFire = 0f;
 
-    public GameObject bulletHole;
+    [SerializeField] private GameObject bulletHole;
 
     // Start is called before the first frame update
     void Start()
     {
-        doneReloading = false;
+        DoneReloading = true;
         reloading = false;
-        ammoLeft = magazineSize;
-        isShooting = false;
+        AmmoLeft = MagazineSize;
+        IsShooting = false;
     }
 
+    public void onFire(InputAction.CallbackContext context){
+        IsShooting  =  context.action.triggered;
+    }
+    public void onReload(InputAction.CallbackContext context){
+        reloading  =  context.action.triggered;
+    }
+
+
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(Input.GetMouseButton(0) && Time.time >= nextTimeToFire && ammoLeft > 0) {
+        // if(Input.GetAxisRaw("Fire1") == 1 && Time.time >= nextTimeToFire && AmmoLeft > 0) {
+        //     nextTimeToFire = Time.time + 1f/fireRate;
+        //     IsShooting = true;
+        //     //Shoot();
+        // }
+        // else {
+        //     IsShooting = false;
+        // }
+
+
+        if(IsShooting && Time.time >= nextTimeToFire && AmmoLeft > 0  && DoneReloading) {
             nextTimeToFire = Time.time + 1f/fireRate;
-            Debug.Log("Pew");
-            isShooting = true;
             Shoot();
         }
-        else {
-            isShooting = false;
-        }
 
-        if(Input.GetKeyDown(KeyCode.R) && !reloading) {
+        if(reloading) {
             Reload();
         }
     }
+
+    // void FixedUpdate()
+    // {
+
+    // }
 
     void Shoot()
     {
@@ -66,22 +107,19 @@ public class WeaponManager : MonoBehaviour
         // Testing (this works)
         Vector3 deviation3D = Random.insideUnitCircle * spread;
 
-        Quaternion rot = Quaternion.LookRotation(Vector3.forward * range + deviation3D);
-
-        Vector3 forwardVector = playerCamera.transform.rotation * rot * Vector3.forward;
-
         // Caculate direction with added spread, not working
-        Vector3 direction = playerCamera.transform.forward + new Vector3(xSpread, ySpread, zSpread); //also doesnt work
-        direction.Normalize(); //this doesnt work
+        Quaternion rot = Quaternion.LookRotation(Vector3.forward * range + deviation3D);
+        Vector3 forwardVector = playerCamera.transform.rotation * rot * Vector3.forward;
 
         muzzleFlash.Play();
 
-        ammoLeft -= 1;
+        AmmoLeft -= 1;
 
         RaycastHit hit;
 
-        if(Physics.Raycast(playerCamera.transform.position, forwardVector, out hit, range)) {
-            Debug.Log("Boom");
+        Vector3 raycastOrigin = new Vector3 (playerCamera.transform.position.x - 0.0f, playerCamera.transform.position.y, playerCamera.transform.position.z+.05f);
+
+        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range, ~LayerMask.GetMask("Debri"))) {
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 0.3f);
@@ -89,7 +127,12 @@ public class WeaponManager : MonoBehaviour
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 buildingManager.Hit(damage, playerNumber);
-                lastHealth = buildingManager.health;
+            }
+
+            EnemyAI enemyAI = hit.transform.GetComponent<EnemyAI>();
+            if(enemyAI != null)
+            {
+                enemyAI.ReceiveDamage(damage);
             }
 
             if(hit.rigidbody != null) {
@@ -102,13 +145,13 @@ public class WeaponManager : MonoBehaviour
     {
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
-        doneReloading = false;
+        DoneReloading = false;
     }
 
     private void ReloadFinished()
     {
-        ammoLeft = magazineSize;
+        AmmoLeft = MagazineSize;
         reloading = false;
-        doneReloading = true;
+        DoneReloading = true;
     }
 }

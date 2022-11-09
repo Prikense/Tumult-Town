@@ -1,42 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MeleeManager : MonoBehaviour
 {
 
-    public GameObject Sword;
-//    private Component[] swordComponets;
-    public GameObject hitbox;
-    public bool canAttack = true;
-    public float attackCooldown = 1.0f;
-    public bool isAttacking = false;
+    [SerializeField] private GameObject Sword;
+    // private Component[] swordComponets;
+    [SerializeField] private GameObject hitbox;
+    private bool canAttack = true;
+    private float attackCooldown = 1.0f;
+
+    private bool _isAttacking = false;
+    public bool IsAttacking
+    {
+        get{return _isAttacking;}
+        set{_isAttacking = value;}
+    }
+    private bool IsShooting;
 
     // Start is called before the first frame update
     void Start()
     {
- //       swordComponets = GetComponentsInChildren<Sword>;
-        hitbox.active = false;
+        //swordComponets = GetComponentsInChildren<Sword>;
+        hitbox.SetActive(false);
+    }
+
+    
+    public void onFire(InputAction.CallbackContext context){
+        IsShooting  =  context.action.triggered;//yeah, im that lazy
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            if(canAttack && !isAttacking)
+        if(IsShooting && canAttack && !IsAttacking)
             {
                 SwordAttack();
             }
-        }
     }
 
     public void SwordAttack()
     {
-        hitbox.active = true;
-        isAttacking = true;
+        hitbox.SetActive(true);
+        IsAttacking = true;
         canAttack = false;
-//        Animator anim = Sword.Find("pivotFeo").GetComponent<Animator>();
+        //Animator anim = Sword.Find("pivotFeo").GetComponent<Animator>();
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("Attack");
         Invoke("ResetAttackCooldown", attackCooldown);
@@ -50,7 +60,7 @@ public class MeleeManager : MonoBehaviour
 
     void ResetIsAttacking()
     {
-        hitbox.active = false;
-        isAttacking = false;
+        hitbox.SetActive(false);
+        IsAttacking = false;
     }
 }

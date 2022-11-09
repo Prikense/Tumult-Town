@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class ScoreScript : MonoBehaviour
 {
-    public int player1Score;
-    public int player2Score;
+
+    private int _player1Score;
+
+    public int Player1Score
+    {
+        get{return _player1Score;}
+        set{_player1Score = value;}
+    }
+
+    private int _player2Score;
+
+    public int Player2Score
+    {
+        get{return _player2Score;}
+        set{_player2Score = value;}
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        player1Score = 0;
-        player2Score = 0;
+        Player1Score = 0;
+        Player2Score = 0;
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

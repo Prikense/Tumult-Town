@@ -1,40 +1,77 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ProjectileWeaponManager : MonoBehaviour
 {
+    
 
+    [SerializeField] private int playerNumber;
     // bullet
-    public GameObject bullet;
+    [SerializeField] private GameObject bullet;
 
     // bullet force
-    public float shootForce, upwardForce;
+    [SerializeField] private float shootForce, upwardForce;
 
     // gun stats
-    public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
-    public int magazineSize, bulletsPerTap;
-    public bool allowButtonHold;
-    public int ammoLeft; 
-    int bulletsShot;
+    [SerializeField] private float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
+    [SerializeField] private int bulletsPerTap;
 
-    // bools
-    public bool shooting;
-    bool readyToShoot, reloading;
-    public bool doneReloading;
+    private int _magazineSize = 60;
+    public int MagazineSize
+    {
+        get{return _magazineSize;}
+        set{_magazineSize = value;}
+    }
+
+    private bool allowButtonHold=true;
+    private int bulletsShot;
+
+    private int _ammoLeft;
+    public int AmmoLeft
+    {
+        get{return _ammoLeft;}
+        set{_ammoLeft = value;}
+    } 
+
+    private bool readyToShoot, reloading;
+
+    private bool _shooting;
+    public bool IsShooting
+    {
+        get{return _shooting;}
+        set{_shooting = value;}
+    }
+
+    private bool _doneReloading;
+    public bool DoneReloading
+    {
+        get{return _doneReloading;}
+        set{_doneReloading = value;}
+    }
 
     // references
     public Camera fpsCam;
     public Transform attackPoint;
 
-    // bug fixing?
+    // bug fixing
     public bool allowInvoke = true;
 
     private void Awake() 
     {
+        DoneReloading = true;
         // make sure magazine is full and is able to shoot
-        ammoLeft = magazineSize;
+        AmmoLeft = MagazineSize;
         readyToShoot = true;
+    }
+
+    //ctrl+c ctrl+v yup
+    public void onFire(InputAction.CallbackContext context){
+        IsShooting  =  context.action.triggered;
+    }
+    public void onReload(InputAction.CallbackContext context){
+        reloading  =  context.action.triggered;
     }
 
     // Update is called once per frame
@@ -46,17 +83,18 @@ public class ProjectileWeaponManager : MonoBehaviour
     private void MyInput()
     {
         // check if it is allowed to hold down button and take corresponding input 
-        if(allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
-        else shooting = Input.GetKeyDown(KeyCode.Mouse0);
+        //lets make up our minds if we want this gun to be automatic or not, so we can simplify this code
+        // if(allowButtonHold) IsShooting = Input.GetKey(KeyCode.Mouse0);
+        // else IsShooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         // check if player wants to reload
-        if(Input.GetKeyDown(KeyCode.R) && !reloading) Reload();
+        if(reloading) Reload();
     }
 
     void FixedUpdate()
     {
         // shooting
-        if(readyToShoot && shooting && !reloading && ammoLeft > 0) 
+        if(readyToShoot && IsShooting && !reloading && AmmoLeft > 0) 
         {
             bulletsShot = 0;
 
@@ -68,7 +106,7 @@ public class ProjectileWeaponManager : MonoBehaviour
     {
         readyToShoot = false;
 
-        // find the excat position using a raycast
+        // find the exact position using a raycast
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //A ray through the middle of your screen
         RaycastHit hit;
 
@@ -92,15 +130,19 @@ public class ProjectileWeaponManager : MonoBehaviour
 
         // instantiate bullet or projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+        if(currentBullet.TryGetComponent<BulletHit>(out BulletHit a)){
+            a.PlayerNumber = playerNumber;
+        }
         // rotate bullet to shoot direction
+        
         currentBullet.transform.forward = directionWithSpread.normalized;
 
         // adding force to bullet
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-        // this one is only necessary when using proyectiles like granades
+        // this one is only necessary when using proyectiles like granades (currently not needed)
         // currentBullet.GetComponent<Rigidbody>.AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
 
-        ammoLeft--;
+        AmmoLeft--;
         bulletsShot++;
 
         // invoke resetShot function (if not already invoked)
@@ -110,7 +152,7 @@ public class ProjectileWeaponManager : MonoBehaviour
         }
 
         // if more than one bullet per tap make sure to repeat shoot
-        if (bulletsShot < bulletsPerTap && ammoLeft > 0) {
+        if (bulletsShot < bulletsPerTap && AmmoLeft > 0) {
             Invoke("Shoot", timeBetweenShots);
         }
     }
@@ -126,14 +168,14 @@ public class ProjectileWeaponManager : MonoBehaviour
     {
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
-        doneReloading = false;
+        DoneReloading = false;
     }
 
     private void ReloadFinished()
     {
-        ammoLeft = magazineSize;
+        AmmoLeft = MagazineSize;
         reloading = false;
-        doneReloading = true;
+        DoneReloading = true;
     }
 
 }

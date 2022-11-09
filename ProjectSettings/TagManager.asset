@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Destructible
   - Melee
+  - debri
   layers:
   - Default
   - TransparentFX
@@ -15,10 +16,10 @@ TagManager:
   - UI
   - Ground
   - AI
-  - 
-  - 
-  - 
-  - 
+  - Cockpit1
+  - debri
+  - UI2
+  - Cockpit2
   - 
   - 
   - 

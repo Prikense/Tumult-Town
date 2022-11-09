@@ -1,57 +1,88 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class WeaponSwitch : MonoBehaviour
 {
 
-    public int selectedWeapon = 0;
-    public GameObject currentWeapon;
-
-    // Start is called before the first frame update
-    void Start()
+    private int _selectedWeapon = 0;
+    public int SelectedWeapon
     {
-        SelectWeapon();   
+        get{return _selectedWeapon;}
+        set{_selectedWeapon = value;}
+    } 
+
+    private GameObject _currentWeapon;
+    public GameObject CurrentWeapon
+    {
+        get{return _currentWeapon;}
+        set{_currentWeapon = value;}
     }
 
+    [SerializeField] private MeleeManager meleeTime;
+    private int previousSelectedWeapon;
+    private float scrollValue;
+    private bool we1;
+    private bool we2;
+    private bool we3;
+
+    // Start is called before the first frame update
+    void Awake()
+    {
+        SelectWeapon();
+    }
+    public void onScroll(InputAction.CallbackContext context){
+        scrollValue  =  context.ReadValue<float>();
+    }
+
+    //coud probably be done better but idk
+    public void on1(InputAction.CallbackContext context){
+        we1  =  context.action.triggered;
+    } 
+    public void on2(InputAction.CallbackContext context){
+        we2  =  context.action.triggered;
+    }
+    public void on3(InputAction.CallbackContext context){
+        we3  =  context.action.triggered;
+    }
     // Update is called once per frame
     void Update()
     {
 
-        int previousSelectedWeapon = selectedWeapon;
-
-        if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+        if(scrollValue > 0f)
         {
-            if(selectedWeapon >= transform.childCount - 2) //2 since at the time the camera is also inside object
-                selectedWeapon = 0;
+            if(SelectedWeapon >= transform.childCount - 2) //2 since at the time the camera is also inside object
+                SelectedWeapon = 0;
             else
-                selectedWeapon++;
+                SelectedWeapon++;
         }
 
-        if(Input.GetAxis("Mouse ScrollWheel") < 0f)
+        if(scrollValue < 0f)
         {
-            if(selectedWeapon <= 0) //2 since at the time the camera is also inside object
-                selectedWeapon = transform.childCount - 2;
+            if(SelectedWeapon <= 0) //2 since at the time the camera is also inside object
+                SelectedWeapon = transform.childCount - 2;
             else
-                selectedWeapon--;
+                SelectedWeapon--;
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha1)) 
+        if(we1)
         {
-            selectedWeapon = 0;
+            SelectedWeapon = 0;
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha2)) 
+        if(we2)
         {
-            selectedWeapon = 1;
+            SelectedWeapon = 1;
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount - 1 >= 3) // again because of camera inside object
+        if(we3)// && transform.childCount - 1 >= 3) // again because of camera inside object
         {
-            selectedWeapon = 2;
+            SelectedWeapon = 2;
         }
 
-        if(previousSelectedWeapon != selectedWeapon)
+        if(previousSelectedWeapon != SelectedWeapon && !meleeTime.IsAttacking)
         {
             SelectWeapon();
         }
@@ -62,10 +93,10 @@ public class WeaponSwitch : MonoBehaviour
         int i = 0;
         foreach (Transform weapon in transform)
         {
-            if(i == selectedWeapon)
+            if(i == SelectedWeapon)
             {
                 weapon.gameObject.SetActive(true);
-                currentWeapon = weapon.gameObject;
+                CurrentWeapon = weapon.gameObject;
             }
             else if(i != transform.childCount - 1) 
             {
@@ -73,6 +104,7 @@ public class WeaponSwitch : MonoBehaviour
             }
             i++;
         }
+        previousSelectedWeapon = SelectedWeapon;
     }
 
 }
