@@ -137,10 +137,10 @@ public class FPSMoveRigidBody : MonoBehaviour
         //noFrictionMode
         //dash that reduces friction and acceleration giving a feeling of drifting around
         //basically, strafe jumping withour the jumping
-        if(false && /*Input.GetButton("dashNofric")*/ noFricOn){
+        if(/*false && Input.GetButton("dashNofric")*/ noFricOn){
             //noFricOn = true;
             FrictionSafe = 0.05f;
-            accelSafe = airAccel-20f;
+            accelSafe = 0;
         }else{
             //we save the original values back
             //noFricOn = false;
@@ -157,12 +157,12 @@ public class FPSMoveRigidBody : MonoBehaviour
                 DASH2 = true;
                 //body.velocity = new Vector3(vectorMove.x*dashMulti, 0, vectorMove.z*dashMulti);
                 if(vectorMove.magnitude == 0){
-                    Debug.Log("no input");
+                    //Debug.Log("no input");
                     //vectorMove.z = dashMulti;
                     //lets try moving the velocity
                     body.velocity = transform.forward*dashMulti;
                 }else{
-                    Debug.Log("input??");
+                    //Debug.Log("input??");
                     //body.velocity = body.velocity*dashMulti;
                     //Debug.Log("input" + vectorMove);
                     body.velocity = transform.TransformDirection(vectorMove)*dashMulti;
