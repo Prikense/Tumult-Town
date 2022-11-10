@@ -12,6 +12,7 @@ public class GUIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI ammoCounter;
     [SerializeField] private TextMeshProUGUI objectiveHealth;
+     [SerializeField] private TextMeshProUGUI health;
     [SerializeField] private TextMeshProUGUI ScorePlayer1;
     [SerializeField] private TextMeshProUGUI ScorePlayer2;
     [SerializeField] private ScoreScript scoreboard;
@@ -212,7 +213,7 @@ public class GUIManager : MonoBehaviour
                 prevObjectHealthManager = objectHealthManager;
                 prevHealth = currentHealth;
             }
-
+        health.text = "" + PlayerHealth.healthManager.Health;
         FillBar(playerHealthFill, PlayerHealth.healthManager.HealthRatio);
         }
     }
