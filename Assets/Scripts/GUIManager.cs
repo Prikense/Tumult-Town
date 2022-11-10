@@ -89,10 +89,20 @@ public class GUIManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   int min = gameManager.timeCounter / 60;
-        int sec = gameManager.timeCounter % 60;
+    {
+        string min;
+        string sec;
+        if(gameManager.timeCounter % 60 < 10){
+            sec = "0"+ gameManager.timeCounter % 60;
+        }else{
+            sec = ""+ gameManager.timeCounter % 60;
+        }
+        if(gameManager.timeCounter / 60 < 10){
+            min = "0"+ gameManager.timeCounter / 60;
+        }else{
+            min = ""+ gameManager.timeCounter / 60;
+        }
         timeText.text = "" + min + ":" + sec;
-
         
         scoreBar.value = (float)scoreboard.Player1Score / (scoreboard.Player1Score + scoreboard.Player2Score);
         
