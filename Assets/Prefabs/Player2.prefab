@@ -1859,7 +1859,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 6:00
+  m_text: 06:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ebfd59818bdb9142805febbb9e9df37, type: 2}
   m_sharedMaterial: {fileID: 8277483318611373819, guid: 0ebfd59818bdb9142805febbb9e9df37, type: 2}
@@ -1922,7 +1922,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -84.28821, y: 0, z: 200.39914, w: -0.21429637}
+  m_margin: {x: -107.8324, y: 0, z: 200.39914, w: -0.21429637}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3895,7 +3895,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6813073163992956486}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -3948,7 +3948,7 @@ MonoBehaviour:
   dashMulti: 18
   time: 0
   noFricOn: 0
-  DASH: 0
+  DASH2: 0
   amplitude: 0.002
   frequency: 6
   Whoknows: {fileID: 6813073165052940622}
