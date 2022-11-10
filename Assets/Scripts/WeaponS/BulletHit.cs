@@ -28,6 +28,12 @@ public class BulletHit : MonoBehaviour
                 //Debug.Log("ouch");
             }
         }
+        if(collision.gameObject.tag == "Player"){
+            PlayerManager playerHealth = collision.transform.GetComponent<PlayerManager>();
+            if(playerHealth != null) {
+                playerHealth.ReceiveDamage(WeaponDamage/10);
+            }
+        }
         Destroy(gameObject);
     }
 
