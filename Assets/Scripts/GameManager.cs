@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     void Start(){
 
-        maxTime = 10;
+        maxTime = 120;
         timeCounter = maxTime;    
         
         StartCoroutine(Timer());
