@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-
+    // [SerializeField] GameObject winScreen;
+    // [SerializeField] GameObject loseScreen;
     private GameObject _hudCanvas;
     public GameObject HUDCanvas
     {
@@ -48,6 +49,10 @@ public class CanvasManager : MonoBehaviour
         mainCam.SetActive(false);
         deathCam.SetActive(true);
         StartCoroutine(PlayerRespawned());
+    }
+
+    public void SetActiveScreen(GameObject screenName){
+        screenName.SetActive(true);
     }
 
     IEnumerator PlayerRespawned()
