@@ -129,6 +129,12 @@ public class WeaponManager : MonoBehaviour
                 buildingManager.Hit(damage, playerNumber);
             }
 
+            //players take less damage from each other to discourage killing each other
+            PlayerManager playerHealth = hit.transform.GetComponent<PlayerManager>();
+            if(playerHealth != null) {
+                playerHealth.ReceiveDamage(damage/10);
+            }
+
             EnemyAI enemyAI = hit.transform.GetComponent<EnemyAI>();
             if(enemyAI != null)
             {
