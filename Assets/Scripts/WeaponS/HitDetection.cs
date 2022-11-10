@@ -19,5 +19,12 @@ public class HitDetection : MonoBehaviour
                 buildingManager.Hit(weaponDamage, playerNumber);
             }
         }
+        if(other.tag == "Player"){
+            PlayerManager playerHealth = other.transform.GetComponent<PlayerManager>();
+            if(playerHealth != null) {
+                playerHealth.ReceiveDamage(weaponDamage/10);
+                other.attachedRigidbody.AddForce(transform.forward*200);
+            }
+        }
     }
 }
