@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -53,11 +54,12 @@ public class PlayerManager : MonoBehaviour
     void Death()
     {
         //Debug.Log("You Dead");
-        CanvasManager canvasManager = eventSystem.GetComponent<CanvasManager>();
+        //CanvasManager canvasManager = eventSystem.GetComponent<CanvasManager>();
         //mainCam.SetActive(false);
         //deathCam.SetActive(true);
         gameObject.transform.position = new Vector3(20.0f, 20.0f, 6.0f);
-        canvasManager.DeathScreen();
+        transform.GetComponent<PlayerInput>().DeactivateInput();
+        //canvasManager.DeathScreen();
         StartCoroutine(Respawn());
 
     }
@@ -68,6 +70,7 @@ public class PlayerManager : MonoBehaviour
         //deathCam.SetActive(false);
         yield return new WaitForSeconds(10.0f);
         healthManager.Health = _playerHealth; 
+        transform.GetComponent<PlayerInput>().ActivateInput();
         //gameObject.transform.position = spawnPoint.transform.position;
     }
 }
