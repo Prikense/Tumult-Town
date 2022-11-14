@@ -13,6 +13,9 @@ public class PlayerManager : MonoBehaviour
 
     private GameObject eventSystem;
 
+    [SerializeField] private WeaponManager raycastGun;
+    [SerializeField] private ProjectileWeaponManager projectileGun;
+
     /*
     private GameObject deathCam;
     private GameObject mainCam;
@@ -32,6 +35,9 @@ public class PlayerManager : MonoBehaviour
         eventSystem = GameObject.Find("EventSystem"); //The canvas manager script is in this object
         //deathCam = GameObject.Find("DeathCam");
         //mainCam = GameObject.Find("Main Camera");
+
+        // raycastGO = gameObject.transform.Find("gun_or_smt").gameObject;
+        // projectileGO = gameObject.transform.Find("ProjectileGun").gameObject;
     }
 
     // Update is called once per frame
@@ -71,6 +77,12 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(10.0f);
         healthManager.Health = _playerHealth; 
         transform.GetComponent<PlayerInput>().ActivateInput();
+        //WeaponManager raycastGun = raycastGO.GetComponent<WeaponManager>();
+        raycastGun.AmmoLeft = raycastGun.MagazineSize; // dont know if it ould be better to make Reload() public and use it
+        //ProjectileWeaponManager projectileGun = projectileGO.GetComponent<ProjectileWeaponManager>();
+        projectileGun.AmmoLeft = projectileGun.MagazineSize; // same comment as with raycastGun
         //gameObject.transform.position = spawnPoint.transform.position;
+        // Restart the weapons bullets (reload them)
+
     }
 }
