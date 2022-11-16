@@ -43,8 +43,9 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(healthManager.Health <= 0)
+        if(healthManager.Health <= 0 || transform.position.y <= -100)
         {
+            healthManager.Health = 0;
             Death();
         }
     }
