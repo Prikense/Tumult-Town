@@ -9,7 +9,6 @@ public class GUIManager : MonoBehaviour
     [SerializeField] private Image playerHealthFill;
     [SerializeField] private Image targetHealthFill;
     [SerializeField] private Slider scoreBar;
-
     [SerializeField] private TextMeshProUGUI ammoCounter;
     [SerializeField] private TextMeshProUGUI objectiveHealth;
      [SerializeField] private TextMeshProUGUI health;
@@ -21,6 +20,7 @@ public class GUIManager : MonoBehaviour
     [SerializeField] private GameObject loseScreen;
     [SerializeField] private CanvasManager canvasManager;
     [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private Animator lightAlarm;
 
     // New values that are being used
     [SerializeField] private bool isProjectileWeapon;
@@ -225,6 +225,12 @@ public class GUIManager : MonoBehaviour
             }
         health.text = "" + PlayerHealth.healthManager.Health;
         FillBar(playerHealthFill, PlayerHealth.healthManager.HealthRatio);
+
+        if(PlayerHealth.healthManager.HealthRatio <= .25){
+            lightAlarm.SetBool("lowHealth", true);
+        }
+        else
+            lightAlarm.SetBool("lowHealth", false);
         }
     }
 
