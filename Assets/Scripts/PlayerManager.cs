@@ -25,9 +25,15 @@ public class PlayerManager : MonoBehaviour
     */
     [SerializeField] private GameObject spawnPoint;
 
+    //spawn position
+    private float x;
+    private float z;
+
     // Start is called before the first frame update
     void Start()
     {
+        x= Random.Range(10, 25);
+        z= Random.Range(10, 25);
         healthManager = gameObject.GetComponent<GlobalHealthManager>(); 
         healthManager.Health = _playerHealth;
         healthManager.MaxHealth = healthManager.Health;
@@ -43,8 +49,10 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(healthManager.Health <= 0)
+        if(healthManager.Health <= 0 || transform.position.y <= -100)
         {
+
+            healthManager.Health = 0;
             Death();
         }
     }
@@ -63,7 +71,7 @@ public class PlayerManager : MonoBehaviour
         //CanvasManager canvasManager = eventSystem.GetComponent<CanvasManager>();
         //mainCam.SetActive(false);
         //deathCam.SetActive(true);
-        gameObject.transform.position = new Vector3(20.0f, 20.0f, 6.0f);
+        gameObject.transform.position = new Vector3(x, 15.0f, z);
         transform.GetComponent<PlayerInput>().DeactivateInput();
         //canvasManager.DeathScreen();
         StartCoroutine(Respawn());
