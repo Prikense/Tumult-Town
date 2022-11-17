@@ -8,31 +8,36 @@ public class AIManager : MonoBehaviour
     private int maxAmountAI = 8;
 
     private int _currAmountAI;
-    [SerializeField] public int CurrAmountAI
+    public int CurrAmountAI
     {
         get{return _currAmountAI;}
         set{_currAmountAI = value;}
     }
 
     [SerializeField] private GameObject enemyAIPrefab;
-    [SerializeField] private GameObject spawnPoint; // going to be using this for now
+    [SerializeField] private GameObject spawnPoint; // going to use this for now
+    [SerializeField] private GameObject spawnPoint2;
 
     // ask the teacher how to better manage this one, for now I'll make it public
     public List<GameObject> AIList = new List<GameObject>();
 
     private Animator animator;
 
+    private bool canRespawn;
+
     // Start is called before the first frame update
     void Start()
     {
         //animator = gameObject.GetComponent<Animator>();
-        CurrAmountAI = maxAmountAI;
-        SpawnAI(); 
+        CurrAmountAI = 0;
+        canRespawn = false;
+        StartCoroutine(FirstTimeSpawn());
     }
 
     // For now only being used to change amount, check if its better on Update
     void FixedUpdate()
     {
+        // This loop is in charge of updating the var NumAllies of each enemy
         if(CurrAmountAI != AIList.Count)
         {
             CurrAmountAI = AIList.Count;
@@ -43,17 +48,48 @@ public class AIManager : MonoBehaviour
 
             }
             
+        }
+
+        // Not the biggest fan of respawning enemies this way, but it is what it is for now
+        if(CurrAmountAI < 3 && AIList.Count > 0 && canRespawn)
+        {
+            StartCoroutine(Reinforcements());
+            canRespawn = false;
         }  
+    }
+
+    IEnumerator FirstTimeSpawn()
+    {
+        yield return new WaitForSeconds(20.0f);
+        // CurrAmountAI = maxAmountAI;
+        SpawnAI();
+    }
+
+    IEnumerator Reinforcements()
+    {
+        yield return new WaitForSeconds(12.0f);
+        SpawnAI();
     }
 
     void SpawnAI()
     {
-        for(int i = maxAmountAI - CurrAmountAI; i < maxAmountAI; i++)
+        Debug.Log("Spawning enemies");
+        Debug.Log($"Max amount {maxAmountAI}");
+        Debug.Log($"CurrAmountAI {CurrAmountAI}");
+        for(int i = CurrAmountAI; i < maxAmountAI; i++)
         {
-            Vector3 newSpawnPosition = spawnPoint.transform.position + new Vector3(i * 5, 0, 0); //make this better, I mean the whole spawn process
+            Debug.Log("Spawn one");
+            Vector3 newSpawnPosition;
+            if(i%2 == 0){
+                newSpawnPosition = spawnPoint.transform.position + new Vector3(i * 2.5f, 0, 0); //make this better, I mean the whole spawn process
+            } else{
+                newSpawnPosition = spawnPoint2.transform.position + new Vector3(i * 2.5f, 0, 0); //make this better, I mean the whole spawn process
+            }
             GameObject currentAI = Instantiate(enemyAIPrefab, newSpawnPosition, Quaternion.identity);
             AIList.Add(currentAI);
         }
+        CurrAmountAI = maxAmountAI;
+        canRespawn = true;
     }
 }
 

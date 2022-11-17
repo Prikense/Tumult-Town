@@ -9,10 +9,14 @@ public class EnemyAI : MonoBehaviour
     private bool isPlayerVisible;
     private float maxRange = 50.0f;
     private GameObject player;
+
+    private GameObject[] players;
     private Animator animator;
     private Ray ray;
     private RaycastHit hit;
     private Vector3 checkDirection;
+
+    private ScoreScript score;
 
     // Shooting variables
     private bool _readyToShoot;
@@ -47,11 +51,22 @@ public class EnemyAI : MonoBehaviour
 
     private GlobalHealthManager healthManager;
 
+    // private var gORenderer; doesnt let use var globally
+
 
     // Start is called before the first frame update
     void Awake()
     {
-        player = GameObject.FindWithTag("Player");
+        //player = GameObject.FindWithTag("Player");
+        // players = GameObject.FindGameObjectsWithTag("Player");
+        score = GameObject.Find("GameManager").GetComponent<ScoreScript>();
+
+        if(score.Player1Score > score.Player2Score){
+            player = GameObject.Find("Player1");
+        } else{
+            player = GameObject.Find("Player2");
+        }
+
         animator = gameObject.GetComponent<Animator>();
         navMeshAgent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
         AI = LayerMask.GetMask("AI");
@@ -99,10 +114,17 @@ public class EnemyAI : MonoBehaviour
 
     public void Shoot()
     {
-        if(Physics.Raycast(ray, out hit, maxRange, ~AI)) 
+        float hitChance = Random.Range(0.0f, 10.0f);
+        Debug.Log(hitChance);
+        if(Physics.Raycast(ray, out hit, maxRange, ~AI) && hitChance < 3.0f) 
         {
+            // Going to change the color of the ai material, when shot damages player
+            var gORenderer = gameObject.GetComponent<Renderer>();
+            gORenderer.material.SetColor("_Color", Color.red);
+            StartCoroutine(BackToGreenColor());
+
             // if(hit.collider.gameObject == player)
-            //Debug.Log("Hello");
+            Debug.Log("Hello");
             PlayerManager playerManager = hit.transform.GetComponent<PlayerManager>();
             if(playerManager != null)
             {
@@ -118,6 +140,16 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenShots);
         ReadyToShoot = true;
         //Debug.Log("RELOADING");
+    }
+
+    IEnumerator BackToGreenColor()
+    {
+        // Return color of AI back to original after 1 
+        var gORenderer = gameObject.GetComponent<Renderer>();
+        yield return new WaitForSeconds(1.0f);
+        Color greenTankColor = new Color(40.0f/255.0f, 63.0f/255.0f, 2.0f/255.0f, 1.0f);
+        gORenderer.material.SetColor("_Color", greenTankColor);
+
     }
 
     public void ReceiveDamage(float damage)
