@@ -4899,7 +4899,6 @@ MonoBehaviour:
   bullet: {fileID: 5878295058237529985, guid: e36450c2f099f41dba58901d75f9fff6, type: 3}
   shootForce: 800
   upwardForce: 0
-  timeBetweenShooting: 0.01
   spread: 0.05
   reloadTime: 1.5
   timeBetweenShots: 0
@@ -5197,10 +5196,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dc5dbd6e148c431babd5dff12f31038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunsfx: {fileID: 0}
   playerNumber: 2
   playerCamera: {fileID: 6813073164411417501}
   muzzleFlash: {fileID: 6813073165763884889}
-  fireRate: 25
+  fireRate: 20
   _magazineSize: 350
   spread: 0
   reloadTime: 4

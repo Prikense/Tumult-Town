@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 public class WeaponManager : MonoBehaviour
 {
 
+    [SerializeField] private AudioSource gunsfx;
+    [SerializeField] private AudioClip[] audioClips;
+    private bool noAmmoFirstShot;
     [SerializeField] private int playerNumber;
     [SerializeField] private GameObject playerCamera;
     private float range = 200f;
@@ -83,10 +86,22 @@ public class WeaponManager : MonoBehaviour
 
         if(IsShooting && Time.time >= nextTimeToFire && AmmoLeft > 0  && DoneReloading) {
             nextTimeToFire = Time.time + 1f/fireRate;
+            gunsfx.PlayOneShot(audioClips[0], .4f);
+            noAmmoFirstShot = true;
             Shoot();
+        }
+        if(IsShooting && AmmoLeft <= 0 && noAmmoFirstShot && DoneReloading){
+            noAmmoFirstShot = false;
+            gunsfx.PlayOneShot(audioClips[1], .5f);
+        }
+        if(!IsShooting){
+            noAmmoFirstShot = true;
         }
 
         if(reloading) {
+            if(!gunsfx.isPlaying){
+               gunsfx.PlayOneShot(audioClips[2], 1);
+            }
             Reload();
         }
     }
@@ -159,6 +174,9 @@ public class WeaponManager : MonoBehaviour
 
     private void ReloadFinished()
     {
+        if(!gunsfx.isPlaying){
+            gunsfx.PlayOneShot(audioClips[3], 1);
+        }
         AmmoLeft = MagazineSize;
         reloading = false;
         DoneReloading = true;
