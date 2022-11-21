@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletHit : MonoBehaviour
 {
 
-    private float _weaponDamage = 5f;
+    private float _weaponDamage = 30f;
     public float WeaponDamage
     {
         get{return _weaponDamage;}
@@ -40,7 +40,7 @@ public class BulletHit : MonoBehaviour
                 enemy.ReceiveDamage(WeaponDamage);
             }
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 3);
     }
 
     void Awake()

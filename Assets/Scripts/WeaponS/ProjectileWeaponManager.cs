@@ -15,17 +15,18 @@ public class ProjectileWeaponManager : MonoBehaviour
     [SerializeField] private float shootForce, upwardForce;
 
     // gun stats
-    [SerializeField] private float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
+    [SerializeField] private float spread, reloadTime, timeBetweenShots;
     [SerializeField] private int bulletsPerTap;
+    private float timeBetweenShooting = .8f;
 
-    private int _magazineSize = 60;
+    private int _magazineSize = 20;
     public int MagazineSize
     {
         get{return _magazineSize;}
         set{_magazineSize = value;}
     }
 
-    private bool allowButtonHold=true;
+    private bool alreadyShot=true;
     private int bulletsShot;
 
     private int _ammoLeft;
@@ -84,8 +85,6 @@ public class ProjectileWeaponManager : MonoBehaviour
     {
         // check if it is allowed to hold down button and take corresponding input 
         //lets make up our minds if we want this gun to be automatic or not, so we can simplify this code
-        // if(allowButtonHold) IsShooting = Input.GetKey(KeyCode.Mouse0);
-        // else IsShooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         // check if player wants to reload
         if(reloading) Reload();
@@ -99,6 +98,12 @@ public class ProjectileWeaponManager : MonoBehaviour
             bulletsShot = 0;
 
             Shoot();
+        }
+
+        // invoke resetShot function (if not already invoked)
+        if(allowInvoke && !IsShooting) {
+            Invoke("ResetShot", timeBetweenShooting);
+            allowInvoke = false;
         }
     }
 
@@ -145,11 +150,7 @@ public class ProjectileWeaponManager : MonoBehaviour
         AmmoLeft--;
         bulletsShot++;
 
-        // invoke resetShot function (if not already invoked)
-        if(allowInvoke) {
-            Invoke("ResetShot", timeBetweenShooting);
-            allowInvoke = false;
-        }
+
 
         // if more than one bullet per tap make sure to repeat shoot
         if (bulletsShot < bulletsPerTap && AmmoLeft > 0) {
