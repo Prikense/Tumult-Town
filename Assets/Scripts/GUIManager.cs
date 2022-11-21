@@ -232,7 +232,7 @@ public class GUIManager : MonoBehaviour
         if(timer >= (7f/6f)){
             timer = 0;
         }
-        if(PlayerHealth.healthManager.HealthRatio <= 1/*.25f*/){
+        if(PlayerHealth.healthManager.HealthRatio <= .25f){
             lightAlarm.SetBool("lowHealth", true);
             if(!alarmsfx.isPlaying && timer > (.36f) && timer < .5){
                 alarmsfx.Play();
