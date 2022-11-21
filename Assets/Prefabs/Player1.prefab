@@ -11905,7 +11905,7 @@ MonoBehaviour:
   upwardForce: 0
   timeBetweenShooting: 0.01
   spread: 0.05
-  reloadTime: 5
+  reloadTime: 1.5
   timeBetweenShots: 0
   bulletsPerTap: 0
   fpsCam: {fileID: 8534311257775598884}
