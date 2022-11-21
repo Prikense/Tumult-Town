@@ -5,6 +5,15 @@ using UnityEngine.InputSystem;
 
 public class FPSMoveRigidBody : MonoBehaviour
 {
+
+    //sfx n stuff
+    [SerializeField] private AudioSource stepSfx;
+    [SerializeField] private AudioSource dashSfx;
+    
+    [SerializeField] private AudioSource jumpSfx;
+    [SerializeField] private AudioSource landSfx;
+
+
     //[SerializeField] private float Speed = 15;
     [SerializeField] private float accel = 100;
     [SerializeField] private float airAccel = 60;
@@ -52,6 +61,8 @@ public class FPSMoveRigidBody : MonoBehaviour
     [SerializeField] private GameObject SpeedBox;
 //    [SerializeField] private Transform gun;
     [SerializeField] private float groundTime = 0f;//for calculating time on the ground
+    [SerializeField] private float movingTime = 0f;//for step sfx
+    
 
     private float ToggleSpeed = 3.0f;
     private Vector3 startPos;
@@ -102,7 +113,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         //Debug.Log("start pos?: "+startPos);
         
 
-        if(velocity > 10){
+        if(velocity > 12){
             SpeedBox.SetActive(true);
             Physics.IgnoreLayerCollision(0,9, true);
         }else{
@@ -117,6 +128,10 @@ public class FPSMoveRigidBody : MonoBehaviour
 
         if(grounded){
             groundTime += Time.fixedDeltaTime;
+            movingTime += Time.fixedDeltaTime;
+            if(velocity < 1){
+                movingTime = 0;
+            }
         }
         if(!grounded && (body.velocity.y < 0 && body.velocity.y > -6)){
             //body.velocity += new Vector3 (body.velocity.x, fallSpeed.y, body.velocity.z);
@@ -184,6 +199,7 @@ public class FPSMoveRigidBody : MonoBehaviour
         //initial acceleration
         if(!grounded){
             groundTime = -Time.fixedDeltaTime;
+            movingTime = 0;
             //air friction
             /*if(velocity != 0){
                 float friction = frictionCoefAir * velocity * Time.fixedDeltaTime;
@@ -207,6 +223,11 @@ public class FPSMoveRigidBody : MonoBehaviour
 
             body.velocity += accelDir * accelVel;
         }else if (groundTime > Time.fixedDeltaTime*3 && !DASH2){//if grounded and not dashing
+            //step sound
+            if(/*CameraVariable.localPosition.y < 0.0f*/ (movingTime < .8f || (movingTime % .8f) <= 0.02)  && !stepSfx.isPlaying && vectorMove.magnitude != 0){
+                 stepSfx.Play();
+             }
+
             //friction
             if(velocity != 0){
                 //Debug.Break();
