@@ -7,6 +7,10 @@ public class ProjectileWeaponManager : MonoBehaviour
 {
     
 
+    [SerializeField] private AudioSource gunsfx;
+    [SerializeField] private AudioSource loadsfx;   
+    [SerializeField] private AudioClip[] audioClips;//0 -> shot, 1 -> no ammo, 2 -> loading, 3 -> reload end
+    private bool noAmmoFirstShot;
     [SerializeField] private int playerNumber;
     // bullet
     [SerializeField] private GameObject bullet;
@@ -15,9 +19,11 @@ public class ProjectileWeaponManager : MonoBehaviour
     [SerializeField] private float shootForce, upwardForce;
 
     // gun stats
-    [SerializeField] private float spread, reloadTime, timeBetweenShots;
+    [SerializeField] private float spread;
+    private float reloadTime = 1.8f;
     [SerializeField] private int bulletsPerTap;
     private float timeBetweenShooting = .8f;
+    private float time = 0;
 
     private int _magazineSize = 20;
     public int MagazineSize
@@ -87,29 +93,50 @@ public class ProjectileWeaponManager : MonoBehaviour
         //lets make up our minds if we want this gun to be automatic or not, so we can simplify this code
 
         // check if player wants to reload
-        if(reloading) Reload();
+        if(reloading && DoneReloading && AmmoLeft != MagazineSize){
+            if(!loadsfx.isPlaying){
+                loadsfx.PlayOneShot(audioClips[2]);
+            }
+            Reload();
+        }
     }
 
     void FixedUpdate()
     {
+        time += Time.fixedDeltaTime;
+        //Debug.Log("ready? : " + readyToShoot);
+
         // shooting
-        if(readyToShoot && IsShooting && !reloading && AmmoLeft > 0) 
+        if(/*readyToShoot*/ noAmmoFirstShot && IsShooting && DoneReloading && AmmoLeft > 0) 
         {
+            readyToShoot = false;
+            noAmmoFirstShot = false;
+            gunsfx.PlayOneShot(audioClips[0], .3f);
             bulletsShot = 0;
 
             Shoot();
         }
 
-        // invoke resetShot function (if not already invoked)
-        if(allowInvoke && !IsShooting) {
-            Invoke("ResetShot", timeBetweenShooting);
-            allowInvoke = false;
+        if(noAmmoFirstShot && IsShooting && DoneReloading && AmmoLeft <= 0) 
+        {
+            noAmmoFirstShot = false;
+            
+            gunsfx.PlayOneShot(audioClips[1], .5f);
         }
+        if(!IsShooting && time > timeBetweenShooting){
+            time = 0;
+            noAmmoFirstShot = true;
+        }
+
+        // invoke resetShot function (if not already invoked)
+        // if(allowInvoke && !IsShooting) {
+        //     Invoke("ResetShot", timeBetweenShooting);
+        //     allowInvoke = false;
+        // }
     }
 
     private void Shoot()
     {
-        readyToShoot = false;
 
         // find the exact position using a raycast
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //A ray through the middle of your screen
@@ -149,13 +176,6 @@ public class ProjectileWeaponManager : MonoBehaviour
 
         AmmoLeft--;
         bulletsShot++;
-
-
-
-        // if more than one bullet per tap make sure to repeat shoot
-        if (bulletsShot < bulletsPerTap && AmmoLeft > 0) {
-            Invoke("Shoot", timeBetweenShots);
-        }
     }
 
     private void ResetShot()
@@ -174,6 +194,9 @@ public class ProjectileWeaponManager : MonoBehaviour
 
     private void ReloadFinished()
     {
+        if(!loadsfx.isPlaying){
+            loadsfx.PlayOneShot(audioClips[3]);
+        }
         AmmoLeft = MagazineSize;
         reloading = false;
         DoneReloading = true;

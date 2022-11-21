@@ -53,7 +53,7 @@ public class WeaponSwitch : MonoBehaviour
 
         if(scrollValue > 0f)
         {
-            if(SelectedWeapon >= transform.childCount - 2) //2 since at the time the camera is also inside object
+            if(SelectedWeapon >= transform.childCount - 3) //2 since at the time the camera is also inside object
                 SelectedWeapon = 0;
             else
                 SelectedWeapon++;
@@ -62,7 +62,7 @@ public class WeaponSwitch : MonoBehaviour
         if(scrollValue < 0f)
         {
             if(SelectedWeapon <= 0) //2 since at the time the camera is also inside object
-                SelectedWeapon = transform.childCount - 2;
+                SelectedWeapon = transform.childCount - 3;
             else
                 SelectedWeapon--;
         }
@@ -98,7 +98,7 @@ public class WeaponSwitch : MonoBehaviour
                 weapon.gameObject.SetActive(true);
                 CurrentWeapon = weapon.gameObject;
             }
-            else if(i != transform.childCount - 1) 
+            else if(i <= transform.childCount - 3)
             {
                 weapon.gameObject.SetActive(false); 
             }

@@ -7,7 +7,8 @@ public class WeaponManager : MonoBehaviour
 {
 
     [SerializeField] private AudioSource gunsfx;
-    [SerializeField] private AudioClip[] audioClips;
+    [SerializeField] private AudioSource loadsfx;
+    [SerializeField] private AudioClip[] audioClips;//0 -> shot, 1 -> no ammo, 2 -> loading, 3 -> reload end
     private bool noAmmoFirstShot;
     [SerializeField] private int playerNumber;
     [SerializeField] private GameObject playerCamera;
@@ -98,9 +99,9 @@ public class WeaponManager : MonoBehaviour
             noAmmoFirstShot = true;
         }
 
-        if(reloading) {
-            if(!gunsfx.isPlaying){
-               gunsfx.PlayOneShot(audioClips[2], 1);
+        if(reloading && DoneReloading && AmmoLeft != MagazineSize){
+            if(!loadsfx.isPlaying){
+                loadsfx.PlayOneShot(audioClips[2]);
             }
             Reload();
         }
@@ -174,8 +175,8 @@ public class WeaponManager : MonoBehaviour
 
     private void ReloadFinished()
     {
-        if(!gunsfx.isPlaying){
-            gunsfx.PlayOneShot(audioClips[3], 1);
+        if(!loadsfx.isPlaying){
+            loadsfx.PlayOneShot(audioClips[3]);
         }
         AmmoLeft = MagazineSize;
         reloading = false;
