@@ -88,7 +88,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.525
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4050,7 +4050,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.525
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6022,7 +6022,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bb2313902d0fec147a086fcc114a881f, type: 3}
   - {fileID: 8300000, guid: c11ea64791f55fc44950c2792508f2c8, type: 3}
   - {fileID: 8300000, guid: f01511df5790f4a4a9016fc77ae536ad, type: 3}
-  - {fileID: 8300000, guid: 45d34d5ae9ccb164f8039aaab2edcb51, type: 3}
+  - {fileID: 8300000, guid: 1cec406d3920c8a4198dd6e3c529904c, type: 3}
   meleeManager: {fileID: 6813073165052940623}
   playerNumber: 2
 --- !u!1 &6813073165613945609
