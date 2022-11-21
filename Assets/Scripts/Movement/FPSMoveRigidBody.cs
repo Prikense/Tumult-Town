@@ -9,6 +9,7 @@ public class FPSMoveRigidBody : MonoBehaviour
     //sfx n stuff
     [SerializeField] private AudioSource stepSfx;
     [SerializeField] private AudioSource dashSfx;
+    [SerializeField] private AudioSource dashOKSfx;
     
     [SerializeField] private AudioSource jumpSfx;
     [SerializeField] private AudioSource landSfx;
@@ -176,6 +177,9 @@ public class FPSMoveRigidBody : MonoBehaviour
                 //Debug.Log("cooldown ok");
                 time = 0.0f;
                 DASH2 = true;
+                if(!dashSfx.isPlaying){
+                    dashSfx.Play();
+                }
                 //body.velocity = new Vector3(vectorMove.x*dashMulti, 0, vectorMove.z*dashMulti);
                 if(vectorMove.magnitude == 0){
                     //Debug.Log("no input");
@@ -188,6 +192,9 @@ public class FPSMoveRigidBody : MonoBehaviour
                     //Debug.Log("input" + vectorMove);
                     body.velocity = transform.TransformDirection(vectorMove)*dashMulti;
                 }
+        }
+        if(time > dashCooldown-.2 && time < dashCooldown && !dashOKSfx.isPlaying){
+            dashOKSfx.Play();
         }
         if (time > .5f){
             DASH2 = false;

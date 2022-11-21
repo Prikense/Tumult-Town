@@ -4205,6 +4205,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0140daacab4333f4cb48d08cde7c43d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepSfx: {fileID: 0}
+  dashSfx: {fileID: 0}
+  dashOKSfx: {fileID: 0}
+  jumpSfx: {fileID: 0}
+  landSfx: {fileID: 0}
   accel: 100
   airAccel: 30
   MaxSpeed: 7
@@ -4220,7 +4225,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   fallSpeed: {x: 0, y: -4, z: 0}
-  dashCooldown: 4
+  dashCooldown: 2
   dashMulti: 18
   time: 0
   noFricOn: 0
@@ -4231,6 +4236,7 @@ MonoBehaviour:
   CameraVariable: {fileID: 6813073164411417474}
   SpeedBox: {fileID: 6813073164108580643}
   groundTime: 0
+  movingTime: 0
 --- !u!114 &6813073163992956491
 MonoBehaviour:
   m_ObjectHideFlags: 0
