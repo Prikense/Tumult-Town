@@ -10230,7 +10230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8534311257422753324
 Transform:
   m_ObjectHideFlags: 0
@@ -10321,6 +10321,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f30f98d39aed437099c4154e366c483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunsfx: {fileID: 8992548953214069448}
+  audioClips:
+  - {fileID: 8300000, guid: bb2313902d0fec147a086fcc114a881f, type: 3}
+  - {fileID: 8300000, guid: c11ea64791f55fc44950c2792508f2c8, type: 3}
+  - {fileID: 8300000, guid: f01511df5790f4a4a9016fc77ae536ad, type: 3}
+  - {fileID: 8300000, guid: 1cec406d3920c8a4198dd6e3c529904c, type: 3}
   meleeManager: {fileID: 8534311257276403691}
   playerNumber: 1
 --- !u!1 &8534311257629419166
