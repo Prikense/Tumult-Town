@@ -8,7 +8,7 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] private int playerNumber;
     [SerializeField] private GameObject playerCamera;
-    private float range = 100f;
+    private float range = 200f;
     private float damage = 10f;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private float fireRate = 15f;
@@ -28,7 +28,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     [SerializeField] private float spread = 0.001f;
-    [SerializeField] private float reloadTime = 1.0f;
+    [SerializeField] private float reloadTime = 3f;
     private bool reloading;
     [SerializeField] private float impactForce = 155f;
 
@@ -119,26 +119,29 @@ public class WeaponManager : MonoBehaviour
 
         Vector3 raycastOrigin = new Vector3 (playerCamera.transform.position.x - 0.0f, playerCamera.transform.position.y, playerCamera.transform.position.z+.05f);
 
-        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range, ~LayerMask.GetMask("Debri"))) {
+        //uncommnet to ignore layer debri, making it kinda like a laser that goes through debri, but doesnt send debri flying
+        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range/*, ~LayerMask.GetMask("debri")*/)) {
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 0.3f);
 
+            Debug.Log("distance: "+hit.distance);
+            Debug.Log("damage: "+damage/Mathf.Max(hit.distance/12, 2));
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
-                buildingManager.Hit(damage, playerNumber);
+                buildingManager.Hit(damage/Mathf.Max(hit.distance/12, 2), playerNumber);
             }
 
             //players take less damage from each other to discourage killing each other
             PlayerManager playerHealth = hit.transform.GetComponent<PlayerManager>();
             if(playerHealth != null) {
-                playerHealth.ReceiveDamage(damage/10);
+                playerHealth.ReceiveDamage(Mathf.Max(damage/Mathf.Max(hit.distance/12, 1)/5));
             }
 
             EnemyAI enemyAI = hit.transform.GetComponent<EnemyAI>();
             if(enemyAI != null)
             {
-                enemyAI.ReceiveDamage(damage);
+                enemyAI.ReceiveDamage(damage/Mathf.Max(hit.distance/12, 2));
             }
 
             if(hit.rigidbody != null) {
