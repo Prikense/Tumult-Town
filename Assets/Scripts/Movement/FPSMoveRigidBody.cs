@@ -127,6 +127,9 @@ public class FPSMoveRigidBody : MonoBehaviour
         
 
         if(grounded){
+            if(groundTime > .04 && groundTime < .3 && !landSfx.isPlaying && !jumpSfx.isPlaying){
+                landSfx.Play();
+            }
             groundTime += Time.fixedDeltaTime;
             movingTime += Time.fixedDeltaTime;
             if(velocity < 1){
@@ -140,8 +143,11 @@ public class FPSMoveRigidBody : MonoBehaviour
         //Jump
         if( jumptime/*&& Input.GetButton("Jump")*/){
             if(grounded){
-            body.velocity = new Vector3 (body.velocity.x, jumpHeight, body.velocity.z);
-            //body.AddForce(transform.up* jumpHeight);
+                if(!jumpSfx.isPlaying){
+                    jumpSfx.Play();
+                }
+                body.velocity = new Vector3 (body.velocity.x, jumpHeight, body.velocity.z);
+                //body.AddForce(transform.up* jumpHeight);
             }
         }
 
@@ -224,7 +230,7 @@ public class FPSMoveRigidBody : MonoBehaviour
             body.velocity += accelDir * accelVel;
         }else if (groundTime > Time.fixedDeltaTime*3 && !DASH2){//if grounded and not dashing
             //step sound
-            if(/*CameraVariable.localPosition.y < 0.0f*/ (movingTime < .8f || (movingTime % .8f) <= 0.02)  && !stepSfx.isPlaying && vectorMove.magnitude != 0){
+            if(/*CameraVariable.localPosition.y < 0.0f*/ (movingTime < .5f || (movingTime % 1f) <= 0.02)  && !stepSfx.isPlaying && vectorMove.magnitude != 0 && !landSfx.isPlaying ){
                  stepSfx.Play();
              }
 
