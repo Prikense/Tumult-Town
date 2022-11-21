@@ -8,7 +8,7 @@ public class ProjectileWeaponManager : MonoBehaviour
     
 
     [SerializeField] private AudioSource gunsfx;
-    [SerializeField] private AudioSource loadsfx;   
+    [SerializeField] private AudioSource loadsfx;
     [SerializeField] private AudioClip[] audioClips;//0 -> shot, 1 -> no ammo, 2 -> loading, 3 -> reload end
     private bool noAmmoFirstShot=true;
     [SerializeField] private int playerNumber;
