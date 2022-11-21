@@ -9,6 +9,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private AudioSource gunsfx;
     [SerializeField] private AudioSource loadsfx;
     [SerializeField] private AudioClip[] audioClips;//0 -> shot, 1 -> no ammo, 2 -> loading, 3 -> reload end
+    //4 -> impact, 5 -> player impact, 6 -> ai impact
     private bool noAmmoFirstShot;
     [SerializeField] private int playerNumber;
     [SerializeField] private GameObject playerCamera;
@@ -145,21 +146,26 @@ public class WeaponManager : MonoBehaviour
             Debug.Log("damage: "+damage/Mathf.Max(hit.distance/12, 2));
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
+                AudioSource.PlayClipAtPoint(audioClips[4], hit.point, .3f);
                 buildingManager.Hit(damage/Mathf.Max(hit.distance/12, 2), playerNumber);
             }
 
             //players take less damage from each other to discourage killing each other
             PlayerManager playerHealth = hit.transform.GetComponent<PlayerManager>();
             if(playerHealth != null) {
+                AudioSource.PlayClipAtPoint(audioClips[5], hit.point, .3f);
                 playerHealth.ReceiveDamage(Mathf.Max(damage/Mathf.Max(hit.distance/12, 1)/5));
             }
 
             EnemyAI enemyAI = hit.transform.GetComponent<EnemyAI>();
             if(enemyAI != null)
             {
+                AudioSource.PlayClipAtPoint(audioClips[6], hit.point, .3f);
                 enemyAI.ReceiveDamage(damage/Mathf.Max(hit.distance/12, 2));
             }
-
+            if(enemyAI == null && buildingManager == null && playerHealth == null){
+                AudioSource.PlayClipAtPoint(audioClips[4], hit.point, .3f);
+            }
             if(hit.rigidbody != null) {
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }

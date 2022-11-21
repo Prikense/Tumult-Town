@@ -3013,7 +3013,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 93c1a18e668303a42a0f9302e495f854, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3057,7 +3057,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.525
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -10707,6 +10707,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a1771ab0bed52a24d9131de63d073b17, type: 3}
   - {fileID: 8300000, guid: 403c8159aaa7a6d48a4318ec42d9e89b, type: 3}
   - {fileID: 8300000, guid: 61061c18f55d11d4598a10b838b8d252, type: 3}
+  - {fileID: 8300000, guid: c11ea64791f55fc44950c2792508f2c8, type: 3}
+  - {fileID: 8300000, guid: 45d34d5ae9ccb164f8039aaab2edcb51, type: 3}
+  - {fileID: 8300000, guid: 7023fe68f7f6b754eb23d85ecf875a2a, type: 3}
   playerNumber: 1
   playerCamera: {fileID: 8534311257775598905}
   muzzleFlash: {fileID: 8534311256951351805}

@@ -5,6 +5,8 @@ using UnityEngine;
 public class BulletHit : MonoBehaviour
 {
 
+    [SerializeField] private AudioClip[] audioClips;// 0 -> building hit, 1 -> player hit, 2 -> ai hit
+
     private float _weaponDamage = 30f;
     public float WeaponDamage
     {
@@ -24,6 +26,7 @@ public class BulletHit : MonoBehaviour
         if(collision.gameObject.tag == "Destructible"){
             BuildingManager buildingManager = collision.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
+                AudioSource.PlayClipAtPoint(audioClips[0], collision.transform.position);
                 buildingManager.Hit(WeaponDamage, PlayerNumber);
                 //Debug.Log("ouch");
             }
@@ -31,10 +34,12 @@ public class BulletHit : MonoBehaviour
         if(collision.gameObject.tag == "Player"){
             PlayerManager playerHealth = collision.transform.GetComponent<PlayerManager>();
             if(playerHealth != null) {
+                AudioSource.PlayClipAtPoint(audioClips[1], collision.transform.position);
                 playerHealth.ReceiveDamage(WeaponDamage/10);
             }
         }
         if(collision.gameObject.tag == "AI"){
+            AudioSource.PlayClipAtPoint(audioClips[2], collision.transform.position);
             EnemyAI enemy = collision.transform.GetComponent<EnemyAI>();
             if(enemy != null) {
                 enemy.ReceiveDamage(WeaponDamage);
