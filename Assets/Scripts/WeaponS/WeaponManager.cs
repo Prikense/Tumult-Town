@@ -87,7 +87,7 @@ public class WeaponManager : MonoBehaviour
 
         if(IsShooting && Time.time >= nextTimeToFire && AmmoLeft > 0  && DoneReloading) {
             nextTimeToFire = Time.time + 1f/fireRate;
-            gunsfx.PlayOneShot(audioClips[0], .4f);
+            gunsfx.PlayOneShot(audioClips[0], .25f);
             noAmmoFirstShot = true;
             Shoot();
         }

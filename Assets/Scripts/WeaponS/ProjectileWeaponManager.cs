@@ -111,7 +111,7 @@ public class ProjectileWeaponManager : MonoBehaviour
         {
             readyToShoot = false;
             noAmmoFirstShot = false;
-            gunsfx.PlayOneShot(audioClips[0], .3f);
+            gunsfx.PlayOneShot(audioClips[0], .4f);
             bulletsShot = 0;
 
             Shoot();
