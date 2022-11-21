@@ -6,7 +6,7 @@ public class HitDetection : MonoBehaviour
 {
 
     [SerializeField] private MeleeManager meleeManager;
-    private float weaponDamage = 20f;
+    private float weaponDamage = 30f;
     [SerializeField] private int playerNumber; //por mientras, eliminar despues
 
     private void OnTriggerEnter(Collider other)
@@ -19,11 +19,15 @@ public class HitDetection : MonoBehaviour
                 buildingManager.Hit(weaponDamage, playerNumber);
             }
         }
+        if(other.tag == "debri" && meleeManager.IsAttacking){
+            //Debug.Log("melee hit");
+            other.attachedRigidbody.AddForce(transform.forward*300);
+        }
         if(other.tag == "Player"){
             PlayerManager playerHealth = other.transform.GetComponent<PlayerManager>();
             if(playerHealth != null) {
                 playerHealth.ReceiveDamage(weaponDamage/10);
-                other.attachedRigidbody.AddForce(transform.forward*200);
+                other.attachedRigidbody.AddForce(transform.forward*500);
             }
         }
     }
