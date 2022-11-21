@@ -23,6 +23,14 @@ public class HitDetection : MonoBehaviour
             //Debug.Log("melee hit");
             other.attachedRigidbody.AddForce(transform.forward*300);
         }
+        if(other.tag == "AI"){
+            EnemyAI enemy = other.transform.GetComponent<EnemyAI>();
+            if(enemy != null) {
+                enemy.ReceiveDamage(weaponDamage);
+                //enemy doesnt have rigidbodies as of now
+                //other.attachedRigidbody.AddForce(transform.forward*300);
+            }
+        }
         if(other.tag == "Player"){
             PlayerManager playerHealth = other.transform.GetComponent<PlayerManager>();
             if(playerHealth != null) {

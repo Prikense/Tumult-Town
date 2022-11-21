@@ -34,6 +34,12 @@ public class BulletHit : MonoBehaviour
                 playerHealth.ReceiveDamage(WeaponDamage/10);
             }
         }
+        if(collision.gameObject.tag == "AI"){
+            EnemyAI enemy = collision.transform.GetComponent<EnemyAI>();
+            if(enemy != null) {
+                enemy.ReceiveDamage(WeaponDamage);
+            }
+        }
         Destroy(gameObject);
     }
 
