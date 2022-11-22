@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
 {
 
     // The original idea was to have 2 different mechas but for now that won't be
+    [SerializeField] private AudioClip dedSfx;
     private float _playerHealth = 100f;
 
     public GlobalHealthManager healthManager;
@@ -71,6 +72,7 @@ public class PlayerManager : MonoBehaviour
         //CanvasManager canvasManager = eventSystem.GetComponent<CanvasManager>();
         //mainCam.SetActive(false);
         //deathCam.SetActive(true);
+        AudioSource.PlayClipAtPoint(dedSfx, Vector3.zero, .3f); //use transform.position for 3d sound
         gameObject.transform.position = new Vector3(x, 15.0f, z);
         transform.GetComponent<PlayerInput>().DeactivateInput();
         //canvasManager.DeathScreen();

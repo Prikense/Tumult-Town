@@ -3,7 +3,12 @@ guid: 66d2e94c37a3149cda9559ca6e071857
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - dedSfx: {fileID: 8300000, guid: 22efa2545fca0634eb383697e46f8b81, type: 3}
+  - healthManager: {instanceID: 0}
+  - raycastGun: {instanceID: 0}
+  - projectileGun: {instanceID: 0}
+  - spawnPoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
