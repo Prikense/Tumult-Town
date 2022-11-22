@@ -146,25 +146,25 @@ public class WeaponManager : MonoBehaviour
             Debug.Log("damage: "+damage/Mathf.Max(hit.distance/12, 2));
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
-                AudioSource.PlayClipAtPoint(audioClips[4], hit.point, .3f);
+                AudioSource.PlayClipAtPoint(audioClips[4], Vector3.zero, .3f);//use hit.point for positional sound
                 buildingManager.Hit(damage/Mathf.Max(hit.distance/12, 2), playerNumber);
             }
 
             //players take less damage from each other to discourage killing each other
             PlayerManager playerHealth = hit.transform.GetComponent<PlayerManager>();
             if(playerHealth != null) {
-                AudioSource.PlayClipAtPoint(audioClips[5], hit.point, .3f);
+                AudioSource.PlayClipAtPoint(audioClips[5], Vector3.zero, .3f);
                 playerHealth.ReceiveDamage(Mathf.Max(damage/Mathf.Max(hit.distance/12, 1)/5));
             }
 
             EnemyAI enemyAI = hit.transform.GetComponent<EnemyAI>();
             if(enemyAI != null)
             {
-                AudioSource.PlayClipAtPoint(audioClips[6], hit.point, .3f);
+                AudioSource.PlayClipAtPoint(audioClips[6], Vector3.zero, .3f);
                 enemyAI.ReceiveDamage(damage/Mathf.Max(hit.distance/12, 2));
             }
             if(enemyAI == null && buildingManager == null && playerHealth == null){
-                AudioSource.PlayClipAtPoint(audioClips[4], hit.point, .3f);
+                AudioSource.PlayClipAtPoint(audioClips[4], Vector3.zero, .3f);
             }
             if(hit.rigidbody != null) {
                 hit.rigidbody.AddForce(-hit.normal * impactForce);

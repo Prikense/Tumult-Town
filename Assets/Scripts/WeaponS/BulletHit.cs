@@ -26,7 +26,7 @@ public class BulletHit : MonoBehaviour
         if(collision.gameObject.tag == "Destructible"){
             BuildingManager buildingManager = collision.gameObject.GetComponent<BuildingManager>();
             if(buildingManager != null) {
-                AudioSource.PlayClipAtPoint(audioClips[0], collision.transform.position);
+                AudioSource.PlayClipAtPoint(audioClips[0], Vector3.zero);//use collision.transform.position for 3d sound
                 buildingManager.Hit(WeaponDamage, PlayerNumber);
                 //Debug.Log("ouch");
             }
@@ -34,12 +34,12 @@ public class BulletHit : MonoBehaviour
         if(collision.gameObject.tag == "Player"){
             PlayerManager playerHealth = collision.transform.GetComponent<PlayerManager>();
             if(playerHealth != null) {
-                AudioSource.PlayClipAtPoint(audioClips[1], collision.transform.position);
+                AudioSource.PlayClipAtPoint(audioClips[1], Vector3.zero);
                 playerHealth.ReceiveDamage(WeaponDamage/10);
             }
         }
         if(collision.gameObject.tag == "AI"){
-            AudioSource.PlayClipAtPoint(audioClips[2], collision.transform.position);
+            AudioSource.PlayClipAtPoint(audioClips[2], Vector3.zero);
             EnemyAI enemy = collision.transform.GetComponent<EnemyAI>();
             if(enemy != null) {
                 enemy.ReceiveDamage(WeaponDamage);
