@@ -49,8 +49,8 @@ public class MeleeManager : MonoBehaviour
         //Animator anim = Sword.Find("pivotFeo").GetComponent<Animator>();
         Animator anim = Sword.GetComponent<Animator>();
         anim.SetTrigger("Attack");
+        Invoke("ResetIsAttacking", attackCooldown-.5f);
         Invoke("ResetAttackCooldown", attackCooldown);
-        Invoke("ResetIsAttacking", attackCooldown-.05f);
     }
 
     void ResetAttackCooldown()

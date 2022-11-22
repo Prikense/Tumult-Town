@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour
 {
+    [SerializeField] private AudioSource alarmsfx;
     [SerializeField] private Image playerHealthFill;
     [SerializeField] private Image targetHealthFill;
     [SerializeField] private Slider scoreBar;
@@ -49,6 +50,7 @@ public class GUIManager : MonoBehaviour
 
     //timer for flavor texts of the sword, can be done better but who cares
     private float cooldown = 10;
+    private float timer = 0;
     private float timerSword =0;
     int auxRNG;
     
@@ -226,8 +228,15 @@ public class GUIManager : MonoBehaviour
         health.text = "" + PlayerHealth.healthManager.Health;
         FillBar(playerHealthFill, PlayerHealth.healthManager.HealthRatio);
 
-        if(PlayerHealth.healthManager.HealthRatio <= .25){
+        timer += Time.fixedDeltaTime;
+        if(timer >= (7f/6f)){
+            timer = 0;
+        }
+        if(PlayerHealth.healthManager.HealthRatio <= .25f){
             lightAlarm.SetBool("lowHealth", true);
+            if(!alarmsfx.isPlaying && timer > (.36f) && timer < .5){
+                alarmsfx.Play();
+            }
         }
         else
             lightAlarm.SetBool("lowHealth", false);

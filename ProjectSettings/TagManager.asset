@@ -9,6 +9,7 @@ TagManager:
   - debri
   - Player1
   - Player2
+  - AI
   layers:
   - Default
   - TransparentFX

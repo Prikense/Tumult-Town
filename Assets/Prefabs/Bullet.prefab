@@ -111,9 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76beae8baf34d45b7bdd9645b50fc7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponDamage: 2
-  lastHealth: 0
-  playerNumber: 0
+  audioClips:
+  - {fileID: 8300000, guid: c11ea64791f55fc44950c2792508f2c8, type: 3}
+  - {fileID: 8300000, guid: d5bc58fcfb1733840a4a1b021d743407, type: 3}
+  - {fileID: 8300000, guid: f01511df5790f4a4a9016fc77ae536ad, type: 3}
 --- !u!54 &9011577157043083379
 Rigidbody:
   m_ObjectHideFlags: 0

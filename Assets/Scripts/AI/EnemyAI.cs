@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     private LayerMask AI;
+    [SerializeField] private AudioClip tankdedSfx;
     private float distanceFromPlayer;
     private bool isPlayerVisible;
     private float maxRange = 50.0f;
@@ -115,7 +116,7 @@ public class EnemyAI : MonoBehaviour
     public void Shoot()
     {
         float hitChance = Random.Range(0.0f, 10.0f);
-        Debug.Log(hitChance);
+        //Debug.Log(hitChance);
         if(Physics.Raycast(ray, out hit, maxRange, ~AI) && hitChance < 3.0f) 
         {
             // Going to change the color of the ai material, when shot damages player
@@ -124,7 +125,7 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(BackToGreenColor());
 
             // if(hit.collider.gameObject == player)
-            Debug.Log("Hello");
+            //Debug.Log("Hello");
             PlayerManager playerManager = hit.transform.GetComponent<PlayerManager>();
             if(playerManager != null)
             {
@@ -163,6 +164,7 @@ public class EnemyAI : MonoBehaviour
         //numAllies -= 1;
         //aiManager.CurrAmountAI -= 1;
         //animator.SetInteger("NumAllies", aiManager.CurrAmountAI);
+        AudioSource.PlayClipAtPoint(tankdedSfx, Vector3.zero, .2f);//use transform.position instead of vector.zero for 3d sound
         aiManager.AIList.Remove(gameObject);
         Destroy(gameObject);
     }
