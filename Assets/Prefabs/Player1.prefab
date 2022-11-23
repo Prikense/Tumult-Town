@@ -11395,6 +11395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d2e94c37a3149cda9559ca6e071857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dedSfx: {fileID: 8300000, guid: 22efa2545fca0634eb383697e46f8b81, type: 3}
   healthManager: {fileID: 0}
   raycastGun: {fileID: 0}
   projectileGun: {fileID: 0}
