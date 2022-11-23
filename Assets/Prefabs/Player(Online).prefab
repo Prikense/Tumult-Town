@@ -10268,10 +10268,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8534311257276403690}
-  - component: {fileID: 8534311257276403689}
   - component: {fileID: 8534311257276403688}
   - component: {fileID: 8534311257276403691}
   - component: {fileID: 8283784873224399129}
+  - component: {fileID: 1600243209232721688}
+  - component: {fileID: 4214226737543135876}
   m_Layer: 0
   m_Name: whoKnows
   m_TagString: Untagged
@@ -10298,20 +10299,6 @@ Transform:
   m_Father: {fileID: 8534311258200088814}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8534311257276403689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534311257276403693}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3c5d4eb5adb67418b5ea5e65c7edec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraSensitivity: 0.08
-  playerBody: {fileID: 8534311258200088814}
 --- !u!114 &8534311257276403688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10319,7 +10306,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8534311257276403693}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0790ab726504d445d87bea6e7ceaebc1, type: 3}
   m_Name: 
@@ -10332,7 +10319,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8534311257276403693}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b16b51a5c170a4976b408819401e98eb, type: 3}
   m_Name: 
@@ -10352,8 +10339,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  cameraSensitivity: 0.08
+  cameraSensitivity: 1
   playerBody: {fileID: 8534311258200088814}
+--- !u!114 &1600243209232721688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534311257276403693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b1b53cce1f3a6f43b3cafe18c8b62f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  Sword: {fileID: 8534311257677009586}
+  hitbox: {fileID: 8534311257422753327}
+--- !u!114 &4214226737543135876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534311257276403693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6006b7aef5a2c946a317da76418d231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  meleeTime: {fileID: 8534311257276403691}
 --- !u!1 &8534311257422753327
 GameObject:
   m_ObjectHideFlags: 0
@@ -10615,7 +10631,7 @@ GameObject:
   - component: {fileID: 8534311257694041263}
   - component: {fileID: 8534311257694041262}
   - component: {fileID: 8534311257694041249}
-  - component: {fileID: 8534311257694041248}
+  - component: {fileID: 2722976492501866417}
   m_Layer: 0
   m_Name: gun or smt
   m_TagString: Untagged
@@ -10703,7 +10719,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8534311257694041248
+--- !u!114 &2722976492501866417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10712,9 +10728,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8534311257694041250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc5dbd6e148c431babd5dff12f31038, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b2eccdc0cd91af4ea9738b907a3dfae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   gunsfx: {fileID: 5329951819846629837}
   loadsfx: {fileID: 8992548953214069448}
   audioClips:
@@ -10730,8 +10747,8 @@ MonoBehaviour:
   muzzleFlash: {fileID: 8534311256951351805}
   fireRate: 20
   _magazineSize: 350
-  spread: 0
-  reloadTime: 4
+  spread: 0.001
+  reloadTime: 3.5
   impactForce: 155
   bulletHole: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
 --- !u!1 &8534311257827947191
@@ -11319,8 +11336,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   fallSpeed: {x: 0, y: -4, z: 0}
-  dashCooldown: 4
-  dashMulti: 50
+  dashCooldown: 2
+  dashMulti: 18
   time: 0
   noFricOn: 0
   DASH2: 0
@@ -11356,6 +11373,10 @@ MonoBehaviour:
   - {fileID: 7135612036186224565}
   - {fileID: 6870006413296115928}
   - {fileID: 8283784873224399129}
+  - {fileID: 1600243209232721688}
+  - {fileID: 4214226737543135876}
+  - {fileID: 2722976492501866417}
+  - {fileID: 3293042268379316314}
   SimulationBehaviours: []
 --- !u!114 &8534311258200088815
 MonoBehaviour:
@@ -11445,7 +11466,7 @@ MonoBehaviour:
     m_ActionName: Player/Looking[/XInputControllerWindows/rightStick]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8534311257276403689}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: FPSLooking, Assembly-CSharp
         m_MethodName: onLookx
         m_Mode: 0
@@ -11461,7 +11482,7 @@ MonoBehaviour:
     m_ActionName: Player/Mouse X[/Mouse/delta/x]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8534311257276403689}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: FPSLooking, Assembly-CSharp
         m_MethodName: onLooky
         m_Mode: 0
@@ -11493,7 +11514,7 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space,/XInputControllerWindows/leftShoulder,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8534311257694041248}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
         m_MethodName: onFire
         m_Mode: 0
@@ -11533,7 +11554,7 @@ MonoBehaviour:
     m_ActionName: Player/Fire[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8534311257694041248}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
         m_MethodName: onReload
         m_Mode: 0
@@ -12191,13 +12212,14 @@ GameObject:
   - component: {fileID: 8534311258649801342}
   - component: {fileID: 8534311258649801329}
   - component: {fileID: 8534311258649801328}
+  - component: {fileID: 3293042268379316314}
   m_Layer: 0
   m_Name: ProjectileGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8534311258649801331
 Transform:
   m_ObjectHideFlags: 0
@@ -12285,11 +12307,40 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8534311258649801330}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f112f27a4ac147d8ade8ad72462bf88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunsfx: {fileID: 5329951819846629837}
+  loadsfx: {fileID: 8992548953214069448}
+  audioClips:
+  - {fileID: 8300000, guid: d5bc58fcfb1733840a4a1b021d743407, type: 3}
+  - {fileID: 8300000, guid: a1771ab0bed52a24d9131de63d073b17, type: 3}
+  - {fileID: 8300000, guid: cb311ef555d383d4ba5d4aeee30fe17b, type: 3}
+  - {fileID: 8300000, guid: 61061c18f55d11d4598a10b838b8d252, type: 3}
+  playerNumber: 1
+  bullet: {fileID: 5878295058237529985, guid: e36450c2f099f41dba58901d75f9fff6, type: 3}
+  shootForce: 800
+  upwardForce: 0
+  spread: 0.05
+  bulletsPerTap: 0
+  fpsCam: {fileID: 0}
+  attackPoint: {fileID: 8534311256825747307}
+  allowInvoke: 1
+--- !u!114 &3293042268379316314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534311258649801330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce039c7de63b27d47921405122c965d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   gunsfx: {fileID: 5329951819846629837}
   loadsfx: {fileID: 8992548953214069448}
   audioClips:

@@ -76,6 +76,7 @@ public class CharacterMovementHandler : NetworkBehaviour
         CameraVariable = GameObject.Find("Main Camera");
         CameraVariable.transform.SetParent(Whoknows, false);
         
+        
         //body = GetComponent<Rigidbody>();
         time = dashMulti;
         startPos = CameraVariable.transform.localPosition;
@@ -91,8 +92,16 @@ public class CharacterMovementHandler : NetworkBehaviour
     // public void onDash(InputAction.CallbackContext context){
     //     DASH  =  context.action.triggered;
     // }
-    public void onSlide(InputAction.CallbackContext context){
-        noFricOn  =  context.action.triggered;
+    // public void onSlide(InputAction.CallbackContext context){
+    //     noFricOn  =  context.action.triggered;
+    // }
+
+    public override void FixedUpdateNetwork(){
+        if (GetInput(out NetworkInputData data)){
+            inputXY = data.Moving;
+            jumptime = data.buttons.IsSet(TheButtons.Jump);
+            DASH = data.buttons.IsSet(TheButtons.Dash);
+        }
     }
 
     // Update is called once per frame
