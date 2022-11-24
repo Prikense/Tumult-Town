@@ -29,6 +29,7 @@ public class PlayerManager : MonoBehaviour
     //spawn position
     private float x;
     private float z;
+    private bool soundCheck=false;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +53,10 @@ public class PlayerManager : MonoBehaviour
     {
         if(healthManager.Health <= 0 || transform.position.y <= -100)
         {
-
+            if(!soundCheck){
+                AudioSource.PlayClipAtPoint(dedSfx, Vector3.zero, .3f); //use transform.position for 3d sound
+                soundCheck = true;
+            }
             healthManager.Health = 0;
             Death();
         }
@@ -72,7 +76,6 @@ public class PlayerManager : MonoBehaviour
         //CanvasManager canvasManager = eventSystem.GetComponent<CanvasManager>();
         //mainCam.SetActive(false);
         //deathCam.SetActive(true);
-        AudioSource.PlayClipAtPoint(dedSfx, Vector3.zero, .3f); //use transform.position for 3d sound
         gameObject.transform.position = new Vector3(x, 15.0f, z);
         transform.GetComponent<PlayerInput>().DeactivateInput();
         //canvasManager.DeathScreen();
@@ -91,6 +94,7 @@ public class PlayerManager : MonoBehaviour
         raycastGun.AmmoLeft = raycastGun.MagazineSize; // dont know if it ould be better to make Reload() public and use it
         //ProjectileWeaponManager projectileGun = projectileGO.GetComponent<ProjectileWeaponManager>();
         projectileGun.AmmoLeft = projectileGun.MagazineSize; // same comment as with raycastGun
+        soundCheck = false;
         //gameObject.transform.position = spawnPoint.transform.position;
         // Restart the weapons bullets (reload them)
 
