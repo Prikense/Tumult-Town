@@ -45,16 +45,16 @@ public class mouseOnlineHanderl : NetworkBehaviour
     void Update()
     {  
         //for looking
-        // if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0){
-        //     mouseX = Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
-        //     mouseY = Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
-        //     rotateTime(mouseX, -mouseY);
-        // }else if(Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) {
-        //     mouseX = Input.GetAxis("Horizontal2") * cameraSensitivity * Time.deltaTime;
-        //     mouseY = Input.GetAxis("Vertical2") * cameraSensitivity * Time.deltaTime;
-        //     rotateTime(mouseX, mouseY);
-        // }
-        //Debug.Log("???"+lookm);
+        if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0){
+            mouseX = Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
+            mouseY = -Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
+            //rotateTime(mouseX, -mouseY);
+        }else if(Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) {
+            mouseX = Input.GetAxis("Horizontal2") * cameraSensitivity * Time.deltaTime;
+            mouseY = Input.GetAxis("Vertical2") * cameraSensitivity * Time.deltaTime;
+            //rotateTime(mouseX, mouseY);
+        }
+        // Debug.Log("???"+lookm);
         // if(lookm.magnitude !=0 ){
         //     mouseX = lookm.x;
         //     mouseY = lookm.y;
