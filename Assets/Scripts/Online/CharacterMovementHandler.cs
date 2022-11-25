@@ -214,11 +214,10 @@ public class CharacterMovementHandler : NetworkBehaviour
         if (time > .5f){
             DASH2 = false;
         }
-
-        // if(!BobEnable){return;}
-        // CheckMotion();
-        // CameraVariable.transform.LookAt(FocusTarget());
-
+        if(Object.HasInputAuthority && BobEnable){
+            CheckMotion();
+            CameraVariable.transform.LookAt(FocusTarget());
+        }
     }
 
     //actual movement stuff
@@ -281,27 +280,27 @@ public class CharacterMovementHandler : NetworkBehaviour
 
 
     //head bobbing stuff
-    // private void PlayMotion(Vector3 motion){
-    //     CameraVariable.transform.localPosition +=motion;
-    // }
-    // private Vector3 FootStep(){
-    //     Vector3 pos = Vector3.zero;
-    //     pos.y += Mathf.Sin(Time.time * frequency) * amplitude;
-    //     pos.x += Mathf.Cos(Time.time * frequency/2)*amplitude*2;
-    //     return pos;
-    // }
-    // private void CheckMotion(){
-    //     //float speed = new Vector3(body.velocity.x, 0, body.velocity.z).magnitude;
-    //     if (body.velocity.magnitude < ToggleSpeed || !grounded) {resetPos();return;}
-    //     PlayMotion(FootStep());
-    // }
-    // private void resetPos(){
-    //     if(CameraVariable.transform.localPosition == startPos) return;
-    //     CameraVariable.transform.localPosition = Vector3.Lerp(CameraVariable.transform.localPosition, startPos, 1 *Time.deltaTime);
-    // }
-    // private Vector3 FocusTarget(){
-    //     Vector3 pos = new Vector3(transform.position.x, transform.position.y+Whoknows.localPosition.y, transform.position.z);
-    //     pos += Whoknows.forward *15f;
-    //     return pos;
-    // }
+    private void PlayMotion(Vector3 motion){
+        CameraVariable.transform.localPosition +=motion;
+    }
+    private Vector3 FootStep(){
+        Vector3 pos = Vector3.zero;
+        pos.y += Mathf.Sin(Time.time * frequency) * amplitude;
+        pos.x += Mathf.Cos(Time.time * frequency/2)*amplitude*2;
+        return pos;
+    }
+    private void CheckMotion(){
+        //float speed = new Vector3(body.velocity.x, 0, body.velocity.z).magnitude;
+        if (body.velocity.magnitude < ToggleSpeed || !grounded) {resetPos();return;}
+        PlayMotion(FootStep());
+    }
+    private void resetPos(){
+        if(CameraVariable.transform.localPosition == startPos) return;
+        CameraVariable.transform.localPosition = Vector3.Lerp(CameraVariable.transform.localPosition, startPos, 1 *Time.deltaTime);
+    }
+    private Vector3 FocusTarget(){
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y+Whoknows.localPosition.y, transform.position.z);
+        pos += Whoknows.forward *15f;
+        return pos;
+    }
 }
