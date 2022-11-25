@@ -22,7 +22,7 @@ public class WeaponSwitchO : NetworkBehaviour
         set{_currentWeapon = value;}
     }
 
-    [SerializeField] private MeleeManager meleeTime;
+    [SerializeField] private MeleeManagerO meleeTime;
     private int previousSelectedWeapon;
     private float scrollValue;
     private bool we1;
@@ -65,7 +65,7 @@ public class WeaponSwitchO : NetworkBehaviour
 
         if(scrollValue > 0f)
         {
-            if(SelectedWeapon >= transform.childCount - 3) //2 since at the time the camera is also inside object
+            if(SelectedWeapon >= transform.childCount - 1) //2 since at the time the camera is also inside object
                 SelectedWeapon = 0;
             else
                 SelectedWeapon++;
@@ -74,7 +74,7 @@ public class WeaponSwitchO : NetworkBehaviour
         if(scrollValue < 0f)
         {
             if(SelectedWeapon <= 0) //2 since at the time the camera is also inside object
-                SelectedWeapon = transform.childCount - 3;
+                SelectedWeapon = transform.childCount - 1;
             else
                 SelectedWeapon--;
         }
@@ -110,7 +110,7 @@ public class WeaponSwitchO : NetworkBehaviour
                 weapon.gameObject.SetActive(true);
                 CurrentWeapon = weapon.gameObject;
             }
-            else if(i <= transform.childCount - 3)
+            else if(i <= transform.childCount - 1)
             {
                 weapon.gameObject.SetActive(false); 
             }

@@ -74,8 +74,9 @@ public class CharacterMovementHandler : NetworkBehaviour
     {
 
         CameraVariable = GameObject.Find("Main Camera");
-        CameraVariable.transform.SetParent(Whoknows, false);
-        
+        if(Object.HasInputAuthority){
+            CameraVariable.transform.SetParent(Whoknows, false);
+        }
         
         //body = GetComponent<Rigidbody>();
         time = dashMulti;
