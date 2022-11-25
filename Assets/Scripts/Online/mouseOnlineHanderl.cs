@@ -4,17 +4,21 @@ using Fusion;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class mouseOnlineHanderl : NetworkBehaviour
+public class mouseOnlineHanderl : NetworkBehaviour, IBeforeUpdate
 {
 
 
-    [SerializeField] private float cameraSensitivity = .08f;
+    private float cameraSensitivity = 1;
     [SerializeField] private Transform playerBody;
     private float xRotation = 0f;
     // private bool lookC;
     // private bool lookM;
     float mouseX;
     float mouseY;
+
+    float mouseXO;
+    float mouseYO;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,8 +41,8 @@ public class mouseOnlineHanderl : NetworkBehaviour
 
     public override void FixedUpdateNetwork(){
         if (GetInput(out NetworkInputData data)){
-            mouseX = data.MouseX*cameraSensitivity;
-            mouseY = data.MouseY*cameraSensitivity;
+            mouseXO = data.MouseX*cameraSensitivity;
+            mouseYO = data.MouseY*cameraSensitivity;
         }
     }
     // Update is called once per frame
@@ -59,8 +63,8 @@ public class mouseOnlineHanderl : NetworkBehaviour
         //     mouseX = lookm.x;
         //     mouseY = lookm.y;
         // }
-     
-        rotateTime(mouseX , mouseY);
+
+        rotateTime(mouseXO , mouseYO);
     }
 
     void rotateTime(float x, float y){
@@ -72,5 +76,24 @@ public class mouseOnlineHanderl : NetworkBehaviour
         //transform the root
         playerBody.Rotate(Vector3.up * x);
         return;
+    }
+
+    void IBeforeUpdate.BeforeUpdate()
+    {
+        //for looking localy
+        if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0){
+            mouseX = Input.GetAxis("Mouse X")*2.5f;
+            mouseY =- Input.GetAxis("Mouse Y")*1.5f;
+        }else if(Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) {
+            mouseX = Input.GetAxis("Horizontal2")*2.4f;
+            mouseY = Input.GetAxis("Vertical2") *.95f;
+        }
+    }
+
+    public (float, float) takeLocalMouseInput(){
+        var mouseXY = (mouseX, mouseY);
+        mouseX = 0;
+        mouseY = 0;
+        return mouseXY;
     }
 }

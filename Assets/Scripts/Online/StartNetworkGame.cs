@@ -16,6 +16,7 @@ public class StartNetworkGame : SimulationBehaviour, INetworkRunnerCallbacks
     [SerializeField] private string _sceneName;
     [SerializeField] private UnityEvent<NetworkRunner, PlayerRef> OnPlayerJoinedEvent;
 
+    private mouseOnlineHanderl _localCam;
 
     //variables de input?
     // private float _mouseX, _mouseY, _scrollValue;
@@ -190,14 +191,25 @@ public class StartNetworkGame : SimulationBehaviour, INetworkRunnerCallbacks
 
         //looking
         //tried to do it as close as locally as posible, but new input has different values for some reason so q:
-        if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0){
-            structChilo.MouseX = Input.GetAxis("Mouse X");
-            structChilo.MouseY = -Input.GetAxis("Mouse Y");
-        }else if(Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) {
-            structChilo.MouseX = Input.GetAxis("Horizontal2")*2.4f;
-            structChilo.MouseY = Input.GetAxis("Vertical2")*.95f;
-        }
+        // if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0){
+        //     structChilo.MouseX = Input.GetAxis("Mouse X");
+        //     structChilo.MouseY = -Input.GetAxis("Mouse Y");
+        // }else if(Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) {
+        //     structChilo.MouseX = Input.GetAxis("Horizontal2")*2.4f;
+        //     structChilo.MouseY = Input.GetAxis("Vertical2")*.95f;
+        // }
 
+        if(_localCam == null){
+            if(runner.IsServer && runner.SimulationUnityScene.FindObjectsOfTypeInOrder<mouseOnlineHanderl>().Length != 0){
+                _localCam = runner.SimulationUnityScene.FindObjectsOfTypeInOrder<mouseOnlineHanderl>()[0];
+            }else if(runner.IsClient && runner.SimulationUnityScene.FindObjectsOfTypeInOrder<mouseOnlineHanderl>().Length > 1){
+                _localCam = runner.SimulationUnityScene.FindObjectsOfTypeInOrder<mouseOnlineHanderl>()[1];
+            }
+        }else{
+            var aux = _localCam.takeLocalMouseInput();
+            structChilo.MouseX = aux.Item1;
+            structChilo.MouseY = aux.Item2;
+        }
         //shooting n stuff
         structChilo.buttons.Set(TheButtons.Fire, Input.GetAxisRaw("Fire1") == 1);
         structChilo.buttons.Set(TheButtons.Reload, Input.GetButton("Reload"));
