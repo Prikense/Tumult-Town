@@ -68,13 +68,13 @@ public class mouseOnlineHanderl : NetworkBehaviour, IBeforeUpdate
     }
 
     void rotateTime(float x, float y){
-         xRotation += y;
+         xRotation += y+mouseY;
         //clamp x rotation looking
         xRotation = Mathf.Clamp(xRotation, -89f, 89f);
         //transform itself
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         //transform the root
-        playerBody.Rotate(Vector3.up * x);
+        playerBody.Rotate(Vector3.up * (x+mouseX));
         return;
     }
 
