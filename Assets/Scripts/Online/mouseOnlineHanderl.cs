@@ -63,10 +63,7 @@ public class mouseOnlineHanderl : NetworkBehaviour
         //     mouseX = lookm.x;
         //     mouseY = lookm.y;
         // }
-
-        if(Object.HasInputAuthority){
-            rotateTime(mouseXO, mouseYO);
-        }
+        rotateTime(mouseXO, mouseYO);
     }
 
     void rotateTime(float x, float y){
