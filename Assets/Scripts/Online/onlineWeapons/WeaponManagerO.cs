@@ -150,8 +150,8 @@ public class WeaponManagerO : NetworkBehaviour
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 0.3f);
 
-            Debug.Log("distance: "+hit.distance);
-            Debug.Log("damage: "+damage/Mathf.Max(hit.distance/12, 2));
+            // Debug.Log("distance: "+hit.distance);
+            // Debug.Log("damage: "+damage/Mathf.Max(hit.distance/12, 2));
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
                 AudioSource.PlayClipAtPoint(audioClips[4], Vector3.zero, .3f);//use hit.point for positional sound
@@ -159,7 +159,7 @@ public class WeaponManagerO : NetworkBehaviour
             }
 
             //players take less damage from each other to discourage killing each other
-            PlayerManager playerHealth = hit.transform.GetComponent<PlayerManager>();
+            PlayerManagerO playerHealth = hit.transform.GetComponent<PlayerManagerO>();
             if(playerHealth != null) {
                 AudioSource.PlayClipAtPoint(audioClips[5], Vector3.zero, .3f);
                 playerHealth.ReceiveDamage(Mathf.Max(damage/Mathf.Max(hit.distance/12, 1)/5));

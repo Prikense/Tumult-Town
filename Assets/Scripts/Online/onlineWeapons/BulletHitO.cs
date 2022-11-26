@@ -32,7 +32,7 @@ public class BulletHitO : MonoBehaviour
             }
         }
         if(collision.gameObject.tag == "Player"){
-            PlayerManager playerHealth = collision.transform.GetComponent<PlayerManager>();
+            PlayerManagerO playerHealth = collision.transform.GetComponent<PlayerManagerO>();
             if(playerHealth != null) {
                 AudioSource.PlayClipAtPoint(audioClips[1], Vector3.zero);
                 playerHealth.ReceiveDamage(WeaponDamage/10);

@@ -6,7 +6,7 @@ public class HitDetectionO : MonoBehaviour
 {
     [SerializeField] private AudioSource gunsfx;
     [SerializeField] private AudioClip[] audioClips;// 0 -> swing, 1 -> building hit, 2 -> player hit, 3 -> small rubble
-    [SerializeField] private MeleeManager meleeManager;
+    [SerializeField] private MeleeManagerO meleeManager;
     private float weaponDamage = 30f;
     [SerializeField] private int playerNumber; //por mientras, eliminar despues
 

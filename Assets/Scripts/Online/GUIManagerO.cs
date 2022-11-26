@@ -25,11 +25,11 @@ public class GUIManagerO : MonoBehaviour
 
     // New values that are being used
     [SerializeField] private bool isProjectileWeapon;
-    [SerializeField] private WeaponSwitchO weaponSwitch; // takes the script
+    [SerializeField] public WeaponSwitchO weaponSwitch; // takes the script
     private GameObject currentWeapon;
     /*[SerializeField]*/ private ProjectileWeaponManagerO projectileWeapon;
-    private WeaponManagerO raycastWeapon;
-    [SerializeField] private PlayerManager PlayerHealth;
+    public WeaponManagerO raycastWeapon;
+    [SerializeField] public PlayerManagerO PlayerHealth;
 
     [SerializeField] private Camera playerCamera;
     private float range = 100f;
@@ -43,7 +43,7 @@ public class GUIManagerO : MonoBehaviour
     private float prevHealth;
 
     // This line is only for testing, should be deleted later on
-    [SerializeField] private ProjectileWeaponManagerO getProjectileWeapon;
+    [SerializeField] public ProjectileWeaponManagerO getProjectileWeapon;
 
     
 
@@ -60,8 +60,8 @@ public class GUIManagerO : MonoBehaviour
     {
         playerCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        scoreboard = GameObject.Find("GameManager").GetComponent<ScoreScript>();
+        // gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        // scoreboard = GameObject.Find("GameManager").GetComponent<ScoreScript>();
 
         winScreen.SetActive(false);
         loseScreen.SetActive(false);

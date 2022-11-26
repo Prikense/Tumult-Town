@@ -4,7 +4,7 @@ using Fusion;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class mouseOnlineHanderl : NetworkBehaviour
+public class mouseOnlineHanderl : NetworkBehaviour, IBeforeUpdate
 {
 
 
@@ -24,6 +24,7 @@ public class mouseOnlineHanderl : NetworkBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     // public void onLookx(InputAction.CallbackContext context){
@@ -41,8 +42,8 @@ public class mouseOnlineHanderl : NetworkBehaviour
 
     public override void FixedUpdateNetwork(){
         if (GetInput(out NetworkInputData data)){
-            mouseXO = data.MouseX*cameraSensitivity;
-            mouseYO = data.MouseY*cameraSensitivity;
+            mouseXO = data.MouseX*cameraSensitivity+mouseX;
+            mouseYO = data.MouseY*cameraSensitivity+mouseY;
         }
     }
     // Update is called once per frame
@@ -63,7 +64,8 @@ public class mouseOnlineHanderl : NetworkBehaviour
         //     mouseX = lookm.x;
         //     mouseY = lookm.y;
         // }
-        rotateTime(mouseXO, mouseYO);
+        Debug.Log("X: "+mouseXO*Time.fixedDeltaTime*10+"Y: "+mouseYO*Time.fixedDeltaTime*10);
+        rotateTime(mouseXO*Time.fixedDeltaTime*10, mouseYO*Time.fixedDeltaTime*10);
     }
 
     void rotateTime(float x, float y){
@@ -77,22 +79,24 @@ public class mouseOnlineHanderl : NetworkBehaviour
         return;
     }
 
-    // void IBeforeUpdate.BeforeUpdate()
-    // {
-    //     //for looking localy
-    //     if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0){
-    //         mouseX = Input.GetAxis("Mouse X")*2.5f;
-    //         mouseY =- Input.GetAxis("Mouse Y")*1.5f;
-    //     }else if(Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) {
-    //         mouseX = Input.GetAxis("Horizontal2")*2.4f;
-    //         mouseY = Input.GetAxis("Vertical2") *.95f;
-    //     }
-    // }
+    void IBeforeUpdate.BeforeUpdate()
+    {
+        if(Object.HasInputAuthority){
+            //for looking localy
+            if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0){
+                mouseX += Input.GetAxis("Mouse X");//*2.5f;
+                mouseY +=- Input.GetAxis("Mouse Y");//*1.5f;
+            }else if(Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) {
+                mouseX += Input.GetAxis("Horizontal2")*2.4f;
+                mouseY += Input.GetAxis("Vertical2") *.95f;
+            }
+        }
+    }
 
-    // public (float, float) takeLocalMouseInput(){
-    //     var mouseXY = (mouseX, mouseY);
-    //     mouseX = 0;
-    //     mouseY = 0;
-    //     return mouseXY;
-    // }
+    public (float, float) takeLocalMouseInput(){
+        var mouseXY = (mouseX, mouseY);
+        mouseX = 0;
+        mouseY = 0;
+        return mouseXY;
+    }
 }

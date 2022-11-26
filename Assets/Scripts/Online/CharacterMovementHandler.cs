@@ -62,20 +62,33 @@ public class CharacterMovementHandler : NetworkBehaviour
     [SerializeField] private GameObject SpeedBox;
 //    [SerializeField] private Transform gun;
     [SerializeField] private float groundTime = 0f;//for calculating time on the ground
-    [SerializeField] private float movingTime = 0f;//for step sfx
-    
+    [SerializeField] private float movingTime = 0f;//for step sfx    
+
 
     private float ToggleSpeed = 3.0f;
     private Vector3 startPos;
+
+    [SerializeField] private GameObject cockpitNcanvas;
+    private GUIManagerO aux;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        //i want to kill myself, this is so gross somebody stop me
         CameraVariable = GameObject.Find("Main Camera");
+        cockpitNcanvas = GameObject.Find("CanvasNCockpit");
+        cockpitNcanvas.transform.Find("Cockpit Parent").gameObject.SetActive(true);
+        cockpitNcanvas.transform.Find("Canvas").gameObject.SetActive(true);
+
         if(Object.HasInputAuthority){
             CameraVariable.transform.SetParent(Whoknows, false);
+            cockpitNcanvas.transform.SetParent(transform);
+            aux = cockpitNcanvas.GetComponentInChildren<GUIManagerO>();
+            aux.weaponSwitch = transform.GetComponentInChildren<WeaponSwitchO>();
+            aux.PlayerHealth = transform.GetComponent<PlayerManagerO>();
+            aux.raycastWeapon = transform.GetComponent<PlayerManagerO>().raycastGun;
+            aux.getProjectileWeapon = transform.GetComponent<PlayerManagerO>().projectileGun;
         }
         
         //body = GetComponent<Rigidbody>();
