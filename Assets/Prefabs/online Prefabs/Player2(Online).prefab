@@ -153,11 +153,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756689026592878699}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.34699965, y: -0.32299998, z: 2.42579}
+  m_LocalPosition: {x: 0.3469994, y: -0.32300004, z: 2.4257908}
   m_LocalScale: {x: 0.25302857, y: 0.36626655, z: 1.8688}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8534311257276403690}
+  m_Father: {fileID: 7840147060761858110}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &5329951819846629837
@@ -792,7 +792,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4539088809335815461}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -800,7 +800,7 @@ Transform:
   - {fileID: 8534311257694041251}
   - {fileID: 8534311257159255562}
   - {fileID: 8534311258649801331}
-  m_Father: {fileID: 8534311257276403690}
+  m_Father: {fileID: 7840147060761858110}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &184005424994897653
@@ -915,6 +915,39 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.00003057719, y: -0.00000047683716, z: -0.000011533506}
+--- !u!1 &7682416666624495188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7840147060761858110}
+  m_Layer: 0
+  m_Name: anotherEmptyForCam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7840147060761858110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7682416666624495188}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4621464057182180385}
+  - {fileID: 911252955911037806}
+  m_Father: {fileID: 8534311257276403690}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8534311256562306477
 GameObject:
   m_ObjectHideFlags: 0
@@ -5958,6 +5991,7 @@ GameObject:
   - component: {fileID: 8534311257276403690}
   - component: {fileID: 8283784873224399129}
   - component: {fileID: 1600243209232721688}
+  - component: {fileID: 5950558865082253794}
   m_Layer: 0
   m_Name: whoKnows
   m_TagString: Untagged
@@ -5977,8 +6011,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4621464057182180385}
-  - {fileID: 911252955911037806}
+  - {fileID: 7840147060761858110}
   m_Father: {fileID: 8534311258200088814}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6011,6 +6044,32 @@ MonoBehaviour:
   _interpolationDataSource: 0
   Sword: {fileID: 8534311257677009586}
   hitbox: {fileID: 8534311257422753327}
+--- !u!114 &5950558865082253794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534311257276403693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  InterpolationSpace: 1
+  InterpolationTarget: {fileID: 7840147060761858110}
+  InterpolateErrorCorrection: 0
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5
 --- !u!1 &8534311257422753327
 GameObject:
   m_ObjectHideFlags: 0
@@ -6429,7 +6488,6 @@ GameObject:
   - component: {fileID: 197207341890659796}
   - component: {fileID: 8534311258200088815}
   - component: {fileID: 8912457284500104360}
-  - component: {fileID: 8534311258200088813}
   m_Layer: 0
   m_Name: Player2(Online)
   m_TagString: Player
@@ -6563,6 +6621,7 @@ MonoBehaviour:
   SpeedBox: {fileID: 8534311258212112775}
   groundTime: 0
   movingTime: 0
+  cockpitNcanvas: {fileID: 0}
 --- !u!114 &197207341890659796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6589,6 +6648,7 @@ MonoBehaviour:
   - {fileID: 6870006413296115928}
   - {fileID: 8283784873224399129}
   - {fileID: 1600243209232721688}
+  - {fileID: 5950558865082253794}
   - {fileID: 184005424994897653}
   - {fileID: 2722976492501866417}
   - {fileID: 3293042268379316314}
@@ -6622,280 +6682,6 @@ MonoBehaviour:
   raycastGun: {fileID: 2722976492501866417}
   projectileGun: {fileID: 3293042268379316314}
   spawnPoint: {fileID: 0}
---- !u!114 &8534311258200088813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534311258200088802}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: aa5db3cdf649e2c41bbea67cf846ea16, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6870006413296115928}
-        m_TargetAssemblyTypeName: CharacterMovementHandler, Assembly-CSharp
-        m_MethodName: onMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 8ef349a7-6fd5-4e10-8069-bc0646a0b830
-    m_ActionName: Player/Moving[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11500000, guid: e2cd1ce8e2d5243c39d0aaa25d54da80, type: 3}
-        m_TargetAssemblyTypeName: FPSLooking, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 88fb8892-7f53-4918-82e0-6e0b64ec80a0
-    m_ActionName: Player/Looking[/XInputControllerWindows/rightStick]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FPSLooking, Assembly-CSharp
-        m_MethodName: onLookx
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 4cc27656-2f71-42b9-a6be-b76ca2706725
-    m_ActionName: Player/Mouse X[/Mouse/delta/x]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FPSLooking, Assembly-CSharp
-        m_MethodName: onLooky
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: e0507bf2-4c4a-4649-9a71-da7f2c64131e
-    m_ActionName: Player/Mouse Y[/Mouse/delta/y]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6870006413296115928}
-        m_TargetAssemblyTypeName: CharacterMovementHandler, Assembly-CSharp
-        m_MethodName: onJump
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: a53316df-af1f-4843-94b6-60b7c9a85eb3
-    m_ActionName: Player/Jump[/Keyboard/space,/XInputControllerWindows/leftShoulder,/XInputControllerWindows/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
-        m_MethodName: onFire
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MeleeManager, Assembly-CSharp
-        m_MethodName: onFire
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ProjectileWeaponManager, Assembly-CSharp
-        m_MethodName: onFire
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: fadd97b0-bb79-47a1-8f59-4f314cc5713d
-    m_ActionName: Player/Fire[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
-        m_MethodName: onReload
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ProjectileWeaponManager, Assembly-CSharp
-        m_MethodName: onReload
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 678c27d8-17cf-4ee3-b1fa-7b7cded71eea
-    m_ActionName: Player/Reload[/Keyboard/r,/XInputControllerWindows/rightShoulder]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WeaponSwitch, Assembly-CSharp
-        m_MethodName: onScroll
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: d1381405-a555-4e95-a2b8-711344f37e35
-    m_ActionName: Player/WeaponChangeScroll[/Mouse/scroll/down,/Mouse/scroll/up]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6870006413296115928}
-        m_TargetAssemblyTypeName: CharacterMovementHandler, Assembly-CSharp
-        m_MethodName: onDash
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: ffa5e3b6-4fb1-4fa0-8189-4a79cf073eb1
-    m_ActionName: Player/Dash[/Keyboard/e,/XInputControllerWindows/rightShoulder]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FPSMoveRigidBody, Assembly-CSharp
-        m_MethodName: onSlide
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 77e83bc2-b0db-4ffb-abcc-1ab8b78f9440
-    m_ActionName: Player/Slide[/Keyboard/x,/XInputControllerWindows/leftTrigger]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WeaponSwitch, Assembly-CSharp
-        m_MethodName: on1
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 61bab4e1-be4f-4792-8929-9ded5c946be4
-    m_ActionName: Player/Weapon1[/Keyboard/1,/XInputControllerWindows/dpad/left]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WeaponSwitch, Assembly-CSharp
-        m_MethodName: on2
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 77017d53-4c62-4a72-bc16-aa1ac7b06768
-    m_ActionName: Player/Weapon2[/Keyboard/2,/XInputControllerWindows/dpad/down]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WeaponSwitch, Assembly-CSharp
-        m_MethodName: on3
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 8f87dbf5-51ad-4b96-8d43-b7baa33a35a4
-    m_ActionName: Player/Weapon3[/Keyboard/3,/XInputControllerWindows/dpad/right]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &8534311258212112775
 GameObject:
   m_ObjectHideFlags: 0
