@@ -16,7 +16,7 @@ public class GUIManagerO : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ScorePlayer1;
     [SerializeField] private TextMeshProUGUI ScorePlayer2;
     [SerializeField] private ScoreScript scoreboard;
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameManagerO gameManager;
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
     [SerializeField] private CanvasManager canvasManager;
@@ -67,7 +67,7 @@ public class GUIManagerO : MonoBehaviour
         loseScreen.SetActive(false);
 
 
-        GameManager.Instance.TimeOver += OnGameOver; 
+        GameManagerO.Instance.TimeOver += OnGameOver; 
         timerSword = 0;
         auxRNG= Random.Range(0, 10);
         objectiveHealth.text = "No data";

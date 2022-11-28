@@ -972,7 +972,8 @@ GameObject:
   m_Component:
   - component: {fileID: 682793586}
   - component: {fileID: 682793585}
-  - component: {fileID: 682793584}
+  - component: {fileID: 682793587}
+  - component: {fileID: 682793588}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -980,19 +981,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &682793584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682793583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2e620530c8224f46b9daf811cf800a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeCounter: 300
 --- !u!114 &682793585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1020,6 +1008,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &682793587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682793583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0851be1106fd1d6458945be116ca7875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  timeCounter: 300
+--- !u!114 &682793588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682793583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2561
+  NetworkGuid:
+    RawGuidValue: 83c7e7f843984ca5a26bdca66409effa
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 682793587}
+  SimulationBehaviours: []
 --- !u!1001 &784510341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5651,7 +5677,7 @@ MonoBehaviour:
   ScorePlayer1: {fileID: 205509548182003785}
   ScorePlayer2: {fileID: 6552634126068735742}
   scoreboard: {fileID: 682793585}
-  gameManager: {fileID: 682793584}
+  gameManager: {fileID: 682793587}
   winScreen: {fileID: 5897698690549062412}
   loseScreen: {fileID: 1663685057702469526}
   canvasManager: {fileID: 0}
