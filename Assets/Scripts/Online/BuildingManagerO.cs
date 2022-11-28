@@ -29,9 +29,9 @@ public class BuildingManagerO : NetworkBehaviour
     public override void Spawned()
     {
         healthManager = gameObject.GetComponent<GlobalHealthManagerO>(); 
+        healthManager.MaxHealth = _buildingHealth;
         if(healthManager.Health == 0){
             healthManager.Health = _buildingHealth;
-            healthManager.MaxHealth = healthManager.Health;
         }
     }
 
@@ -49,9 +49,7 @@ public class BuildingManagerO : NetworkBehaviour
             Vector3 posFix = new Vector3(0f, 0f, 0f);
             if(needsPosFix) posFix = new Vector3(2.9f, 1f, 0f);
             //GameObject ruins = Instantiate(shatteredBuilding, transform.position + posFix, transform.rotation);
-            GameObject ruins = Instantiate(shatteredBuilding, transform);
-            transform.DetachChildren();
-            Destroy(ruins,5);
+
             //gameObject.active = false;
             Runner.Despawn(Object);
             //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
@@ -61,5 +59,11 @@ public class BuildingManagerO : NetworkBehaviour
                 scoreboard.Player2Score += Value;
             }
         }
+    }
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        GameObject ruins = Instantiate(shatteredBuilding, transform);
+        transform.DetachChildren();
+        Destroy(ruins,5);
     }
 }
