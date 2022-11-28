@@ -21,7 +21,7 @@ public class SpeedHitBoxO : MonoBehaviour
         if(other.tag == "Destructible")
         {
             //Debug.Log("speed hit");
-            BuildingManager buildingManager = other.gameObject.GetComponent<BuildingManager>();
+            BuildingManagerO buildingManager = other.gameObject.GetComponent<BuildingManagerO>();
             if(buildingManager != null) {
                 buildingManager.Hit(weaponDamage, playerNumber);
                 // lastHealth = buildingManager.Health; // preguntar para que se usa para ver si hacer adaptacion a building
