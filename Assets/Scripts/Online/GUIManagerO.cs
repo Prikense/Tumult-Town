@@ -37,7 +37,7 @@ public class GUIManagerO : MonoBehaviour
     private int prevSelectedWeapon;
 
     //private BuildingManager prevBuildingManager;
-    private GlobalHealthManager prevObjectHealthManager;
+    private GlobalHealthManagerO prevObjectHealthManager;
 
     
     private float prevHealth;
@@ -189,7 +189,7 @@ public class GUIManagerO : MonoBehaviour
         {
 
             //BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
-            GlobalHealthManager objectHealthManager = hit.transform.GetComponent<GlobalHealthManager>(); 
+            GlobalHealthManagerO objectHealthManager = hit.transform.GetComponent<GlobalHealthManagerO>(); 
             float currentHealth = 0.0f; 
             // this if and else if is currently working but there may be a cleaner way of doing this
             if(objectHealthManager == null && prevObjectHealthManager == null) // i dont think this makes sense

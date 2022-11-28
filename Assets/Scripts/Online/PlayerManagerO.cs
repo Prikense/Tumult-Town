@@ -10,7 +10,7 @@ public class PlayerManagerO : MonoBehaviour
     [SerializeField] private AudioClip dedSfx;
     private float _playerHealth = 100f;
 
-    public GlobalHealthManager healthManager;
+    public GlobalHealthManagerO healthManager;
 
     private GameObject eventSystem;
 
@@ -36,7 +36,7 @@ public class PlayerManagerO : MonoBehaviour
     {
         x= Random.Range(10, 25);
         z= Random.Range(10, 25);
-        healthManager = gameObject.GetComponent<GlobalHealthManager>(); 
+        healthManager = gameObject.GetComponent<GlobalHealthManagerO>(); 
         healthManager.Health = _playerHealth;
         healthManager.MaxHealth = healthManager.Health;
 

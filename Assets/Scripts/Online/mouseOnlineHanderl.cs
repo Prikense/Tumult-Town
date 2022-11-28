@@ -47,7 +47,7 @@ public class mouseOnlineHanderl : NetworkBehaviour, IBeforeUpdate
         }
     }
     // Update is called once per frame
-    void Update()
+    public override void Render()
     {  
         //for looking
         // if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0){
@@ -64,7 +64,7 @@ public class mouseOnlineHanderl : NetworkBehaviour, IBeforeUpdate
         //     mouseX = lookm.x;
         //     mouseY = lookm.y;
         // }
-        Debug.Log("X: "+mouseXO*Time.fixedDeltaTime*10+"Y: "+mouseYO*Time.fixedDeltaTime*10);
+        //Debug.Log("X: "+mouseXO*Time.fixedDeltaTime*10+"Y: "+mouseYO*Time.fixedDeltaTime*10);
         rotateTime(mouseXO*Time.fixedDeltaTime*10, mouseYO*Time.fixedDeltaTime*10);
     }
 

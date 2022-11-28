@@ -152,7 +152,7 @@ public class WeaponManagerO : NetworkBehaviour
 
             // Debug.Log("distance: "+hit.distance);
             // Debug.Log("damage: "+damage/Mathf.Max(hit.distance/12, 2));
-            BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
+            BuildingManagerO buildingManager = hit.transform.GetComponent<BuildingManagerO>();
             if(buildingManager != null) {
                 AudioSource.PlayClipAtPoint(audioClips[4], Vector3.zero, .3f);//use hit.point for positional sound
                 buildingManager.Hit(damage/Mathf.Max(hit.distance/12, 2), playerNumber);

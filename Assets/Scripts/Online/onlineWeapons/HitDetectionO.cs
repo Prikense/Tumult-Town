@@ -19,7 +19,7 @@ public class HitDetectionO : MonoBehaviour
         if(other.tag == "Destructible" && meleeManager.IsAttacking)
         {
             //Debug.Log("melee hit");
-            BuildingManager buildingManager = other.gameObject.GetComponent<BuildingManager>();
+            BuildingManagerO buildingManager = other.gameObject.GetComponent<BuildingManagerO>();
             if(buildingManager != null) {
                 gunsfx.PlayOneShot(audioClips[1]);
                 buildingManager.Hit(weaponDamage, playerNumber);
@@ -40,7 +40,7 @@ public class HitDetectionO : MonoBehaviour
             }
         }
         if(other.tag == "Player"){
-            PlayerManager playerHealth = other.transform.GetComponent<PlayerManager>();
+            PlayerManagerO playerHealth = other.transform.GetComponent<PlayerManagerO>();
             if(playerHealth != null) {
                 gunsfx.PlayOneShot(audioClips[2]);
                 playerHealth.ReceiveDamage(weaponDamage/10);

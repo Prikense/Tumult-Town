@@ -6485,9 +6485,9 @@ GameObject:
   - component: {fileID: 8534311258200088800}
   - component: {fileID: 6870006413296115928}
   - component: {fileID: 197207341890659796}
-  - component: {fileID: 8534311258200088815}
   - component: {fileID: 8555939932344358788}
   - component: {fileID: 8739238777759408821}
+  - component: {fileID: 2235946804546743386}
   m_Layer: 0
   m_Name: Player1(Online)
   m_TagString: Player
@@ -6620,6 +6620,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 6870006413296115928}
   - {fileID: 8739238777759408821}
+  - {fileID: 2235946804546743386}
   - {fileID: 8283784873224399129}
   - {fileID: 1600243209232721688}
   - {fileID: 5696376000379785341}
@@ -6627,18 +6628,6 @@ MonoBehaviour:
   - {fileID: 2722976492501866417}
   - {fileID: 3293042268379316314}
   SimulationBehaviours: []
---- !u!114 &8534311258200088815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534311258200088802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ace953019af7e4d2eb61ce75f5dd7964, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8555939932344358788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6652,7 +6641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dedSfx: {fileID: 8300000, guid: 22efa2545fca0634eb383697e46f8b81, type: 3}
-  healthManager: {fileID: 8534311258200088815}
+  healthManager: {fileID: 2235946804546743386}
   raycastGun: {fileID: 2722976492501866417}
   projectileGun: {fileID: 3293042268379316314}
   spawnPoint: {fileID: 0}
@@ -6682,6 +6671,20 @@ MonoBehaviour:
     RotBlendStart: 0.1
     RotBlendEnd: 0.5
     RotTeleportRadians: 1.5
+--- !u!114 &2235946804546743386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534311258200088802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35088b88b03e45242aeddf2d78a6b816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _NetHeatlh: 0
 --- !u!1 &8534311258212112775
 GameObject:
   m_ObjectHideFlags: 0
