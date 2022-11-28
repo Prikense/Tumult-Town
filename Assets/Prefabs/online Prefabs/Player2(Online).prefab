@@ -6056,10 +6056,10 @@ MonoBehaviour:
   m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
+  _interpolationDataSource: 2
   InterpolationSpace: 0
   InterpolationTarget: {fileID: 7840147060761858110}
-  InterpolateErrorCorrection: 1
+  InterpolateErrorCorrection: 0
   InterpolatedErrorCorrectionSettings:
     MinRate: 3.3
     MaxRate: 10
@@ -6482,12 +6482,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8534311258200088814}
   - component: {fileID: 8534311258200088801}
-  - component: {fileID: 7135612036186224565}
   - component: {fileID: 8534311258200088800}
   - component: {fileID: 6870006413296115928}
   - component: {fileID: 197207341890659796}
   - component: {fileID: 8534311258200088815}
   - component: {fileID: 8912457284500104360}
+  - component: {fileID: 6741318917829269627}
   m_Layer: 0
   m_Name: Player2(Online)
   m_TagString: Player
@@ -6536,32 +6536,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &7135612036186224565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534311258200088802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1710889294, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  InterpolationSpace: 0
-  InterpolationTarget: {fileID: 2204174181756183141}
-  InterpolateErrorCorrection: 1
-  InterpolatedErrorCorrectionSettings:
-    MinRate: 3.3
-    MaxRate: 10
-    PosBlendStart: 0.25
-    PosBlendEnd: 1
-    PosMinCorrection: 0.025
-    PosTeleportDistance: 2
-    RotBlendStart: 0.1
-    RotBlendEnd: 0.5
-    RotTeleportRadians: 1.5
 --- !u!136 &8534311258200088800
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6644,8 +6618,8 @@ MonoBehaviour:
     RawGuidValue: 9d9584807923ec148beafd7e7667cb00
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 7135612036186224565}
   - {fileID: 6870006413296115928}
+  - {fileID: 6741318917829269627}
   - {fileID: 8283784873224399129}
   - {fileID: 1600243209232721688}
   - {fileID: 5950558865082253794}
@@ -6682,6 +6656,32 @@ MonoBehaviour:
   raycastGun: {fileID: 2722976492501866417}
   projectileGun: {fileID: 3293042268379316314}
   spawnPoint: {fileID: 0}
+--- !u!114 &6741318917829269627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534311258200088802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  InterpolationSpace: 0
+  InterpolationTarget: {fileID: 2204174181756183141}
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5
 --- !u!1 &8534311258212112775
 GameObject:
   m_ObjectHideFlags: 0
