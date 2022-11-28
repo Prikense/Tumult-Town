@@ -139,7 +139,7 @@ public class GUIManagerO : MonoBehaviour
                     ammoCounter.text ="Destroy 'em";
                     break;
                 case 2:
-                    ammoCounter.text = "Let's Rock baby";
+                    ammoCounter.text = "Let's Rock!";
                     break;
                 case 3:
                     ammoCounter.text = "Clang Time";
@@ -154,10 +154,10 @@ public class GUIManagerO : MonoBehaviour
                     ammoCounter.text = "Break It";
                     break;
                 case 7:
-                    ammoCounter.text = "watchoutwatchoutwatchout";
+                    ammoCounter.text = "watchoutwatchout";
                     break;
                 case 8:
-                    ammoCounter.text = "Show them what's what";
+                    ammoCounter.text = "Show them";
                     break;
                 case 9:
                     ammoCounter.text = "Ride the Lighting!";
