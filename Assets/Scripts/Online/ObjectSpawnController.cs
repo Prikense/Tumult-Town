@@ -13,7 +13,7 @@ public class ObjectSpawnController : MonoBehaviour
     public void SpawnPlayer(NetworkRunner runner, PlayerRef playerRef)
     {
         Debug.Log("Spawn Player");
-        Vector3 spawnPosition = new Vector3(_networkedObjects.Count*2, 0, 0);
+        Vector3 spawnPosition = new Vector3(-125, 50, 90+((_networkedObjects.Count-1)*-25));
         if(_networkedObjects.Count == 0){
             NetworkObject _object = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, playerRef);
             _networkedObjects.Add(_object);
