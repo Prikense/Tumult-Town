@@ -51,13 +51,13 @@ public class PlayerManagerO : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(healthManager.Health <= 0 || transform.position.y <= -100)
+        if(healthManager.Health < 0 || transform.position.y <= -100)
         {
             if(!soundCheck){
                 AudioSource.PlayClipAtPoint(dedSfx, Vector3.zero, .3f); //use transform.position for 3d sound
                 soundCheck = true;
             }
-            healthManager.Health = 0;
+            healthManager.Health = -1;
             Death();
         }
     }
