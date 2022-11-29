@@ -27,6 +27,14 @@ public class GlobalHealthManagerO : NetworkBehaviour
         get{return _health/_maxHealth;}
         set{_healthRatio = value;}
     }
+
+    public override void Spawned()
+    {
+        if(Object.Runner.IsServer){
+           NetHeatlh = _health;
+        }
+    }
+
     public override void FixedUpdateNetwork()
     {
         if(Object.Runner.IsServer){
