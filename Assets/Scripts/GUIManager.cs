@@ -134,7 +134,7 @@ public class GUIManager : MonoBehaviour
         
         if(weaponSwitch.SelectedWeapon == 0){
             if(!raycastWeapon.DoneReloading){
-                ammoCounter.text ="---Reloading---";
+                ammoCounter.text ="-Reloading-";
             }else {
                 ammoCounter.text =raycastWeapon.AmmoLeft + " / " + raycastWeapon.MagazineSize;
             }
@@ -183,7 +183,7 @@ public class GUIManager : MonoBehaviour
             }
         }else if(weaponSwitch.SelectedWeapon == 2){
             if(!projectileWeapon.DoneReloading){
-                ammoCounter.text ="---Reloading---";
+                ammoCounter.text ="-Reloading-";
             }else {
                 ammoCounter.text =projectileWeapon.AmmoLeft + " / " + projectileWeapon.MagazineSize;
                    }
@@ -220,12 +220,12 @@ public class GUIManager : MonoBehaviour
             if(objectHealthManager != null && currentHealth != prevHealth) 
             { 
                 //Debug.Log("got one");
-                objectiveHealth.text = "" + objectHealthManager.Health;            
+                objectiveHealth.text = "" + (int)objectHealthManager.Health;            
                 FillBar(targetHealthFill, objectHealthManager.HealthRatio); 
                 prevObjectHealthManager = objectHealthManager;
                 prevHealth = currentHealth;
             }
-        health.text = "" + PlayerHealth.healthManager.Health;
+        health.text = "" + (int)PlayerHealth.healthManager.Health;
         FillBar(playerHealthFill, PlayerHealth.healthManager.HealthRatio);
 
         timer += Time.fixedDeltaTime;
