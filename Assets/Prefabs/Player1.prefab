@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72023084699435593}
   m_LocalRotation: {x: 0.74263716, y: -0.22463894, z: 0.30082795, w: 0.5545538}
-  m_LocalPosition: {x: -0.1078, y: 0.045001075, z: 0.087}
+  m_LocalPosition: {x: -0.1036, y: 0.048, z: 0.0805}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -258,6 +258,79 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &267105127640229535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2503024224235431020}
+  - component: {fileID: 1244507542523377453}
+  - component: {fileID: 7973161119259947319}
+  m_Layer: 10
+  m_Name: BackgroundScoreBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2503024224235431020
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267105127640229535}
+  m_LocalRotation: {x: 0.26441014, y: 0.0009322603, z: 0.0034003062, w: -0.96440387}
+  m_LocalPosition: {x: 0, y: 0, z: -131}
+  m_LocalScale: {x: 3.2371204, y: 0.4703938, z: 0.8597182}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8280213957122630100}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -149.336, y: 180, z: 179.596}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 58.5, y: 241.8}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1244507542523377453
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267105127640229535}
+  m_CullTransparentMesh: 1
+--- !u!114 &7973161119259947319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267105127640229535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: f046a082749e4bf46b8035897ad62f97, type: 2}
+  m_Color: {r: 0.103773594, g: 0.044446424, b: 0.044446424, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &382273568678541226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1964,7 +2037,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2849315351599319756}
   m_LocalRotation: {x: 0.5785192, y: -0.40659013, z: 0.4065901, w: 0.5785192}
-  m_LocalPosition: {x: -0.105, y: -0.074, z: 0.058}
+  m_LocalPosition: {x: -0.1005, y: -0.0691, z: 0.0593}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2955,8 +3028,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5112868320903066909}
   m_LocalRotation: {x: -0, y: -0.000000029802315, z: -3.5527128e-15, w: 1}
-  m_LocalPosition: {x: -0.0000108621725, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.004, y: -0.001, z: 0.122}
+  m_LocalScale: {x: 1.1659541, y: 0.7131886, z: 0.7805431}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 357271096654574755}
@@ -4673,6 +4746,7 @@ RectTransform:
   - {fileID: 2847560646914467864}
   - {fileID: 7121627353316666161}
   - {fileID: 4155957480670255681}
+  - {fileID: 2503024224235431020}
   m_Father: {fileID: 8534311258352154556}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4996,7 +5070,7 @@ Camera:
     height: 1
   near clip plane: 1.5
   far clip plane: 1000
-  field of view: 20
+  field of view: 15
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -10096,7 +10170,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8534311257049447425}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10108,7 +10182,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -5, y: 4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8534311257115114095
@@ -10768,7 +10842,7 @@ Camera:
   m_FOVAxisMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 23.080437
+  m_FocalLength: 18
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -10777,7 +10851,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 54.941723
+  field of view: 67.380135
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -11983,8 +12057,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8534311258352154547}
   m_LocalRotation: {x: -0.000000010815289, y: 0.7614584, z: -0.000000027770625, w: -0.64821386}
-  m_LocalPosition: {x: 0, y: 0, z: 0.03966273}
-  m_LocalScale: {x: 0.0016438535, y: 0.0016438543, z: 0.0016438538}
+  m_LocalPosition: {x: 0, y: 0, z: 0.097}
+  m_LocalScale: {x: 0.0019166579, y: 0.0011723781, z: 0.0012830987}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8534311257629419167}
@@ -12001,7 +12075,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.090085275, y: 4.9770126}
+  m_AnchoredPosition: {x: 0.162, y: 4.982}
   m_SizeDelta: {x: 849.2, y: 394.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8534311258352154559
