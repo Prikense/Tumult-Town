@@ -6619,6 +6619,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 6870006413296115928}
+  - {fileID: 8912457284500104360}
   - {fileID: 6741318917829269627}
   - {fileID: -7524620291591875175}
   - {fileID: 8283784873224399129}
@@ -6640,6 +6641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fb1a67447cc94b40bed51823b7212e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   dedSfx: {fileID: 8300000, guid: 22efa2545fca0634eb383697e46f8b81, type: 3}
   healthManager: {fileID: -7524620291591875175}
   raycastGun: {fileID: 2722976492501866417}
