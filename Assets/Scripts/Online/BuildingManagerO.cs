@@ -25,6 +25,7 @@ public class BuildingManagerO : NetworkBehaviour
     }
 
     [SerializeField] private ScoreScript scoreboard;
+    private int lastPlayerHit=0;
 
     public override void Spawned()
     {
@@ -42,24 +43,29 @@ public class BuildingManagerO : NetworkBehaviour
         HealthRatio = Health / maxHealth;
         */
         healthManager.Health -= damage;
+        lastPlayerHit=player;
         //healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
 
+    }
+    public override void FixedUpdateNetwork()
+    {
         if(healthManager.Health <= 0) {
             // Destroy the building
             Vector3 posFix = new Vector3(0f, 0f, 0f);
             if(needsPosFix) posFix = new Vector3(2.9f, 1f, 0f);
             //GameObject ruins = Instantiate(shatteredBuilding, transform.position + posFix, transform.rotation);
-
+            
             //gameObject.active = false;
             Runner.Despawn(Object);
             //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
-            if(player == 1){
+            if(lastPlayerHit == 1){
                 scoreboard.Player1Score += Value;
-            }else if(player == 2){
+            }else if(lastPlayerHit == 2){
                 scoreboard.Player2Score += Value;
             }
         }
     }
+
     public override void Despawned(NetworkRunner runner, bool hasState)
     {
         GameObject ruins = Instantiate(shatteredBuilding, transform);
