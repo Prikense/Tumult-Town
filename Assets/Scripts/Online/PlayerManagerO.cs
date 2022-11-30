@@ -40,8 +40,7 @@ public class PlayerManagerO :  NetworkBehaviour
         healthManager = gameObject.GetComponent<GlobalHealthManagerO>(); 
         healthManager.Health = _playerHealth;
         healthManager.MaxHealth = healthManager.Health;
-        Debug.Log(healthManager == null);
-        Debug.Break();
+
 
         eventSystem = GameObject.Find("EventSystem"); //The canvas manager script is in this object
         //deathCam = GameObject.Find("DeathCam");
@@ -54,7 +53,6 @@ public class PlayerManagerO :  NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(healthManager.Health);
         if(healthManager.Health < 0 || transform.position.y <= -100)
         {
             if(!soundCheck){
