@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Fusion;
 
-public class PlayerManagerO : MonoBehaviour
+public class PlayerManagerO :  NetworkBehaviour
 {
 
     // The original idea was to have 2 different mechas but for now that won't be
@@ -32,13 +33,15 @@ public class PlayerManagerO : MonoBehaviour
     private bool soundCheck=false;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Spawned()
     {
         x= Random.Range(10, 25);
         z= Random.Range(10, 25);
         healthManager = gameObject.GetComponent<GlobalHealthManagerO>(); 
         healthManager.Health = _playerHealth;
         healthManager.MaxHealth = healthManager.Health;
+        Debug.Log(healthManager == null);
+        Debug.Break();
 
         eventSystem = GameObject.Find("EventSystem"); //The canvas manager script is in this object
         //deathCam = GameObject.Find("DeathCam");
@@ -51,6 +54,7 @@ public class PlayerManagerO : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(healthManager.Health);
         if(healthManager.Health < 0 || transform.position.y <= -100)
         {
             if(!soundCheck){
