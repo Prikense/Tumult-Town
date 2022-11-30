@@ -210,7 +210,7 @@ public class GUIManagerO : MonoBehaviour
                 prevObjectHealthManager = objectHealthManager;
                 prevHealth = currentHealth;
             }
-        if((int)PlayerHealth.healthManager.Health > 0){
+        if((int)PlayerHealth.healthManager.Health < 0){
             health.text = "0";
         }else{
             health.text = "" + (int)PlayerHealth.healthManager.Health;
