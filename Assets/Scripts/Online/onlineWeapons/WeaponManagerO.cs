@@ -53,12 +53,14 @@ public class WeaponManagerO : NetworkBehaviour
         set{_isShooting = value;}
     }
 
+    [Networked] private NetworkBool shit {get;set;} = false;
+
     private float nextTimeToFire = 0f;
 
     [SerializeField] private GameObject bulletHole;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Spawned()
     {
         DoneReloading = true;
         reloading = false;
@@ -76,7 +78,7 @@ public class WeaponManagerO : NetworkBehaviour
 
     public override void FixedUpdateNetwork(){
         if (GetInput(out NetworkInputData data)){
-            IsShooting = data.buttons.IsSet(TheButtons.Fire);
+            shit = data.buttons.IsSet(TheButtons.Fire);
             reloading = data.buttons.IsSet(TheButtons.Reload);
         }
     }
@@ -86,7 +88,7 @@ public class WeaponManagerO : NetworkBehaviour
     {
         // if(Input.GetAxisRaw("Fire1") == 1 && Time.time >= nextTimeToFire && AmmoLeft > 0) {
         //     nextTimeToFire = Time.time + 1f/fireRate;
-        //     IsShooting = true;
+        //     shit = true;
         //     //Shoot();
         // }
         // else {
@@ -94,17 +96,17 @@ public class WeaponManagerO : NetworkBehaviour
         // }
 
 
-        if(IsShooting && Time.time >= nextTimeToFire && AmmoLeft > 0  && DoneReloading) {
+        if(shit && Time.time >= nextTimeToFire && AmmoLeft > 0  && DoneReloading) {
             nextTimeToFire = Time.time + 1f/fireRate;
             gunsfx.PlayOneShot(audioClips[0], .25f);
             noAmmoFirstShot = true;
             Shoot();
         }
-        if(IsShooting && AmmoLeft <= 0 && noAmmoFirstShot && DoneReloading){
+        if(shit && AmmoLeft <= 0 && noAmmoFirstShot && DoneReloading){
             noAmmoFirstShot = false;
             gunsfx.PlayOneShot(audioClips[1], .5f);
         }
-        if(!IsShooting){
+        if(!shit){
             noAmmoFirstShot = true;
         }
 
@@ -145,7 +147,7 @@ public class WeaponManagerO : NetworkBehaviour
         Vector3 raycastOrigin = new Vector3 (playerCamera.transform.position.x - 0.0f, playerCamera.transform.position.y, playerCamera.transform.position.z+.05f);
 
         //uncommnet to ignore layer debri, making it kinda like a laser that goes through debri, but doesnt send debri flying
-        if(Physics.Raycast(raycastOrigin, Vector3.forward, out hit, range/*, ~LayerMask.GetMask("debri")*/)) {
+        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range/*, ~LayerMask.GetMask("debri")*/)) {
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 0.3f);
