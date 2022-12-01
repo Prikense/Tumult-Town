@@ -257,10 +257,10 @@ public class GUIManagerO : MonoBehaviour
       string winner;
         //Comparar score
       if(scoreboard.Player1Score > scoreboard.Player2Score){
-            winner = "Player1";
+            winner = "Player1(Online)";
       }
       else
-        winner = "Player2";
+        winner = "Player2(Online)";
 
         if(thisPlayer == winner){
             winScreen.SetActive(true);
