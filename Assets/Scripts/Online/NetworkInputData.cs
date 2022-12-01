@@ -28,4 +28,7 @@ public struct NetworkInputData : INetworkInput
     // public NetworkBool Weapon3;
 
     public NetworkButtons buttons;
+
+    // public NetworkBool isFireButtonPressed;
+    public Vector3 aimForwardVector;
 }

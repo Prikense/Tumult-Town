@@ -40,6 +40,7 @@ public class PlayerManagerO :  NetworkBehaviour
         healthManager = gameObject.GetComponent<GlobalHealthManagerO>(); 
         healthManager.Health = _playerHealth;
         healthManager.MaxHealth = healthManager.Health;
+        healthManager.HealthRatio = healthManager.Health / healthManager.MaxHealth;
 
 
         eventSystem = GameObject.Find("EventSystem"); //The canvas manager script is in this object
@@ -64,12 +65,14 @@ public class PlayerManagerO :  NetworkBehaviour
         }
     }
 
+    // Pretty sure I will have to comment this method
     // When player is hit by other player or AI
     public void ReceiveDamage(float damage)
     {
         healthManager.Health -= damage;
         //Debug.Log(healthManager.Health);
     }
+
 
     // Functions that I think we are going to need in the future
     void Death()

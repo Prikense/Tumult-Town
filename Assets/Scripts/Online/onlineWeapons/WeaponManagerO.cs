@@ -4,8 +4,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Fusion;
 
+[OrderAfter(typeof(HitboxManager))]
+
 public class WeaponManagerO : NetworkBehaviour
 {
+
+    [Networked(OnChanged = nameof(OnFireChanged))]
+    public bool isFiring { get; set; }
+
+    public Transform aimPoint; // start of the raycast
+    public LayerMask collisionLayers;
+
 
     [SerializeField] private AudioSource gunsfx;
     [SerializeField] private AudioSource loadsfx;
@@ -76,12 +85,14 @@ public class WeaponManagerO : NetworkBehaviour
     //     reloading  =  context.action.triggered;
     // }
 
+    /*
     public override void FixedUpdateNetwork(){
         if (GetInput(out NetworkInputData data)){
             shit = data.buttons.IsSet(TheButtons.Fire);
             reloading = data.buttons.IsSet(TheButtons.Reload);
         }
     }
+    */
 
     // Update is called once per frame
     void FixedUpdate()
@@ -197,5 +208,91 @@ public class WeaponManagerO : NetworkBehaviour
         AmmoLeft = MagazineSize;
         reloading = false;
         DoneReloading = true;
+    }
+
+
+    IEnumerator FireEffectCO()
+    {
+        isFiring = true;
+        muzzleFlash.Play();
+
+        yield return new WaitForSeconds(0.05f);
+
+        isFiring = false;
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+        // Get the input from the Newtwork
+        if (GetInput(out NetworkInputData networkInputData)){
+            IsShooting = networkInputData.buttons.IsSet(TheButtons.Fire);
+            reloading = networkInputData.buttons.IsSet(TheButtons.Reload);
+        }
+
+        if(IsShooting){
+            Fire(networkInputData.aimForwardVector); // currently doesnt exist on data input
+        }
+
+        /*
+        if(GetInput(out NetworkInputData networkInputData))
+        {
+            if(networkInputData.buttons.Fire){
+                Fire(networkInputData.aimForwardVector); // currently doesnt exist on data input
+            }
+        }
+        */
+    }
+
+    void Fire(Vector3 aimForwardVector)
+    {
+
+        // Falta lo del fire rate
+
+        StartCoroutine(FireEffectCO());
+
+        Runner.LagCompensation.Raycast(transform.position, transform.forward, range, Object.InputAuthority, out var hitInfo, collisionLayers, HitOptions.IgnoreInputAuthority);
+
+        bool isOtherPlayerHit = false;
+
+        if(hitInfo.Type == HitType.Hitbox){
+            Debug.Log($"Hit hitbox {hitInfo.Hitbox.transform.root.name}");
+            Debug.Log("Hit");
+
+            //if(Object.HasStateAuthority){
+            hitInfo.Hitbox.transform.root.GetComponent<GlobalHealthManagerO>().OnTakeDamage(5.0f);
+            //}
+
+            isOtherPlayerHit = true;
+        }
+        else if(hitInfo.Collider != null){
+            Debug.Log($"Hit physx collider {hitInfo.Collider.transform.name}");
+        }
+
+        // Debug
+        if(isOtherPlayerHit){
+            Debug.DrawRay(aimPoint.position, aimForwardVector * range, Color.red, 1);
+        }
+    }
+
+    static void OnFireChanged(Changed<WeaponManagerO> changed)
+    {
+
+        bool isFiringCurrent = changed.Behaviour.isFiring;
+
+        // Load the old value
+        changed.LoadOld();
+
+        bool isFiringOld = changed.Behaviour.isFiring;
+
+        if(isFiringCurrent && !isFiringOld){
+            changed.Behaviour.OnFireRemote();
+        }
+    }
+
+    void OnFireRemote()
+    {
+        if(!Object.HasInputAuthority){
+            muzzleFlash.Play();
+        }
     }
 }
