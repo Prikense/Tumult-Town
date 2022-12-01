@@ -8,6 +8,8 @@ using Fusion;
 public class WeaponSwitchO : NetworkBehaviour
 {
 
+
+    [Networked] int NEtSelectedWeapon {get; set;}=0;
     private int _selectedWeapon = 0;
     public int SelectedWeapon
     {
@@ -57,6 +59,7 @@ public class WeaponSwitchO : NetworkBehaviour
 
             scrollValue = data.WeaponChangeSCroll;
         }
+        NEtSelectedWeapon = SelectedWeapon;
     }
 
     // Update is called once per frame
