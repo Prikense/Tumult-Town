@@ -24,7 +24,7 @@ public class BulletHitO : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Destructible"){
-            BuildingManager buildingManager = collision.gameObject.GetComponent<BuildingManager>();
+            BuildingManagerO buildingManager = collision.gameObject.GetComponent<BuildingManagerO>();
             if(buildingManager != null) {
                 AudioSource.PlayClipAtPoint(audioClips[0], Vector3.zero);//use collision.transform.position for 3d sound
                 buildingManager.Hit(WeaponDamage, PlayerNumber);

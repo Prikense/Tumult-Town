@@ -172,7 +172,7 @@ public class ProjectileWeaponManagerO : NetworkBehaviour
 
         // instantiate bullet or projectile
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-        if(currentBullet.TryGetComponent<BulletHit>(out BulletHit a)){
+        if(currentBullet.TryGetComponent<BulletHitO>(out BulletHitO a)){
             a.PlayerNumber = playerNumber;
         }
         // rotate bullet to shoot direction
