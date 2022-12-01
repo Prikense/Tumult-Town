@@ -256,6 +256,56 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &974601007187667382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1734722721216961963}
+  - component: {fileID: 217366334364401992}
+  m_Layer: 12
+  m_Name: HitBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1734722721216961963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974601007187667382}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8534311258200088814}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &217366334364401992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974601007187667382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1014831617, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+  SphereRadius: 0
+  BoxExtents: {x: 0.5, y: 1, z: 0.5}
+  Offset: {x: 0, y: 0, z: 0}
+  Root: {fileID: 4656587110005235243}
+  GizmosColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &1513439326396737135
 GameObject:
   m_ObjectHideFlags: 0
@@ -6355,6 +6405,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  _isFiring: 0
+  aimPoint: {fileID: 7840147060761858110}
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 4097
   gunsfx: {fileID: 5329951819846629837}
   loadsfx: {fileID: 8992548953214069448}
   audioClips:
@@ -6488,6 +6543,7 @@ GameObject:
   - component: {fileID: 8912457284500104360}
   - component: {fileID: 6741318917829269627}
   - component: {fileID: -7524620291591875175}
+  - component: {fileID: 4656587110005235243}
   m_Layer: 0
   m_Name: Player2(Online)
   m_TagString: Player
@@ -6517,6 +6573,7 @@ Transform:
   - {fileID: 5646210226323823700}
   - {fileID: 1721033228516633298}
   - {fileID: 3833099552286042454}
+  - {fileID: 1734722721216961963}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 100, z: 0}
@@ -6622,6 +6679,7 @@ MonoBehaviour:
   - {fileID: 8912457284500104360}
   - {fileID: 6741318917829269627}
   - {fileID: -7524620291591875175}
+  - {fileID: 4656587110005235243}
   - {fileID: 8283784873224399129}
   - {fileID: 1600243209232721688}
   - {fileID: 5950558865082253794}
@@ -6686,7 +6744,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _NetHeatlh: 0
+  _Health: 100
+--- !u!114 &4656587110005235243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534311258200088802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1039544458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  BroadRadius: 1.2247449
+  Offset: {x: 0, y: 0, z: 0}
+  GizmosColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  Hitboxes:
+  - {fileID: 217366334364401992}
 --- !u!1 &8534311258212112775
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,11 +6,23 @@ using Fusion;
 public class GlobalHealthManagerO : NetworkBehaviour
 {
 
-    [Networked] [SerializeField] private float NetHeatlh{get;set;}
+    // [Networked] [SerializeField] private float NetHeatlh{get;set;}
+    
+    /*
     private float _health;
+    // [Networked(OnChanged = nameof(OnHPChanged))]
     public float Health
     {
         get{return NetHeatlh;}
+        set{_health = value;}
+    }
+    */
+
+    private float _health;
+    [Networked(OnChanged = nameof(OnHPChanged))]
+    public float Health
+    {
+        get{return _health;}
         set{_health = value;}
     }
 
@@ -31,15 +43,31 @@ public class GlobalHealthManagerO : NetworkBehaviour
     public override void Spawned()
     {
         if(Object.Runner.IsServer){
-           NetHeatlh = _health;
+           // NetHeatlh = _health;
         }
+    }
+
+    // Function only called on the server
+    public void OnTakeDamage(float damage)
+    {
+        // Only take damage while alive
+        if(Health <= 0){
+            // return;
+        }
+        Health -= damage;
     }
 
     public override void FixedUpdateNetwork()
     {
         if(Object.Runner.IsServer){
-           NetHeatlh = _health;
+           // NetHeatlh = _health;
         }
+    }
+
+    
+    static void OnHPChanged(Changed<GlobalHealthManagerO> changed)
+    {
+
     }
 
 }
