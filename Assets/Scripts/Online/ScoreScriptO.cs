@@ -44,7 +44,7 @@ public class ScoreScriptO : NetworkBehaviour
     {
         if(Object.Runner.IsServer){
             netPlayerScore1 = _player1Score;
-           netPlayerScore2 = _player2Score;
+            netPlayerScore2 = _player2Score;
         }
     }
 

@@ -24,7 +24,7 @@ public class BuildingManagerO : NetworkBehaviour
         set{_value = value;}
     }
 
-    [SerializeField] private ScoreScript scoreboard;
+    [SerializeField] private ScoreScriptO scoreboard;
     private int lastPlayerHit=0;
 
     public override void Spawned()
@@ -58,10 +58,12 @@ public class BuildingManagerO : NetworkBehaviour
             //gameObject.active = false;
             Runner.Despawn(Object);
             //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
-            if(lastPlayerHit == 1){
-                scoreboard.Player1Score += Value;
-            }else if(lastPlayerHit == 2){
-                scoreboard.Player2Score += Value;
+            if(Runner.IsServer){
+                if(lastPlayerHit == 1){
+                    scoreboard.Player1Score += Value;
+                }else if(lastPlayerHit == 2){
+                    scoreboard.Player2Score += Value;
+                }
             }
         }
     }

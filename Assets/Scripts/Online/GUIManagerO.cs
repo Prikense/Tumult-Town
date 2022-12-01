@@ -15,7 +15,7 @@ public class GUIManagerO : MonoBehaviour
     [SerializeField] private TextMeshProUGUI health;
     [SerializeField] private TextMeshProUGUI ScorePlayer1;
     [SerializeField] private TextMeshProUGUI ScorePlayer2;
-    [SerializeField] private ScoreScript scoreboard;
+    [SerializeField] private ScoreScriptO scoreboard;
     [SerializeField] private GameManagerO gameManager;
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
