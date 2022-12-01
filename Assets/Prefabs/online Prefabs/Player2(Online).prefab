@@ -6056,12 +6056,12 @@ MonoBehaviour:
   m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 3
+  _interpolationDataSource: 1
   InterpolationSpace: 0
   InterpolationTarget: {fileID: 7840147060761858110}
-  InterpolateErrorCorrection: 0
+  InterpolateErrorCorrection: 1
   InterpolatedErrorCorrectionSettings:
-    MinRate: 3.3
+    MinRate: 0.1
     MaxRate: 10
     PosBlendStart: 0.25
     PosBlendEnd: 1
