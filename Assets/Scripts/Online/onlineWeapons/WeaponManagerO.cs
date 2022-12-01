@@ -64,7 +64,7 @@ public class WeaponManagerO : NetworkBehaviour
         reloading = false;
         AmmoLeft = MagazineSize;
         IsShooting = false;
-        playerCamera = GameObject.Find("Main Camera");
+        playerCamera = transform.parent.parent.gameObject;//GameObject.Find("Main Camera");//2 parents (fisrt weapon holder then anotherCam)
     }
 
     // public void onFire(InputAction.CallbackContext context){
@@ -145,7 +145,7 @@ public class WeaponManagerO : NetworkBehaviour
         Vector3 raycastOrigin = new Vector3 (playerCamera.transform.position.x - 0.0f, playerCamera.transform.position.y, playerCamera.transform.position.z+.05f);
 
         //uncommnet to ignore layer debri, making it kinda like a laser that goes through debri, but doesnt send debri flying
-        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range/*, ~LayerMask.GetMask("debri")*/)) {
+        if(Physics.Raycast(raycastOrigin, Vector3.forward, out hit, range/*, ~LayerMask.GetMask("debri")*/)) {
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 0.3f);
