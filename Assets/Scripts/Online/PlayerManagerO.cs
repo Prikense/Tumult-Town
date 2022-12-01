@@ -39,12 +39,12 @@ public class PlayerManagerO :  NetworkBehaviour
         z= Random.Range(10, 25);
         healthManager = gameObject.GetComponent<GlobalHealthManagerO>(); 
         healthManager.Health = _playerHealth;
-        healthManager.MaxHealth = healthManager.Health;
+        healthManager.MaxHealth = _playerHealth;
 
 
         eventSystem = GameObject.Find("EventSystem"); //The canvas manager script is in this object
-        //deathCam = GameObject.Find("DeathCam");
-        //mainCam = GameObject.Find("Main Camera");
+        // deathCam = GameObject.Find("DeathCam");
+        // mainCam = GameObject.Find("Main Camera");
 
         // raycastGO = gameObject.transform.Find("gun_or_smt").gameObject;
         // projectileGO = gameObject.transform.Find("ProjectileGun").gameObject;

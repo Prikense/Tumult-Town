@@ -53,6 +53,7 @@ public class GUIManagerO : MonoBehaviour
     private float timer = 0;
     private float timerSword =0;
     int auxRNG;
+    private bool gameOverTime=false;
     
 
     // Start is called before the first frame update
@@ -67,7 +68,7 @@ public class GUIManagerO : MonoBehaviour
         loseScreen.SetActive(false);
 
 
-        GameManagerO.Instance.TimeOver += OnGameOver; 
+        //GameManagerO.Instance.TimeOver += OnGameOver; 
         timerSword = 0;
         auxRNG= Random.Range(0, 10);
         objectiveHealth.text = "No data";
@@ -98,86 +99,91 @@ public class GUIManagerO : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        string min;
-        string sec;
-        if(gameManager.timeCounter % 60 < 10){
-            sec = "0"+ gameManager.timeCounter % 60;
-        }else{
-            sec = ""+ gameManager.timeCounter % 60;
-        }
-        if(gameManager.timeCounter / 60 < 10){
-            min = "0"+ gameManager.timeCounter / 60;
-        }else{
-            min = ""+ gameManager.timeCounter / 60;
-        }
-        timeText.text = "" + min + ":" + sec;
-        
-        scoreBar.value = (float)scoreboard.Player1Score / (scoreboard.Player1Score + scoreboard.Player2Score);
-        
-        ScorePlayer1.text = "" + (scoreboard.Player1Score - 1);
-        ScorePlayer2.text = "" + (scoreboard.Player2Score - 1);
-        
-        if(weaponSwitch.SelectedWeapon == 0){
-            if(!raycastWeapon.DoneReloading){
-                ammoCounter.text ="-Reloading-";
-            }else {
-                ammoCounter.text =raycastWeapon.AmmoLeft + " / " + raycastWeapon.MagazineSize;
+        if(!gameOverTime){
+            string min;
+            string sec;
+            if(gameManager.timeCounter % 60 < 10){
+                sec = "0"+ gameManager.timeCounter % 60;
+            }else{
+                sec = ""+ gameManager.timeCounter % 60;
             }
-        }else if(weaponSwitch.SelectedWeapon == 1){
-            timerSword += Time.deltaTime;
-            // auxRNG = 0;
-            if(timerSword > cooldown){
-                auxRNG= Random.Range(0, 10);
-                timerSword = 0;
+            if(gameManager.timeCounter / 60 < 10){
+                min = "0"+ gameManager.timeCounter / 60;
+            }else{
+                min = ""+ gameManager.timeCounter / 60;
             }
+            timeText.text = "" + min + ":" + sec;
+            
+            scoreBar.value = (float)scoreboard.Player1Score / (scoreboard.Player1Score + scoreboard.Player2Score);
+            
+            ScorePlayer1.text = "" + (scoreboard.Player1Score - 1);
+            ScorePlayer2.text = "" + (scoreboard.Player2Score - 1);
+            
+            if(weaponSwitch.SelectedWeapon == 0){
+                if(!raycastWeapon.DoneReloading){
+                    ammoCounter.text ="-Reloading-";
+                }else {
+                    ammoCounter.text =raycastWeapon.AmmoLeft + " / " + raycastWeapon.MagazineSize;
+                }
+            }else if(weaponSwitch.SelectedWeapon == 1){
+                timerSword += Time.deltaTime;
+                // auxRNG = 0;
+                if(timerSword > cooldown){
+                    auxRNG= Random.Range(0, 10);
+                    timerSword = 0;
+                }
 
-            switch (auxRNG){
-                case 0:
-                    ammoCounter.text ="Sword Time";
-                    break;
-                case 1:
-                    ammoCounter.text ="Destroy 'em";
-                    break;
-                case 2:
-                    ammoCounter.text = "Let's Rock!";
-                    break;
-                case 3:
-                    ammoCounter.text = "Clang Time";
-                    break;
-                case 4:
-                    ammoCounter.text = "Hew the Stone!";
-                    break;
-                case 5:
-                    ammoCounter.text = "A Red Day!";
-                    break;
-                case 6:
-                    ammoCounter.text = "Break It";
-                    break;
-                case 7:
-                    ammoCounter.text = "watchoutwatchout";
-                    break;
-                case 8:
-                    ammoCounter.text = "Show them";
-                    break;
-                case 9:
-                    ammoCounter.text = "Ride the Lighting!";
-                    break;
-                case 10:
-                    ammoCounter.text = "KIll 'em All!";
-                    break;
+                switch (auxRNG){
+                    case 0:
+                        ammoCounter.text ="Sword Time";
+                        break;
+                    case 1:
+                        ammoCounter.text ="Destroy 'em";
+                        break;
+                    case 2:
+                        ammoCounter.text = "Let's Rock!";
+                        break;
+                    case 3:
+                        ammoCounter.text = "Clang Time";
+                        break;
+                    case 4:
+                        ammoCounter.text = "Hew the Stone!";
+                        break;
+                    case 5:
+                        ammoCounter.text = "A Red Day!";
+                        break;
+                    case 6:
+                        ammoCounter.text = "Break It";
+                        break;
+                    case 7:
+                        ammoCounter.text = "watchoutwatchout";
+                        break;
+                    case 8:
+                        ammoCounter.text = "Show them";
+                        break;
+                    case 9:
+                        ammoCounter.text = "Ride the Lighting!";
+                        break;
+                    case 10:
+                        ammoCounter.text = "KIll 'em All!";
+                        break;
+                }
+            }else if(weaponSwitch.SelectedWeapon == 2){
+                if(!projectileWeapon.DoneReloading){
+                    ammoCounter.text ="-Reloading-";
+                }else {
+                    ammoCounter.text =projectileWeapon.AmmoLeft + " / " + projectileWeapon.MagazineSize;
+                    }
             }
-        }else if(weaponSwitch.SelectedWeapon == 2){
-            if(!projectileWeapon.DoneReloading){
-                ammoCounter.text ="-Reloading-";
-            }else {
-                ammoCounter.text =projectileWeapon.AmmoLeft + " / " + projectileWeapon.MagazineSize;
-                   }
         }
     }
 
     void FixedUpdate()
     {
-        ObtainObjectHealth();
+        if(!gameOverTime){
+            ObtainObjectHealth();
+            if(gameManager.timeCounter == 0){OnGameOver();}
+        }
     }
 
     void ObtainObjectHealth()
@@ -253,10 +259,14 @@ public class GUIManagerO : MonoBehaviour
     } */
     void OnGameOver()
     {
-      string thisPlayer = gameObject.transform.parent.name;
+    gameOverTime=true;
+      string thisPlayer = gameObject.transform.root.name;
       string winner;
+      gameObject.transform.root.GetComponent<CharacterMovementHandler>().stopGaem();
+      gameObject.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+
         //Comparar score
-      if(scoreboard.Player1Score > scoreboard.Player2Score){
+      if(scoreboard.netPlayerScore1 > scoreboard.netPlayerScore2){
             winner = "Player1(Online)(Clone)";
       }
       else
@@ -264,6 +274,7 @@ public class GUIManagerO : MonoBehaviour
 
         if(thisPlayer == winner){
             winScreen.SetActive(true);
+            
             //canvasManager.SetActiveScreen(winScreen);
         }
         else

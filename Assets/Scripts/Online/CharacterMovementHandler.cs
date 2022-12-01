@@ -291,7 +291,13 @@ public class CharacterMovementHandler : NetworkBehaviour
         }
     }
 
-
+    public void stopGaem(){
+        CameraVariable.transform.parent = null;
+        CameraVariable.GetComponent<Camera>().targetTexture = null;
+        //cockpitNcanvas.transform.parent = null;
+        aux.transform.parent = null;
+        Runner.Despawn(Object);
+    }
 
     // //head bobbing stuff
     // private void PlayMotion(Vector3 motion){
