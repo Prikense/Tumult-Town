@@ -9,7 +9,7 @@ public class WeaponSwitchO : NetworkBehaviour
 {
 
 
-    [Networked] int NEtSelectedWeapon {get; set;}=0;
+    [Networked][SerializeField] int NEtSelectedWeapon {get; set;}=0;
     private int _selectedWeapon = 0;
     public int SelectedWeapon
     {
@@ -32,10 +32,14 @@ public class WeaponSwitchO : NetworkBehaviour
     private bool we3;
 
     // Start is called before the first frame update
-    void Awake()
-    {
+    public override void Spawned(){
         SelectWeapon();
     }
+
+    // void Awake()
+    // {
+    //     SelectWeapon();
+    // }
     // public void onScroll(InputAction.CallbackContext context){
     //     scrollValue  =  context.ReadValue<float>();
     // }
@@ -59,13 +63,16 @@ public class WeaponSwitchO : NetworkBehaviour
 
             scrollValue = data.WeaponChangeSCroll;
         }
-        NEtSelectedWeapon = SelectedWeapon;
+        if(Object.Runner.IsServer){
+            NEtSelectedWeapon = SelectedWeapon;
+        }else{
+            SelectedWeapon=NEtSelectedWeapon;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if(scrollValue > 0f)
         {
             if(SelectedWeapon >= transform.childCount - 1) //2 since at the time the camera is also inside object
@@ -82,19 +89,21 @@ public class WeaponSwitchO : NetworkBehaviour
                 SelectedWeapon--;
         }
 
-        if(we1)
-        {
-            SelectedWeapon = 0;
-        }
+            if(Object.Runner.IsServer){
+            if(we1)
+            {
+                SelectedWeapon = 0;
+            }
 
-        if(we2)
-        {
-            SelectedWeapon = 1;
-        }
+            if(we2)
+            {
+                SelectedWeapon = 1;
+            }
 
-        if(we3)// && transform.childCount - 1 >= 3) // again because of camera inside object
-        {
-            SelectedWeapon = 2;
+            if(we3)// && transform.childCount - 1 >= 3) // again because of camera inside object
+            {
+                SelectedWeapon = 2;
+            }
         }
 
         if(previousSelectedWeapon != SelectedWeapon && !meleeTime.IsAttacking)
@@ -108,18 +117,18 @@ public class WeaponSwitchO : NetworkBehaviour
         int i = 0;
         foreach (Transform weapon in transform)
         {
-            if(i == SelectedWeapon)
+            if(i == NEtSelectedWeapon)
             {
                 weapon.gameObject.SetActive(true);
                 CurrentWeapon = weapon.gameObject;
             }
             else if(i <= transform.childCount - 1)
             {
-                weapon.gameObject.SetActive(false); 
+                weapon.gameObject.SetActive(false);
             }
             i++;
         }
-        previousSelectedWeapon = SelectedWeapon;
+        previousSelectedWeapon = NEtSelectedWeapon;
     }
 
 }
