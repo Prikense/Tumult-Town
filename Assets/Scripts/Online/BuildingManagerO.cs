@@ -56,15 +56,15 @@ public class BuildingManagerO : NetworkBehaviour
             //GameObject ruins = Instantiate(shatteredBuilding, transform.position + posFix, transform.rotation);
             
             //gameObject.active = false;
-            Runner.Despawn(Object);
             //ScoreScript scoreboard = gameObject.GetComponent<scoreManager>();
-            if(Runner.IsServer){
+            if(Object.Runner.IsServer){
                 if(lastPlayerHit == 1){
                     scoreboard.Player1Score += Value;
                 }else if(lastPlayerHit == 2){
                     scoreboard.Player2Score += Value;
                 }
             }
+            Runner.Despawn(Object);
         }
     }
 
