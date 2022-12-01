@@ -15,9 +15,8 @@ public class GameManagerO : NetworkBehaviour
     public override void Spawned(){
 
         if(Object.Runner.IsServer){
-            maxTime = 300;
+            maxTime = 120;
             timeCounter = maxTime;
-            StartCoroutine(Timer());
         }    
     }
     
@@ -25,6 +24,9 @@ public class GameManagerO : NetworkBehaviour
     {
         Instance = this;
         
+    }
+    public void startTimerTime(){
+        if(Object.Runner.IsServer){StartCoroutine(Timer());}
     }
 
     // Update is called once per frame
@@ -39,7 +41,7 @@ public class GameManagerO : NetworkBehaviour
             timeCounter --;
         }
 
-        Invoke("GameOver", 1);
+        //Invoke("GameOver", 1);
         
 
     }

@@ -15,13 +15,13 @@ public class GlobalHealthManagerO : NetworkBehaviour
     }
 
     private float _maxHealth;
-    public float MaxHealth
+    [SerializeField] public float MaxHealth
     {
         get{return _maxHealth;}
         set{_maxHealth = value;}
     }
 
-    private float _healthRatio;
+    [SerializeField] private float _healthRatio;
     public float HealthRatio
     {
         get{return _health/_maxHealth;}
@@ -32,6 +32,8 @@ public class GlobalHealthManagerO : NetworkBehaviour
     {
         if(Object.Runner.IsServer){
            NetHeatlh = _health;
+        }else{
+            _health = NetHeatlh;
         }
     }
 
@@ -39,6 +41,8 @@ public class GlobalHealthManagerO : NetworkBehaviour
     {
         if(Object.Runner.IsServer){
            NetHeatlh = _health;
+        }else{
+            _health = NetHeatlh;
         }
     }
 

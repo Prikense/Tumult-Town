@@ -816,6 +816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  _NEtSelectedWeapon: 0
   meleeTime: {fileID: 1600243209232721688}
 --- !u!1 &7431036478027465925
 GameObject:
@@ -6687,6 +6688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _NetHeatlh: 0
+  _healthRatio: 0
 --- !u!1 &8534311258212112775
 GameObject:
   m_ObjectHideFlags: 0
@@ -6800,7 +6802,7 @@ MonoBehaviour:
   weaponDamage: 5
   DmgMultiplier: 3
   lastHealth: 0
-  playerNumber: 1
+  playerNumber: 2
   playerStuff: {fileID: 6870006413296115928}
 --- !u!1 &8534311258221718282
 GameObject:
