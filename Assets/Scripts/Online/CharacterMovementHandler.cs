@@ -82,6 +82,7 @@ public class CharacterMovementHandler : NetworkBehaviour
         cockpitNcanvas.transform.Find("Canvas").gameObject.SetActive(true);
 
         if(Object.HasInputAuthority){
+            transform.GetChild(0).GetComponent<MeshRenderer>().enabled=false;
             CameraVariable.transform.SetParent(Whoknows.GetChild(0), false);
             cockpitNcanvas.transform.SetParent(transform);
             aux = cockpitNcanvas.GetComponentInChildren<GUIManagerO>();
