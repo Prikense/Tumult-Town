@@ -15,7 +15,7 @@ public class GameManagerO : NetworkBehaviour
     public override void Spawned(){
 
         if(Object.Runner.IsServer){
-            maxTime = 120;
+            maxTime = 300;
             timeCounter = maxTime;
         }    
     }
