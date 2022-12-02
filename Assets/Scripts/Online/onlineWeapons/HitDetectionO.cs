@@ -39,7 +39,7 @@ public class HitDetectionO : MonoBehaviour
                 //other.attachedRigidbody.AddForce(transform.forward*300);
             }
         }
-        if(other.tag == "Player"){
+        if(other.tag == "Player" || other.tag == "Player2"){
             PlayerManagerO playerHealth = other.transform.GetComponent<PlayerManagerO>();
             if(playerHealth != null) {
                 gunsfx.PlayOneShot(audioClips[2]);
