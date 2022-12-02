@@ -264,7 +264,7 @@ public class GUIManager : MonoBehaviour
     } */
     void OnGameOver()
     {
-      string thisPlayer = gameObject.transform.parent.name;
+      string thisPlayer = gameObject.transform.root.name;
       string winner;
         //Comparar score
       if(scoreboard.Player1Score > scoreboard.Player2Score){
