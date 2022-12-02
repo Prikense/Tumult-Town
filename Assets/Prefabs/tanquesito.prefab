@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4d71c981b4ab4418bcc156bad72516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankdedSfx: {fileID: 0}
+  tankdedSfx: {fileID: 8300000, guid: 47f81aeaebc5dc54e99820219a2c1543, type: 3}
 --- !u!114 &-3332097626863618132
 MonoBehaviour:
   m_ObjectHideFlags: 0
