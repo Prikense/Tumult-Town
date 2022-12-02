@@ -145,9 +145,9 @@ public class WeaponManagerO : NetworkBehaviour
         RaycastHit hit;
 
         Vector3 raycastOrigin = new Vector3 (playerCamera.transform.position.x - 0.0f, playerCamera.transform.position.y, playerCamera.transform.position.z+.05f);
-
+        string aasd = transform.parent.root.tag;
         //uncommnet to ignore layer debri, making it kinda like a laser that goes through debri, but doesnt send debri flying
-        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range/*, ~LayerMask.GetMask("debri")*/)) {
+        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range, ~LayerMask.GetMask("aasd")/*, ~LayerMask.GetMask("debri")*/)) {
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 0.3f);
