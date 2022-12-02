@@ -87,8 +87,8 @@ public class mouseOnlineHanderl : NetworkBehaviour, IBeforeUpdate
                 mouseX += Input.GetAxis("Mouse X");//*2.5f;
                 mouseY +=- Input.GetAxis("Mouse Y");//*1.5f;
             }else if(Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) {
-                mouseX += Input.GetAxis("Horizontal2")*2.4f;
-                mouseY += Input.GetAxis("Vertical2") *.95f;
+                mouseX += Input.GetAxis("Horizontal2");
+                mouseY += Input.GetAxis("Vertical2");
             }
         }
     }
