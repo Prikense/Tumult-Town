@@ -6,15 +6,22 @@ using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour
 {
+    [SerializeField] private AudioSource alarmsfx;
     [SerializeField] private Image playerHealthFill;
     [SerializeField] private Image targetHealthFill;
-  
-
+    [SerializeField] private Slider scoreBar;
     [SerializeField] private TextMeshProUGUI ammoCounter;
     [SerializeField] private TextMeshProUGUI objectiveHealth;
-    [SerializeField] private TextMeshProUGUI Score;
-
+    [SerializeField] private TextMeshProUGUI health;
+    [SerializeField] private TextMeshProUGUI ScorePlayer1;
+    [SerializeField] private TextMeshProUGUI ScorePlayer2;
     [SerializeField] private ScoreScript scoreboard;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject loseScreen;
+    [SerializeField] private CanvasManager canvasManager;
+    [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private Animator lightAlarm;
 
     // New values that are being used
     [SerializeField] private bool isProjectileWeapon;
@@ -31,22 +38,32 @@ public class GUIManager : MonoBehaviour
 
     //private BuildingManager prevBuildingManager;
     private GlobalHealthManager prevObjectHealthManager;
+
+    
     private float prevHealth;
 
     // This line is only for testing, should be deleted later on
     [SerializeField] private ProjectileWeaponManager getProjectileWeapon;
 
+    
+
 
     //timer for flavor texts of the sword, can be done better but who cares
     private float cooldown = 10;
-    private float timer =0;
+    private float timer = 0;
+    private float timerSword =0;
     int auxRNG;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        timer = 0;
-         auxRNG= Random.Range(0, 10);
+        winScreen.SetActive(false);
+        loseScreen.SetActive(false);
+
+        GameManager.Instance.TimeOver += OnGameOver; 
+        timerSword = 0;
+        auxRNG= Random.Range(0, 10);
         objectiveHealth.text = "No data";
         // New
         currentWeapon = weaponSwitch.CurrentWeapon;
@@ -66,15 +83,33 @@ public class GUIManager : MonoBehaviour
         projectileWeapon = getProjectileWeapon;
 
         getProjectileWeapon = null;
-
         prevHealth = 0.0f;
+
+
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        Score.text = scoreboard.Player1Score + " | " +scoreboard.Player2Score;
+        string min;
+        string sec;
+        if(gameManager.timeCounter % 60 < 10){
+            sec = "0"+ gameManager.timeCounter % 60;
+        }else{
+            sec = ""+ gameManager.timeCounter % 60;
+        }
+        if(gameManager.timeCounter / 60 < 10){
+            min = "0"+ gameManager.timeCounter / 60;
+        }else{
+            min = ""+ gameManager.timeCounter / 60;
+        }
+        timeText.text = "" + min + ":" + sec;
+        
+        scoreBar.value = (float)scoreboard.Player1Score / (scoreboard.Player1Score + scoreboard.Player2Score);
+        
+        ScorePlayer1.text = "" + (scoreboard.Player1Score - 1);
+        ScorePlayer2.text = "" + (scoreboard.Player2Score - 1);
 
         //old script for getting ammo
         //breaks down for no reason
@@ -99,16 +134,16 @@ public class GUIManager : MonoBehaviour
         
         if(weaponSwitch.SelectedWeapon == 0){
             if(!raycastWeapon.DoneReloading){
-                ammoCounter.text ="---Reloading---";
+                ammoCounter.text ="-Reloading-";
             }else {
                 ammoCounter.text =raycastWeapon.AmmoLeft + " / " + raycastWeapon.MagazineSize;
             }
         }else if(weaponSwitch.SelectedWeapon == 1){
-            timer += Time.deltaTime;
+            timerSword += Time.deltaTime;
             // auxRNG = 0;
-            if(timer > cooldown){
+            if(timerSword > cooldown){
                 auxRNG= Random.Range(0, 10);
-                timer = 0;
+                timerSword = 0;
             }
 
             switch (auxRNG){
@@ -148,12 +183,11 @@ public class GUIManager : MonoBehaviour
             }
         }else if(weaponSwitch.SelectedWeapon == 2){
             if(!projectileWeapon.DoneReloading){
-                ammoCounter.text ="---Reloading---";
+                ammoCounter.text ="-Reloading-";
             }else {
-            ammoCounter.text =projectileWeapon.AmmoLeft + " / " + projectileWeapon.MagazineSize;
+                ammoCounter.text =projectileWeapon.AmmoLeft + " / " + projectileWeapon.MagazineSize;
                    }
         }
-
     }
 
     void FixedUpdate()
@@ -186,13 +220,26 @@ public class GUIManager : MonoBehaviour
             if(objectHealthManager != null && currentHealth != prevHealth) 
             { 
                 //Debug.Log("got one");
-                objectiveHealth.text = "" + objectHealthManager.Health;            
+                objectiveHealth.text = "" + (int)objectHealthManager.Health;            
                 FillBar(targetHealthFill, objectHealthManager.HealthRatio); 
                 prevObjectHealthManager = objectHealthManager;
                 prevHealth = currentHealth;
             }
-
+        health.text = "" + (int)PlayerHealth.healthManager.Health;
         FillBar(playerHealthFill, PlayerHealth.healthManager.HealthRatio);
+
+        timer += Time.fixedDeltaTime;
+        if(timer >= (7f/6f)){
+            timer = 0;
+        }
+        if(PlayerHealth.healthManager.HealthRatio <= .25f){
+            lightAlarm.SetBool("lowHealth", true);
+            if(!alarmsfx.isPlaying && timer > (.36f) && timer < .5){
+                alarmsfx.Play();
+            }
+        }
+        else
+            lightAlarm.SetBool("lowHealth", false);
         }
     }
 
@@ -210,5 +257,28 @@ public class GUIManager : MonoBehaviour
        image.fillAmount = fillAmount;
     }
 
+    /* IEnumerator Timer(){
 
+        yield return new WaitForSeconds(1);
+        timeCounter ++;
+    } */
+    void OnGameOver()
+    {
+      string thisPlayer = gameObject.transform.root.name;
+      string winner;
+        //Comparar score
+      if(scoreboard.Player1Score > scoreboard.Player2Score){
+            winner = "Player1";
+      }
+      else
+        winner = "Player2";
+
+        if(thisPlayer == winner){
+            winScreen.SetActive(true);
+            //canvasManager.SetActiveScreen(winScreen);
+        }
+        else
+            loseScreen.SetActive(true);
+            //canvasManager.SetActiveScreen(loseScreen);
+    }
 }

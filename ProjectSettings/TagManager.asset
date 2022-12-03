@@ -7,6 +7,9 @@ TagManager:
   - Destructible
   - Melee
   - debri
+  - Player1
+  - Player2
+  - AI
   layers:
   - Default
   - TransparentFX

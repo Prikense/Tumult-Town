@@ -6,9 +6,14 @@ using UnityEngine.InputSystem;
 public class WeaponManager : MonoBehaviour
 {
 
+    [SerializeField] private AudioSource gunsfx;
+    [SerializeField] private AudioSource loadsfx;
+    [SerializeField] private AudioClip[] audioClips;//0 -> shot, 1 -> no ammo, 2 -> loading, 3 -> reload end
+    //4 -> impact, 5 -> player impact, 6 -> ai impact
+    private bool noAmmoFirstShot;
     [SerializeField] private int playerNumber;
     [SerializeField] private GameObject playerCamera;
-    private float range = 100f;
+    private float range = 200f;
     private float damage = 10f;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private float fireRate = 15f;
@@ -28,7 +33,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     [SerializeField] private float spread = 0.001f;
-    [SerializeField] private float reloadTime = 1.0f;
+    [SerializeField] private float reloadTime = 3f;
     private bool reloading;
     [SerializeField] private float impactForce = 155f;
 
@@ -83,10 +88,22 @@ public class WeaponManager : MonoBehaviour
 
         if(IsShooting && Time.time >= nextTimeToFire && AmmoLeft > 0  && DoneReloading) {
             nextTimeToFire = Time.time + 1f/fireRate;
+            gunsfx.PlayOneShot(audioClips[0], .25f);
+            noAmmoFirstShot = true;
             Shoot();
         }
+        if(IsShooting && AmmoLeft <= 0 && noAmmoFirstShot && DoneReloading){
+            noAmmoFirstShot = false;
+            gunsfx.PlayOneShot(audioClips[1], .5f);
+        }
+        if(!IsShooting){
+            noAmmoFirstShot = true;
+        }
 
-        if(reloading) {
+        if(reloading && DoneReloading && AmmoLeft != MagazineSize){
+            if(!loadsfx.isPlaying){
+                loadsfx.PlayOneShot(audioClips[2]);
+            }
             Reload();
         }
     }
@@ -119,22 +136,36 @@ public class WeaponManager : MonoBehaviour
 
         Vector3 raycastOrigin = new Vector3 (playerCamera.transform.position.x - 0.0f, playerCamera.transform.position.y, playerCamera.transform.position.z+.05f);
 
-        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range, ~LayerMask.GetMask("Debri"))) {
+        //uncommnet to ignore layer debri, making it kinda like a laser that goes through debri, but doesnt send debri flying
+        if(Physics.Raycast(raycastOrigin, forwardVector, out hit, range/*, ~LayerMask.GetMask("debri")*/)) {
 
             GameObject impactGO = Instantiate(bulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 0.3f);
 
+            Debug.Log("distance: "+hit.distance);
+            Debug.Log("damage: "+damage/Mathf.Max(hit.distance/12, 2));
             BuildingManager buildingManager = hit.transform.GetComponent<BuildingManager>();
             if(buildingManager != null) {
-                buildingManager.Hit(damage, playerNumber);
+                AudioSource.PlayClipAtPoint(audioClips[4], Vector3.zero, .3f);//use hit.point for positional sound
+                buildingManager.Hit(damage/Mathf.Max(hit.distance/12, 2), playerNumber);
+            }
+
+            //players take less damage from each other to discourage killing each other
+            PlayerManager playerHealth = hit.transform.GetComponent<PlayerManager>();
+            if(playerHealth != null) {
+                AudioSource.PlayClipAtPoint(audioClips[5], Vector3.zero, .3f);
+                playerHealth.ReceiveDamage(Mathf.Max(damage/Mathf.Max(hit.distance/12, 1)/5));
             }
 
             EnemyAI enemyAI = hit.transform.GetComponent<EnemyAI>();
             if(enemyAI != null)
             {
-                enemyAI.ReceiveDamage(damage);
+                AudioSource.PlayClipAtPoint(audioClips[6], Vector3.zero, .3f);
+                enemyAI.ReceiveDamage(damage/Mathf.Max(hit.distance/12, 2));
             }
-
+            if(enemyAI == null && buildingManager == null && playerHealth == null){
+                AudioSource.PlayClipAtPoint(audioClips[4], Vector3.zero, .3f);
+            }
             if(hit.rigidbody != null) {
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
@@ -150,6 +181,9 @@ public class WeaponManager : MonoBehaviour
 
     private void ReloadFinished()
     {
+        if(!loadsfx.isPlaying){
+            loadsfx.PlayOneShot(audioClips[3]);
+        }
         AmmoLeft = MagazineSize;
         reloading = false;
         DoneReloading = true;
